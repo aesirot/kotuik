@@ -46,9 +46,9 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
                 val buy = SpreadlerBuy(classCode, securityCode, restQuantity, startBuyPrice,
                         maxBuyPrice, maxShift, aggressiveSpread?:DEFAULT_AGGRESSION)
                 buy.updateCallback = {
-                    if (it.restQuantity != this.restQuantity || it.orderPrice.price != this.buyPrice) {
+                    if (it.restQuantity != this.restQuantity || it.orderPrice != this.buyPrice) {
                         this.restQuantity = it.restQuantity
-                        this.buyPrice = it.orderPrice.price
+                        this.buyPrice = it.orderPrice
                         save()
                     }
                 }

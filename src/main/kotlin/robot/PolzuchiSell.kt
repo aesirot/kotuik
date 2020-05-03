@@ -48,7 +48,7 @@ open class PolzuchiiSell(private val classCode: String,
     override var success = false
     var updateCallback: (PolzuchiiSell) -> Unit = {}
 
-    var orderPrice = StakanPrice(startPrice, false)
+    var orderPrice = startPrice
     var restQuantity = quantity
 
     override fun run() {
@@ -68,14 +68,14 @@ open class PolzuchiiSell(private val classCode: String,
                     break
                 }
 
-                val stakanPrice = calculatePrice(rpcClient, classCode, securityCode, orderPrice)
+                val calculatedPrice = calculatePrice(rpcClient, classCode, securityCode, orderPrice)
 
-                if (orderId == 0L || stakanPrice.price.compareTo(orderPrice.price) != 0) {
+                if (orderId == 0L || calculatedPrice.compareTo(orderPrice) != 0) {
                     if (orderId != 0L) {
                         Orders.cancelOrder(classCode, securityCode, orderId, STRATEGY, rpcClient)
                     }
-                    orderPrice = stakanPrice
-                    orderId = Orders.sellOrder(classCode, securityCode, restQuantity, stakanPrice.price, rpcClient, STRATEGY)
+                    orderPrice = calculatedPrice
+                    orderId = Orders.sellOrder(classCode, securityCode, restQuantity, calculatedPrice, rpcClient, STRATEGY)
                 }
 
                 if (!stop) { //если за время постановки ордера пришла команда на остановку
@@ -126,7 +126,7 @@ open class PolzuchiiSell(private val classCode: String,
         }
     }
 
-    protected open fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: StakanPrice): StakanPrice {
+    protected open fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
         val args2 = GetQuoteLevel2.Args(classCode, securityCode)
         val stakan = rpcClient.qlua_getQuoteLevel2(args2)
 
@@ -136,12 +136,12 @@ open class PolzuchiiSell(private val classCode: String,
             val price = BigDecimal(stakan.offers[i].price)
             totalQty += stakan.offers[i].quantity.toInt()
 
-            if (price > orderPrice.price) {
+            if (price > orderPrice) {
                 return orderPrice
             }
 
             if (totalQty >= this.maxShift) {
-                return StakanPrice(price.max(this.minPrice), false)
+                return price.max(this.minPrice)
             }
         }
 

@@ -13,7 +13,7 @@ class SpreadlerSell(classCode: String,
                     maxShift: Int,
                     private val aggressiveSpread: BigDecimal) : PolzuchiiSell(classCode, securityCode, quantity, startPrice, minPrice, maxShift) {
 
-    override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: StakanPrice): StakanPrice {
+    override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
         synchronized(rpcClient) {
             val args2 = GetQuoteLevel2.Args(classCode, securityCode)
 
@@ -25,23 +25,20 @@ class SpreadlerSell(classCode: String,
                 var price = BigDecimal(stakan.offers[i].price)
                 totalQty += stakan.offers[i].quantity.toInt()
 
-                if (price > orderPrice.price) {
+                if (price >= orderPrice) {
                     return orderPrice
                 }
 
                 if (totalQty >= this.maxShift) {
-                    if (price > this.minPrice + aggressiveSpread  && totalQty > this.restQuantity) {
-                        if (orderPrice.firstOnPrice) {
-                            return orderPrice
-                        } else {
-                            //агрессивно выходим вперед
-                            return StakanPrice(price - getStep(), true)
-                        }
+                    if (price > this.minPrice + aggressiveSpread && totalQty > this.restQuantity) {
+                        //агрессивно выходим вперед
+                        return price - getStep()
+
                     }
                     if (totalQty >= this.restQuantity * 10) {
                         price -= getStep() //перед большой заявкой
                     }
-                    return StakanPrice(price.max(this.minPrice), false)
+                    return price.max(this.minPrice)
                 }
             }
 

@@ -13,7 +13,7 @@ class SpreadlerBuy(classCode: String,
                    maxShift: Int,
                    private val aggressiveSpread: BigDecimal) : PolzuchiiBuy(classCode, securityCode, quantity, startPrice, maxPrice, maxShift) {
 
-    override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: StakanPrice): StakanPrice {
+    override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
         synchronized(rpcClient) {
             val args2 = GetQuoteLevel2.Args(classCode, securityCode)
             val stakan = rpcClient.qlua_getQuoteLevel2(args2)
@@ -25,26 +25,19 @@ class SpreadlerBuy(classCode: String,
                 var price = BigDecimal(stakan.bids[i].price)
                 totalQty += stakan.bids[i].quantity.toInt()
 
-                if (price < orderPrice.price) {
+                if (price <= orderPrice) {
                     return orderPrice
                 }
 
                 if (totalQty >= this.maxShift) {
-                    if (orderPrice.price.compareTo(price) == 0) {
-                        return orderPrice
-                    }
-                    if (price < this.maxPrice - aggressiveSpread && orderPrice.price < price) {
-                        if (orderPrice.firstOnPrice && orderPrice.price.compareTo(price) == 0) {
-                            return orderPrice
-                        } else {
-                            //агрессивно выходим вперед
-                            return StakanPrice(price + getStep(), true)
-                        }
+                    if (price < this.maxPrice - aggressiveSpread && orderPrice < price) {
+                        //агрессивно выходим вперед
+                        return price + getStep()
                     }
                     if (totalQty >= this.restQuantity * 10) {
                         price += getStep() //перед большой заявкой
                     }
-                    return StakanPrice(price.min(this.maxPrice), false)
+                    return price.min(this.maxPrice)
                 }
             }
 
