@@ -1,10 +1,7 @@
 package robot
 
-import backtest.Pastuh
-import com.google.common.base.Objects
+import robot.spreadler.Pastuh
 import org.quartz.*
-import org.quartz.CronScheduleBuilder.dailyAtHourAndMinute
-import org.quartz.DateBuilder.futureDate
 import org.quartz.TriggerBuilder.newTrigger
 import org.quartz.TriggerKey.triggerKey
 import org.quartz.impl.StdSchedulerFactory
@@ -16,7 +13,6 @@ import robot.strazh.MoexStrazh
 import robot.strazh.MoexStrazhJob
 import robot.strazh.MoneyLimitStrazh
 import java.math.BigDecimal
-import java.util.*
 import kotlin.NoSuchElementException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap

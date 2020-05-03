@@ -1,5 +1,6 @@
-package backtest
+package robot.spreadler
 
+import backtest.Bar
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import common.Connector
 import common.Util

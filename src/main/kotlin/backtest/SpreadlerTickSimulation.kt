@@ -1,14 +1,13 @@
 package backtest
 
+import robot.spreadler.Pastuh
 import java.lang.Exception
 import java.lang.Integer.min
 import java.math.BigDecimal
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.collections.HashMap
 
 fun main() {
     //SpreadlerTickSimulation.securityCode = "RU000A0JXN21"
