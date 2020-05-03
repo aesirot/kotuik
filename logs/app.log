@@ -1,0 +1,1052 @@
+2020-04-30 09:58:32,440 INFO  [main] org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2020-04-30 09:58:32,440 INFO  [main] org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: main
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2020-04-30 09:58:32,462 INFO  [main] org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+2020-04-30 10:00:00,026 INFO  [DefaultQuartzScheduler_Worker-1]            connector - Чтение файла конфигурации...
+2020-04-30 10:00:00,280 INFO  [DefaultQuartzScheduler_Worker-1]            connector - Инициализация клиента...
+2020-04-30 10:00:00,311 INFO  [DefaultQuartzScheduler_Worker-1]            connector - Соединение с RPC-сервисом...
+2020-04-30 10:00:15,238 INFO  [DefaultQuartzScheduler_Worker-2] robot.strazh.MoexStrazh - закрытие вчера 2612.24
+2020-04-30 10:00:15,238 INFO  [DefaultQuartzScheduler_Worker-2] robot.strazh.MoexStrazh - максимальный средний уровень максимума дня 2626.28
+2020-04-30 10:00:15,238 INFO  [DefaultQuartzScheduler_Worker-2] robot.strazh.MoexStrazh - опасный уровень унижения 2559.9952
+2020-04-30 10:00:30,540 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - sist6 двигаю цену с 102.72 на 102.71
+2020-04-30 10:00:35,168 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - tink1 двигаю цену с 101.72 на 101.81
+2020-04-30 10:00:40,095 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - tink3 двигаю цену с 100.01 на 100.32
+2020-04-30 10:00:44,576 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - pik3 двигаю цену с 105.24 на 105.51
+2020-04-30 10:00:48,947 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - pik7 двигаю цену с 100.81 на 101.11
+2020-04-30 10:00:53,322 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - tink2 двигаю цену с 102.12 на 102.43
+2020-04-30 10:00:57,791 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - sam8 двигаю цену с 99.21 на 99.06
+2020-04-30 10:01:02,691 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - ritbf двигаю цену с 106.11 на 106.14
+2020-04-30 10:01:07,874 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - rosnft_1r4 двигаю цену с 105.31 на 105.56
+2020-04-30 10:01:13,693 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - dff1 двигаю цену с 95.70 на 96.01
+2020-04-30 10:01:18,998 INFO  [DefaultQuartzScheduler_Worker-4] robot.strazh.MoexStrazh - закрытие вчера 2663.14
+2020-04-30 10:01:18,998 INFO  [DefaultQuartzScheduler_Worker-4] robot.strazh.MoexStrazh - максимальный средний уровень максимума дня 2640.10
+2020-04-30 10:01:18,998 INFO  [DefaultQuartzScheduler_Worker-4] robot.strazh.MoexStrazh - опасный уровень унижения 2609.8772
+2020-04-30 10:01:23,781 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - sist10 двигаю цену с 105.65 на 106.01
+2020-04-30 10:01:27,191 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - rzd28 двигаю цену с 101.11 на 101.15
+2020-04-30 10:01:32,072 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - ok3 двигаю цену с 94.59 на 95.01
+2020-04-30 10:01:33,827 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - fsk4 двигаю цену с 99.42 на 99.51
+2020-04-30 10:01:37,959 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - ok1 двигаю цену с 102.63 на 102.56
+2020-04-30 10:01:43,747 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - mts9 двигаю цену с 107.61 на 107.83
+2020-04-30 10:01:47,786 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - rosnft_2r5 двигаю цену с 102.01 на 103.05
+2020-04-30 10:01:52,033 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - rosnft_2r4 двигаю цену с 102.15 на 102.37
+2020-04-30 10:01:56,211 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - lsr3 двигаю цену с 101.18 на 101.29
+2020-04-30 10:02:00,693 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - nornik5 двигаю цену с 117.73 на 118.66
+2020-04-30 10:02:05,039 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - segez4 двигаю цену с 99.00 на 98.63
+2020-04-30 10:02:09,450 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - sist7 двигаю цену с 102.11 на 102.17
+2020-04-30 10:02:13,915 INFO  [DefaultQuartzScheduler_Worker-2]      backtest.Pastuh - sist9 двигаю цену с 104.42 на 104.51
+2020-04-30 10:02:14,463 INFO  [Spreader sist6]  robot.SpreadlerSell - PolzuchiiSell RU000A0JXN21 start
+2020-04-30 10:02:14,479 INFO  [Spreader segez4]  robot.SpreadlerSell - PolzuchiiSell RU000A101D13 start
+2020-04-30 10:02:14,479 INFO  [Spreader mts9]  robot.SpreadlerSell - PolzuchiiSell RU000A100A66 start
+2020-04-30 10:02:14,495 INFO  [Spreader pik7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZZBJ7 start
+2020-04-30 10:02:14,495 INFO  [Spreader ok3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1014B9 start
+2020-04-30 10:02:14,495 INFO  [Spreader rosnft_1r4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQK2 start
+2020-04-30 10:02:14,495 INFO  [Spreader tink1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ85 start
+2020-04-30 10:02:14,495 INFO  [Spreader dff1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYM21 start
+2020-04-30 10:02:14,495 INFO  [Spreader ok1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQH8 start
+2020-04-30 10:02:14,495 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 start
+2020-04-30 10:02:14,495 INFO  [Spreader rosnft_2r5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYVU5 start
+2020-04-30 10:02:14,495 INFO  [Spreader ok2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1009Z8 start
+2020-04-30 10:02:14,495 INFO  [Spreader rosnft_2r4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYT40 start
+2020-04-30 10:02:14,495 INFO  [Spreader sist7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYQY7 start
+2020-04-30 10:02:14,495 INFO  [Spreader lsr3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYBV5 start
+2020-04-30 10:02:14,495 INFO  [Spreader cppk]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZZFH2 start
+2020-04-30 10:02:14,495 INFO  [Spreader sist9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1005L6 start
+2020-04-30 10:02:14,495 INFO  [Spreader tink3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100V79 start
+2020-04-30 10:02:14,510 INFO  [Spreader pik3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXY44 start
+2020-04-30 10:02:14,510 INFO  [Spreader tink2]  robot.SpreadlerSell - PolzuchiiSell RU000A1008B1 start
+2020-04-30 10:02:14,510 INFO  [Spreader pik2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ93 start
+2020-04-30 10:02:14,517 INFO  [Spreader sist10]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008J4 start
+2020-04-30 10:02:14,517 INFO  [Spreader ritbf]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100JH0 start
+2020-04-30 10:02:14,517 INFO  [Spreader fsk4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101CL5 start
+2020-04-30 10:02:14,517 INFO  [Spreader sam8]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101H43 start
+2020-04-30 10:02:14,517 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.52 qty 25
+2020-04-30 10:02:14,795 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.52 qty 25 (order 20204069851)
+2020-04-30 10:02:14,795 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.97 qty 27 (id 907764725)
+2020-04-30 10:02:15,414 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.97 qty 27 (order 20204070062)
+2020-04-30 10:02:15,415 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB buy order RU000A0ZYT40 price 101.37 qty 30
+2020-04-30 10:02:15,835 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB buy order RU000A0ZYT40 price 101.37 qty 30 (order 20204070750)
+2020-04-30 10:02:15,835 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.05 qty 30
+2020-04-30 10:02:16,052 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.05 qty 30 (order 20204071138)
+2020-04-30 10:02:16,052 INFO  [Spreader ok3]        common.Orders - POLZB buy order RU000A1014B9 price 95.01 qty 30
+2020-04-30 10:02:16,384 INFO  [Spreader ok3]        common.Orders - POLZB buy order RU000A1014B9 price 95.01 qty 30 (order 20204071395)
+2020-04-30 10:02:16,384 INFO  [Spreader mts9]        common.Orders - POLZS sell order RU000A100A66 price 108.82 qty 20 (id 907763136)
+2020-04-30 10:02:16,764 INFO  [Spreader mts9]        common.Orders - POLZS sell order RU000A100A66 price 108.82 qty 20 (order 20204071750)
+2020-04-30 10:02:16,764 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.99 qty 30 (id 907762756)
+2020-04-30 10:02:17,018 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.99 qty 30 (order 20204072223)
+2020-04-30 10:02:17,018 INFO  [Spreader sist6]        common.Orders - POLZS sell order RU000A0JXN21 price 103.13 qty 20 (id 907762502)
+2020-04-30 10:02:17,272 INFO  [Spreader sist6]        common.Orders - POLZS sell order RU000A0JXN21 price 103.13 qty 20 (order 20204072628)
+2020-04-30 10:02:17,272 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.08 qty 30
+2020-04-30 10:02:17,744 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.08 qty 30 (order 20204072961)
+2020-04-30 10:02:17,745 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.47 qty 20
+2020-04-30 10:02:18,106 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.47 qty 20 (order 20204073528)
+2020-04-30 10:02:18,106 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.43 qty 30
+2020-04-30 10:02:18,460 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.43 qty 30 (order 20204073790)
+2020-04-30 10:02:18,460 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.04 qty 60
+2020-04-30 10:02:18,978 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.04 qty 60 (order 20204074316)
+2020-04-30 10:02:18,978 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.13 qty 30
+2020-04-30 10:02:19,549 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.13 qty 30 (order 20204075145)
+2020-04-30 10:02:19,549 INFO  [Spreader pik2]        common.Orders - POLZB buy order RU000A0JXQ93 price 103.21 qty 30
+2020-04-30 10:02:19,997 INFO  [Spreader pik2]        common.Orders - POLZB buy order RU000A0JXQ93 price 103.21 qty 30 (order 20204075956)
+2020-04-30 10:02:19,997 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.76 qty 50
+2020-04-30 10:02:20,402 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.76 qty 50 (order 20204076525)
+2020-04-30 10:02:20,402 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 105.71 qty 30
+2020-04-30 10:02:20,836 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 105.71 qty 30 (order 20204077097)
+2020-04-30 10:02:20,836 INFO  [Spreader fsk4]        common.Orders - POLZB buy order RU000A101CL5 price 99.51 qty 41
+2020-04-30 10:02:21,085 INFO  [Spreader fsk4]        common.Orders - POLZB buy order RU000A101CL5 price 99.51 qty 41 (order 20204077654)
+2020-04-30 10:02:21,085 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.01 qty 9
+2020-04-30 10:02:21,432 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.01 qty 9 (order 20204077912)
+2020-04-30 10:02:21,432 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.46 qty 30
+2020-04-30 10:02:21,888 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.46 qty 30 (order 20204078379)
+2020-04-30 10:02:21,888 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 100.81 qty 30
+2020-04-30 10:02:22,175 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 100.81 qty 30 (order 20204079019)
+2020-04-30 10:02:22,175 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.44 qty 20
+2020-04-30 10:02:22,862 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.44 qty 20 (order 20204079356)
+2020-04-30 10:02:22,862 INFO  [Spreader dff1]        common.Orders - POLZB buy order RU000A0ZYM21 price 96.00 qty 30
+2020-04-30 10:02:23,511 INFO  [Spreader dff1]        common.Orders - POLZB buy order RU000A0ZYM21 price 96.00 qty 30 (order 20204080337)
+2020-04-30 10:02:23,511 INFO  [Spreader ok1]        common.Orders - POLZB buy order RU000A0JXQH8 price 102.56 qty 23
+2020-04-30 10:02:23,828 INFO  [Spreader ok1]        common.Orders - POLZB buy order RU000A0JXQH8 price 102.56 qty 23 (order 20204081338)
+2020-04-30 10:02:23,828 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.13 qty 30
+2020-04-30 10:02:24,198 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.13 qty 30 (order 20204081721)
+2020-04-30 10:02:24,198 INFO  [Spreader rosnft_2r5]        common.Orders - POLZB buy order RU000A0ZYVU5 price 102.05 qty 29
+2020-04-30 10:02:24,514 INFO  [Spreader rosnft_2r5]        common.Orders - POLZB buy order RU000A0ZYVU5 price 102.05 qty 29 (order 20204082486)
+2020-04-30 10:02:45,563 INFO  [main] robot.SpreadlerRunner - Spreader RU000A0JTU85 is already running
+2020-04-30 10:02:50,264 INFO  [main] robot.SpreadlerRunner - Stop Spreader rzd28
+2020-04-30 10:02:50,264 INFO  [main] robot.SpreadlerRunner -     stopped
+2020-04-30 10:03:16,091 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204071138
+2020-04-30 10:03:16,642 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.06 qty 30
+2020-04-30 10:03:16,992 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.06 qty 30 (order 20204143437)
+2020-04-30 10:03:17,769 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20204072961
+2020-04-30 10:03:18,183 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.09 qty 30
+2020-04-30 10:03:18,513 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.09 qty 30 (order 20204144591)
+2020-04-30 10:03:22,205 INFO  [Spreader pik7]        common.Orders - POLZB kill order 20204079019
+2020-04-30 10:03:22,718 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 101.10 qty 30
+2020-04-30 10:03:23,024 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 101.10 qty 30 (order 20204149257)
+2020-04-30 10:03:23,031 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204079356
+2020-04-30 10:03:23,465 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.45 qty 20
+2020-04-30 10:03:23,802 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.45 qty 20 (order 20204150181)
+2020-04-30 10:04:23,835 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204150181
+2020-04-30 10:04:24,150 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.46 qty 20
+2020-04-30 10:04:24,482 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.46 qty 20 (order 20204217025)
+2020-04-30 10:04:24,482 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20204081721
+2020-04-30 10:04:24,685 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.17 qty 30
+2020-04-30 10:04:25,069 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.17 qty 30 (order 20204217564)
+2020-04-30 10:05:18,210 INFO  [Spreader cppk]        common.Orders - POLZB kill order 20204073528
+2020-04-30 10:05:18,511 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.50 qty 20
+2020-04-30 10:05:18,951 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.50 qty 20 (order 20204286201)
+2020-04-30 10:05:18,951 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20204073790
+2020-04-30 10:05:19,267 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.44 qty 30
+2020-04-30 10:05:19,520 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.44 qty 30 (order 20204287008)
+2020-04-30 10:05:20,538 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204076525
+2020-04-30 10:05:20,840 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.77 qty 50
+2020-04-30 10:05:21,158 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.77 qty 50 (order 20204289002)
+2020-04-30 10:05:21,993 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20204078379
+2020-04-30 10:05:22,396 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.47 qty 30
+2020-04-30 10:05:23,052 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.47 qty 30 (order 20204290776)
+2020-04-30 10:05:24,519 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204217025
+2020-04-30 10:05:25,074 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.47 qty 20
+2020-04-30 10:05:25,376 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.47 qty 20 (order 20204294512)
+2020-04-30 10:05:37,459 INFO  [Spreader sist6]        common.Orders - POLZS kill order 20204072628
+2020-04-30 10:05:37,861 INFO  [Spreader sist6]        common.Orders - POLZS sell order RU000A0JXN21 price 102.99 qty 20 (id 907561659)
+2020-04-30 10:05:38,131 INFO  [Spreader sist6]        common.Orders - POLZS sell order RU000A0JXN21 price 102.99 qty 20 (order 20204310008)
+2020-04-30 10:05:55,658 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204070062
+2020-04-30 10:05:55,967 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.91 qty 27 (id 907543553)
+2020-04-30 10:05:56,336 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.91 qty 27 (order 20204332255)
+2020-04-30 10:06:16,341 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204332255
+2020-04-30 10:06:16,643 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.90 qty 27 (id 907522877)
+2020-04-30 10:06:16,943 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.90 qty 27 (order 20204356123)
+2020-04-30 10:06:17,097 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204143437
+2020-04-30 10:06:17,500 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.10 qty 30
+2020-04-30 10:06:17,747 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.10 qty 30 (order 20204357129)
+2020-04-30 10:06:18,975 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20204144591
+2020-04-30 10:06:18,975 INFO  [Spreader cppk]        common.Orders - POLZB kill order 20204286201
+2020-04-30 10:06:19,423 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.20 qty 30
+2020-04-30 10:06:19,793 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.20 qty 30 (order 20204359293)
+2020-04-30 10:06:19,793 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.56 qty 20
+2020-04-30 10:06:20,143 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.56 qty 20 (order 20204359680)
+2020-04-30 10:06:20,143 INFO  [Spreader pik3]        common.Orders - POLZB kill order 20204075145
+2020-04-30 10:06:20,579 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.50 qty 30
+2020-04-30 10:06:20,942 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.50 qty 30 (order 20204360472)
+2020-04-30 10:06:21,181 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20204077097
+2020-04-30 10:06:21,699 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 105.73 qty 30
+2020-04-30 10:06:22,101 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 105.73 qty 30 (order 20204361729)
+2020-04-30 10:06:25,400 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204294512
+2020-04-30 10:06:25,817 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.52 qty 20
+2020-04-30 10:06:26,251 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.52 qty 20 (order 20204366707)
+2020-04-30 10:06:36,957 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204356123
+2020-04-30 10:06:37,375 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.89 qty 27 (id 907502145)
+2020-04-30 10:06:37,723 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.89 qty 27 (order 20204385498)
+2020-04-30 10:06:57,730 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204385498
+2020-04-30 10:06:58,247 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.88 qty 27 (id 907481273)
+2020-04-30 10:06:58,636 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.88 qty 27 (order 20204419030)
+2020-04-30 10:07:18,639 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204419030
+2020-04-30 10:07:18,858 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.87 qty 27 (id 907460662)
+2020-04-30 10:07:19,271 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.87 qty 27 (order 20204450102)
+2020-04-30 10:07:20,158 INFO  [Spreader cppk]        common.Orders - POLZB kill order 20204359680
+2020-04-30 10:07:20,477 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.57 qty 20
+2020-04-30 10:07:20,715 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.57 qty 20 (order 20204451777)
+2020-04-30 10:07:20,947 INFO  [Spreader pik3]        common.Orders - POLZB kill order 20204360472
+2020-04-30 10:07:21,349 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.51 qty 30
+2020-04-30 10:07:21,619 INFO  [Spreader pik3]        common.Orders - POLZB buy order RU000A0JXY44 price 105.51 qty 30 (order 20204453304)
+2020-04-30 10:07:39,274 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204450102
+2020-04-30 10:07:39,680 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.86 qty 27 (id 907439840)
+2020-04-30 10:07:40,027 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.86 qty 27 (order 20204475849)
+2020-04-30 10:08:00,045 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204475849
+2020-04-30 10:08:00,461 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.85 qty 27 (id 907419059)
+2020-04-30 10:08:00,831 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.85 qty 27 (order 20204503955)
+2020-04-30 10:08:19,286 INFO  [Spreader tink3]        common.Orders - POLZB kill order 20204074316
+2020-04-30 10:08:19,705 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.05 qty 60
+2020-04-30 10:08:20,106 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.05 qty 60 (order 20204526009)
+2020-04-30 10:08:20,723 INFO  [Spreader cppk]        common.Orders - POLZB kill order 20204451777
+2020-04-30 10:08:20,839 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204503955
+2020-04-30 10:08:21,224 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.64 qty 20
+2020-04-30 10:08:21,858 INFO  [Spreader cppk]        common.Orders - POLZB buy order RU000A0ZZFH2 price 102.64 qty 20 (order 20204527362)
+2020-04-30 10:08:21,858 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.84 qty 27 (id 907397662)
+2020-04-30 10:08:22,229 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.84 qty 27 (order 20204527988)
+2020-04-30 10:08:23,937 INFO  [Spreader dff1]        common.Orders - POLZB kill order 20204080337
+2020-04-30 10:08:24,153 INFO  [Spreader dff1]        common.Orders - POLZB buy order RU000A0ZYM21 price 96.01 qty 30
+2020-04-30 10:08:24,400 INFO  [Spreader dff1]        common.Orders - POLZB buy order RU000A0ZYM21 price 96.01 qty 30 (order 20204531030)
+2020-04-30 10:08:25,443 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20204217564
+2020-04-30 10:08:25,760 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.21 qty 30
+2020-04-30 10:08:26,030 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.21 qty 30 (order 20204533130)
+2020-04-30 10:08:26,262 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204366707
+2020-04-30 10:08:26,680 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.80 qty 20
+2020-04-30 10:08:27,038 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.80 qty 20 (order 20204533693)
+2020-04-30 10:08:42,247 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204527988
+2020-04-30 10:08:42,664 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.83 qty 27 (id 907376856)
+2020-04-30 10:08:42,980 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.83 qty 27 (order 20204549066)
+2020-04-30 10:09:02,992 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204549066
+2020-04-30 10:09:03,297 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.82 qty 27 (id 907356223)
+2020-04-30 10:09:03,541 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.82 qty 27 (order 20204569522)
+2020-04-30 10:09:17,783 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204357129
+2020-04-30 10:09:18,284 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.11 qty 30
+2020-04-30 10:09:18,670 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.11 qty 30 (order 20204583901)
+2020-04-30 10:09:20,173 INFO  [Spreader pik2]        common.Orders - POLZB kill order 20204075956
+2020-04-30 10:09:20,706 INFO  [Spreader pik2]        common.Orders - POLZB buy order RU000A0JXQ93 price 103.26 qty 30
+2020-04-30 10:09:20,908 INFO  [Spreader pik2]        common.Orders - POLZB buy order RU000A0JXQ93 price 103.26 qty 30 (order 20204586354)
+2020-04-30 10:09:21,866 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204289002
+2020-04-30 10:09:22,215 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.78 qty 50
+2020-04-30 10:09:22,430 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.78 qty 50 (order 20204588071)
+2020-04-30 10:09:23,554 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204569522
+2020-04-30 10:09:23,956 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.81 qty 27 (id 907335564)
+2020-04-30 10:09:24,357 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.81 qty 27 (order 20204589703)
+2020-04-30 10:09:44,365 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204589703
+2020-04-30 10:09:44,868 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.80 qty 27 (id 907314652)
+2020-04-30 10:09:45,216 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.80 qty 27 (order 20204613211)
+2020-04-30 10:10:05,230 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204613211
+2020-04-30 10:10:05,648 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.79 qty 27 (id 907293872)
+2020-04-30 10:10:05,964 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.79 qty 27 (order 20204645966)
+2020-04-30 10:10:20,148 INFO  [Spreader tink3]        common.Orders - POLZB kill order 20204526009
+2020-04-30 10:10:20,569 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.21 qty 60
+2020-04-30 10:10:20,966 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.21 qty 60 (order 20204664299)
+2020-04-30 10:10:22,447 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20204361729
+2020-04-30 10:10:22,798 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.01 qty 30
+2020-04-30 10:10:23,145 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.01 qty 30 (order 20204666562)
+2020-04-30 10:10:25,970 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204645966
+2020-04-30 10:10:26,488 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.78 qty 27 (id 907273032)
+2020-04-30 10:10:26,974 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.78 qty 27 (order 20204670371)
+2020-04-30 10:10:37,410 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20204072223
+2020-04-30 10:10:37,727 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.98 qty 30 (id 907261793)
+2020-04-30 10:10:38,166 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.98 qty 30 (order 20204682872)
+2020-04-30 10:10:46,990 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204670371
+2020-04-30 10:10:47,507 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.77 qty 27 (id 907252013)
+2020-04-30 10:10:47,926 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.77 qty 27 (order 20204691274)
+2020-04-30 10:10:58,172 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20204682872
+2020-04-30 10:10:58,604 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.97 qty 30 (id 907240916)
+2020-04-30 10:10:59,193 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.97 qty 30 (order 20204706001)
+2020-04-30 10:11:07,943 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204691274
+2020-04-30 10:11:08,467 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.76 qty 27 (id 907231053)
+2020-04-30 10:11:08,869 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.76 qty 27 (order 20204718964)
+2020-04-30 10:11:21,000 INFO  [Spreader tink3]        common.Orders - POLZB kill order 20204664299
+2020-04-30 10:11:21,425 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.31 qty 60
+2020-04-30 10:11:21,788 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.31 qty 60 (order 20204729574)
+2020-04-30 10:11:21,911 INFO  [Spreader sam8]        common.Orders - POLZB kill order 20204077912
+2020-04-30 10:11:22,329 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.02 qty 9
+2020-04-30 10:11:22,662 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.02 qty 9 (order 20204730653)
+2020-04-30 10:11:22,662 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204588071
+2020-04-30 10:11:23,079 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.80 qty 50
+2020-04-30 10:11:23,434 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.80 qty 50 (order 20204731347)
+2020-04-30 10:11:28,889 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204718964
+2020-04-30 10:11:29,406 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.75 qty 27 (id 907210114)
+2020-04-30 10:11:29,708 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.75 qty 27 (order 20204737987)
+2020-04-30 10:11:49,733 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204737987
+2020-04-30 10:11:50,166 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.74 qty 27 (id 907189354)
+2020-04-30 10:11:50,467 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.74 qty 27 (order 20204760481)
+2020-04-30 10:11:57,393 INFO  [Spreader mts9]  robot.SpreadlerSell - SELL RU000A100A66 pr 108.82 qt 7
+2020-04-30 10:12:10,474 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204760481
+2020-04-30 10:12:10,794 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.73 qty 27 (id 907168726)
+2020-04-30 10:12:11,133 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.73 qty 27 (order 20204781080)
+2020-04-30 10:12:16,051 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB kill order 20204070750
+2020-04-30 10:12:16,453 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB buy order RU000A0ZYT40 price 102.37 qty 30
+2020-04-30 10:12:16,802 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB buy order RU000A0ZYT40 price 102.37 qty 30 (order 20204785791)
+2020-04-30 10:12:18,711 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204583901
+2020-04-30 10:12:19,065 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.13 qty 30
+2020-04-30 10:12:19,351 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.13 qty 30 (order 20204788011)
+2020-04-30 10:12:26,095 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20204533130
+2020-04-30 10:12:26,496 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.22 qty 30
+2020-04-30 10:12:26,844 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.22 qty 30 (order 20204793943)
+2020-04-30 10:12:31,139 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204781080
+2020-04-30 10:12:31,645 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.72 qty 27 (id 907147875)
+2020-04-30 10:12:32,015 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.72 qty 27 (order 20204798118)
+2020-04-30 10:12:52,030 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204798118
+2020-04-30 10:12:52,532 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.71 qty 27 (id 907126988)
+2020-04-30 10:12:52,833 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.71 qty 27 (order 20204822010)
+2020-04-30 10:13:12,853 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204822010
+2020-04-30 10:13:13,376 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.70 qty 27 (id 907106144)
+2020-04-30 10:13:13,709 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.70 qty 27 (order 20204838294)
+2020-04-30 10:13:19,381 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204788011
+2020-04-30 10:13:19,814 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.14 qty 30
+2020-04-30 10:13:20,201 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.14 qty 30 (order 20204842863)
+2020-04-30 10:13:22,709 INFO  [Spreader sam8]        common.Orders - POLZB kill order 20204730653
+2020-04-30 10:13:23,010 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.03 qty 9
+2020-04-30 10:13:23,312 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.03 qty 9 (order 20204844223)
+2020-04-30 10:13:26,869 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20204793943
+2020-04-30 10:13:27,070 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.23 qty 30
+2020-04-30 10:13:27,355 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.23 qty 30 (order 20204846457)
+2020-04-30 10:13:33,734 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204838294
+2020-04-30 10:13:34,186 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.69 qty 27 (id 907085334)
+2020-04-30 10:13:34,571 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.69 qty 27 (order 20204852194)
+2020-04-30 10:13:54,584 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204852194
+2020-04-30 10:13:55,003 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.68 qty 27 (id 907064517)
+2020-04-30 10:13:55,290 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.68 qty 27 (order 20204865408)
+2020-04-30 10:14:15,308 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204865408
+2020-04-30 10:14:15,647 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.67 qty 27 (id 907043873)
+2020-04-30 10:14:15,864 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.67 qty 27 (order 20204881451)
+2020-04-30 10:14:23,529 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204731347
+2020-04-30 10:14:23,846 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.81 qty 50
+2020-04-30 10:14:24,248 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.81 qty 50 (order 20204887509)
+2020-04-30 10:14:35,882 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204881451
+2020-04-30 10:14:36,283 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.66 qty 27 (id 907023237)
+2020-04-30 10:14:36,653 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.66 qty 27 (order 20204895392)
+2020-04-30 10:14:56,665 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204895392
+2020-04-30 10:14:57,097 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.65 qty 27 (id 907002423)
+2020-04-30 10:14:57,420 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.65 qty 27 (order 20204913897)
+2020-04-30 10:15:17,439 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204913897
+2020-04-30 10:15:17,756 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.64 qty 27 (id 906981764)
+2020-04-30 10:15:18,041 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.64 qty 27 (order 20204935528)
+2020-04-30 10:15:20,279 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204842863
+2020-04-30 10:15:20,681 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.15 qty 30
+2020-04-30 10:15:21,066 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.15 qty 30 (order 20204937979)
+2020-04-30 10:15:23,557 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20204666562
+2020-04-30 10:15:23,974 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.03 qty 30
+2020-04-30 10:15:24,328 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.03 qty 30 (order 20204940358)
+2020-04-30 10:15:38,064 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204935528
+2020-04-30 10:15:38,381 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.63 qty 27 (id 906961139)
+2020-04-30 10:15:38,746 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.63 qty 27 (order 20204950854)
+2020-04-30 10:15:58,769 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204950854
+2020-04-30 10:15:59,655 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.62 qty 27 (id 906939865)
+2020-04-30 10:16:00,038 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.62 qty 27 (order 20204970261)
+2020-04-30 10:16:20,057 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204970261
+2020-04-30 10:16:21,094 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.61 qty 27 (id 906918426)
+2020-04-30 10:16:21,325 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.61 qty 27 (order 20204997023)
+2020-04-30 10:16:24,354 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204887509
+2020-04-30 10:16:24,354 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20204940358
+2020-04-30 10:16:24,655 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.06 qty 30
+2020-04-30 10:16:24,936 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.06 qty 30 (order 20204999387)
+2020-04-30 10:16:24,936 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.82 qty 50
+2020-04-30 10:16:25,273 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.82 qty 50 (order 20204999568)
+2020-04-30 10:16:41,337 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20204997023
+2020-04-30 10:16:41,754 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.60 qty 27 (id 906897766)
+2020-04-30 10:16:42,140 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.60 qty 27 (order 20205012653)
+2020-04-30 10:17:02,154 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205012653
+2020-04-30 10:17:02,456 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.59 qty 27 (id 906877064)
+2020-04-30 10:17:02,775 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.59 qty 27 (order 20205032648)
+2020-04-30 10:17:21,939 INFO  [Spreader tink3]        common.Orders - POLZB kill order 20204729574
+2020-04-30 10:17:22,356 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.32 qty 60
+2020-04-30 10:17:22,741 INFO  [Spreader tink3]        common.Orders - POLZB buy order RU000A100V79 price 100.32 qty 60 (order 20205050306)
+2020-04-30 10:17:22,795 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205032648
+2020-04-30 10:17:23,227 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.58 qty 27 (id 906856293)
+2020-04-30 10:17:23,630 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.58 qty 27 (order 20205051088)
+2020-04-30 10:17:25,303 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20204999568
+2020-04-30 10:17:25,736 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.90 qty 50
+2020-04-30 10:17:26,105 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.90 qty 50 (order 20205053223)
+2020-04-30 10:17:43,655 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205051088
+2020-04-30 10:17:44,072 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.57 qty 27 (id 906835448)
+2020-04-30 10:17:44,478 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.57 qty 27 (order 20205066317)
+2020-04-30 10:18:04,487 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205066317
+2020-04-30 10:18:04,905 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.56 qty 27 (id 906814615)
+2020-04-30 10:18:05,207 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.56 qty 27 (order 20205082142)
+2020-04-30 10:18:21,376 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20204937979
+2020-04-30 10:18:21,809 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.16 qty 30
+2020-04-30 10:18:22,093 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.16 qty 30 (order 20205093801)
+2020-04-30 10:18:25,220 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205082142
+2020-04-30 10:18:25,766 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.55 qty 27 (id 906793754)
+2020-04-30 10:18:26,135 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.55 qty 27 (order 20205096545)
+2020-04-30 10:18:27,508 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20204533693
+2020-04-30 10:18:27,909 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.81 qty 20
+2020-04-30 10:18:28,229 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.81 qty 20 (order 20205098813)
+2020-04-30 10:18:46,148 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205096545
+2020-04-30 10:18:46,569 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.54 qty 27 (id 906772951)
+2020-04-30 10:18:46,801 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.54 qty 27 (order 20205112399)
+2020-04-30 10:19:06,816 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205112399
+2020-04-30 10:19:07,234 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.53 qty 27 (id 906752286)
+2020-04-30 10:19:07,651 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.53 qty 27 (order 20205127777)
+2020-04-30 10:19:23,675 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20204290776
+2020-04-30 10:19:24,101 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.48 qty 30
+2020-04-30 10:19:24,443 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.48 qty 30 (order 20205147237)
+2020-04-30 10:19:26,154 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205053223
+2020-04-30 10:19:26,687 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.91 qty 50
+2020-04-30 10:19:27,135 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.91 qty 50 (order 20205150649)
+2020-04-30 10:19:27,658 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205127777
+2020-04-30 10:19:28,075 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.52 qty 27 (id 906731445)
+2020-04-30 10:19:28,534 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.52 qty 27 (order 20205153563)
+2020-04-30 10:19:48,549 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205153563
+2020-04-30 10:19:48,965 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.51 qty 27 (id 906710555)
+2020-04-30 10:19:49,414 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.51 qty 27 (order 20205179692)
+2020-04-30 10:20:09,422 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205179692
+2020-04-30 10:20:09,739 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.50 qty 27 (id 906689781)
+2020-04-30 10:20:10,039 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.50 qty 27 (order 20205211024)
+2020-04-30 10:20:20,376 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20204359293
+2020-04-30 10:20:20,577 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.21 qty 30
+2020-04-30 10:20:20,927 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.21 qty 30 (order 20205224086)
+2020-04-30 10:20:27,533 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20204846457
+2020-04-30 10:20:28,065 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.30 qty 30
+2020-04-30 10:20:28,440 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.30 qty 30 (order 20205233233)
+2020-04-30 10:20:30,054 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205211024
+2020-04-30 10:20:30,269 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.49 qty 27 (id 906669251)
+2020-04-30 10:20:30,570 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.49 qty 27 (order 20205235511)
+2020-04-30 10:20:50,583 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205235511
+2020-04-30 10:20:50,795 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.48 qty 27 (id 906648725)
+2020-04-30 10:20:51,063 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.48 qty 27 (order 20205258218)
+2020-04-30 10:21:00,300 INFO  [Spreader sist6]  robot.SpreadlerSell - SELL RU000A0JXN21 pr 102.99 qt 20
+2020-04-30 10:21:00,569 INFO  [Spreader sist6]  robot.SpreadlerSell - PolzuciiSell RU000A0JXN21 SUCCESS
+2020-04-30 10:21:00,570 INFO  [Spreader sist6]  robot.SpreadlerSell - PolzuchiiSell RU000A0JXN21 exit
+2020-04-30 10:21:00,576 INFO  [Spreader sist6]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXN21 start
+2020-04-30 10:21:00,581 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.57 qty 20
+2020-04-30 10:21:00,817 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.57 qty 20 (order 20205267209)
+2020-04-30 10:21:11,075 INFO  [Spreader tink2]        common.Orders - POLZS kill order 20205258218
+2020-04-30 10:21:11,478 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.42 qty 27 (id 906628042)
+2020-04-30 10:21:11,872 INFO  [Spreader tink2]        common.Orders - POLZS sell order RU000A1008B1 price 102.42 qty 27 (order 20205278480)
+2020-04-30 10:21:20,933 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20205224086
+2020-04-30 10:21:21,234 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.22 qty 30
+2020-04-30 10:21:21,619 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.22 qty 30 (order 20205290215)
+2020-04-30 10:21:25,034 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20204999387
+2020-04-30 10:21:25,566 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.07 qty 30
+2020-04-30 10:21:26,005 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.07 qty 30 (order 20205295871)
+2020-04-30 10:21:27,173 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205150649
+2020-04-30 10:21:27,489 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.92 qty 50
+2020-04-30 10:21:27,829 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.92 qty 50 (order 20205297504)
+2020-04-30 10:21:28,464 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20205233233
+2020-04-30 10:21:28,996 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.31 qty 30
+2020-04-30 10:21:29,396 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.31 qty 30 (order 20205298422)
+2020-04-30 10:22:00,828 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20205267209
+2020-04-30 10:22:01,156 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.58 qty 20
+2020-04-30 10:22:01,509 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.58 qty 20 (order 20205331436)
+2020-04-30 10:22:21,640 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20205290215
+2020-04-30 10:22:21,958 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.23 qty 30
+2020-04-30 10:22:22,305 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.23 qty 30 (order 20205354291)
+2020-04-30 10:23:22,317 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20205354291
+2020-04-30 10:23:22,624 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.24 qty 30
+2020-04-30 10:23:22,755 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.24 qty 30 (order 20205406168)
+2020-04-30 10:23:23,730 INFO  [Spreader sam8]        common.Orders - POLZB kill order 20204844223
+2020-04-30 10:23:24,039 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.06 qty 9
+2020-04-30 10:23:24,170 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.06 qty 9 (order 20205407560)
+2020-04-30 10:23:27,864 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205297504
+2020-04-30 10:23:28,298 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.93 qty 50
+2020-04-30 10:23:28,774 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.93 qty 50 (order 20205411199)
+2020-04-30 10:24:22,756 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20205406168
+2020-04-30 10:24:23,090 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.29 qty 30
+2020-04-30 10:24:23,576 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.29 qty 30 (order 20205460005)
+2020-04-30 10:24:26,053 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20205295871
+2020-04-30 10:24:26,471 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.12 qty 30
+2020-04-30 10:24:26,656 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.12 qty 30 (order 20205463943)
+2020-04-30 10:24:28,782 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205411199
+2020-04-30 10:24:29,099 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.94 qty 50
+2020-04-30 10:24:29,886 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.94 qty 50 (order 20205467225)
+2020-04-30 10:25:20,453 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20204287008
+2020-04-30 10:25:20,855 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.45 qty 30
+2020-04-30 10:25:21,023 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.45 qty 30 (order 20205523750)
+2020-04-30 10:25:22,360 INFO  [Spreader sist7]   robot.SpreadlerBuy - BUY RU000A0ZYQY7 pr 102.16 qt 30
+2020-04-30 10:25:22,809 INFO  [Spreader sist7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYQY7 SUCCESS
+2020-04-30 10:25:22,809 INFO  [Spreader sist7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYQY7 exit
+2020-04-30 10:25:22,824 INFO  [Spreader sist7]  robot.SpreadlerSell - PolzuchiiSell RU000A0ZYQY7 start
+2020-04-30 10:25:22,824 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.54 qty 30 (id 906376696)
+2020-04-30 10:25:23,124 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.54 qty 30 (order 20205525731)
+2020-04-30 10:26:26,694 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20205463943
+2020-04-30 10:26:27,011 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.13 qty 30
+2020-04-30 10:26:27,334 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.13 qty 30 (order 20205585065)
+2020-04-30 10:26:29,925 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205467225
+2020-04-30 10:26:30,353 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.95 qty 50
+2020-04-30 10:26:30,870 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.95 qty 50 (order 20205587658)
+2020-04-30 10:27:29,940 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20205298422
+2020-04-30 10:27:30,443 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.35 qty 30
+2020-04-30 10:27:30,745 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.35 qty 30 (order 20205640898)
+2020-04-30 10:28:30,889 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205587658
+2020-04-30 10:28:31,104 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.96 qty 50
+2020-04-30 10:28:31,336 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.96 qty 50 (order 20205690624)
+2020-04-30 10:29:03,262 INFO  [Spreader sist7]        common.Orders - POLZS kill order 20205525731
+2020-04-30 10:29:03,579 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.53 qty 30 (id 906155941)
+2020-04-30 10:29:04,062 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.53 qty 30 (order 20205720645)
+2020-04-30 10:29:21,097 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20205523750
+2020-04-30 10:29:21,429 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.46 qty 30
+2020-04-30 10:29:21,835 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.46 qty 30 (order 20205743837)
+2020-04-30 10:29:27,381 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20205585065
+2020-04-30 10:29:27,682 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.14 qty 30
+2020-04-30 10:29:28,331 INFO  [Spreader ritbf]        common.Orders - POLZB buy order RU000A100JH0 price 106.14 qty 30 (order 20205750036)
+2020-04-30 10:29:30,778 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20205640898
+2020-04-30 10:29:31,195 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.36 qty 30
+2020-04-30 10:29:31,682 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.36 qty 30 (order 20205753247)
+2020-04-30 10:31:20,966 INFO  [Spreader mts9]        common.Orders - POLZS kill order 20204071750
+2020-04-30 10:31:21,277 INFO  [Spreader mts9]        common.Orders - POLZS sell order RU000A100A66 price 108.74 qty 13 (id 906018243)
+2020-04-30 10:31:21,553 INFO  [Spreader mts9]        common.Orders - POLZS sell order RU000A100A66 price 108.74 qty 13 (order 20205847025)
+2020-04-30 10:31:31,700 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20205753247
+2020-04-30 10:31:32,109 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.37 qty 30
+2020-04-30 10:31:32,346 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.37 qty 30 (order 20205854815)
+2020-04-30 10:32:23,830 INFO  [Spreader pik7]        common.Orders - POLZB kill order 20204149257
+2020-04-30 10:32:24,138 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 101.11 qty 30
+2020-04-30 10:32:24,492 INFO  [Spreader pik7]        common.Orders - POLZB buy order RU000A0ZZBJ7 price 101.11 qty 30 (order 20205895762)
+2020-04-30 10:32:24,601 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20205147237
+2020-04-30 10:32:24,906 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.50 qty 30
+2020-04-30 10:32:25,145 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.50 qty 30 (order 20205896260)
+2020-04-30 10:34:25,156 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20205896260
+2020-04-30 10:34:25,564 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.51 qty 30
+2020-04-30 10:34:25,967 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.51 qty 30 (order 20205985437)
+2020-04-30 10:34:31,714 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205690624
+2020-04-30 10:34:31,920 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.98 qty 50
+2020-04-30 10:34:32,278 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 105.98 qty 50 (order 20205989815)
+2020-04-30 10:36:04,528 INFO  [Spreader sist7]        common.Orders - POLZS kill order 20205720645
+2020-04-30 10:36:04,834 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.52 qty 30 (id 905734686)
+2020-04-30 10:36:05,222 INFO  [Spreader sist7]        common.Orders - POLZS sell order RU000A0ZYQY7 price 102.52 qty 30 (order 20206042807)
+2020-04-30 10:43:01,660 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20205331436
+2020-04-30 10:43:01,966 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.59 qty 20
+2020-04-30 10:43:02,286 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.59 qty 20 (order 20206317123)
+2020-04-30 10:45:02,296 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20206317123
+2020-04-30 10:45:02,602 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.60 qty 20
+2020-04-30 10:45:03,055 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.60 qty 20 (order 20206374424)
+2020-04-30 10:46:21,894 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20205743837
+2020-04-30 10:46:22,200 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.50 qty 30
+2020-04-30 10:46:22,590 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.50 qty 30 (order 20206417678)
+2020-04-30 10:47:03,065 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20206374424
+2020-04-30 10:47:03,371 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.64 qty 20
+2020-04-30 10:47:03,780 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.64 qty 20 (order 20206442516)
+2020-04-30 10:48:32,335 INFO  [Spreader sist10]   robot.SpreadlerBuy - BUY RU000A1008J4 pr 105.98 qt 28
+2020-04-30 10:49:03,793 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20206442516
+2020-04-30 10:49:04,099 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.65 qty 20
+2020-04-30 10:49:04,408 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.65 qty 20 (order 20206507222)
+2020-04-30 10:49:22,609 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20206417678
+2020-04-30 10:49:22,812 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.51 qty 30
+2020-04-30 10:49:23,224 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.51 qty 30 (order 20206515541)
+2020-04-30 10:51:04,423 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20206507222
+2020-04-30 10:51:05,236 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.66 qty 20
+2020-04-30 10:51:05,889 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.66 qty 20 (order 20206572580)
+2020-04-30 10:51:15,411 INFO  [Spreader ok2]   robot.SpreadlerBuy - BUY RU000A1009Z8 pr 102.52 qt 25
+2020-04-30 10:51:15,723 INFO  [Spreader ok2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1009Z8 SUCCESS
+2020-04-30 10:51:15,723 INFO  [Spreader ok2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1009Z8 exit
+2020-04-30 10:51:15,728 INFO  [Spreader ok2]  robot.SpreadlerSell - PolzuchiiSell RU000A1009Z8 start
+2020-04-30 10:51:15,729 INFO  [Spreader ok2]        common.Orders - POLZS sell order RU000A1009Z8 price 102.82 qty 50 (id 904823791)
+2020-04-30 10:51:15,918 INFO  [Spreader ok2]        common.Orders - POLZS sell order RU000A1009Z8 price 102.82 qty 50 (order 20206578539)
+2020-04-30 10:51:41,733 INFO  [Spreader mts9]  robot.SpreadlerSell - SELL RU000A100A66 pr 108.74 qt 2
+2020-04-30 10:53:33,382 INFO  [Spreader tink2]  robot.SpreadlerSell - SELL RU000A1008B1 pr 102.42 qt 27
+2020-04-30 10:53:33,722 INFO  [Spreader tink2]  robot.SpreadlerSell - PolzuciiSell RU000A1008B1 SUCCESS
+2020-04-30 10:53:33,722 INFO  [Spreader tink2]  robot.SpreadlerSell - PolzuchiiSell RU000A1008B1 exit
+2020-04-30 10:53:33,728 INFO  [Spreader tink2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008B1 start
+2020-04-30 10:53:33,734 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 101.82 qty 30
+2020-04-30 10:53:34,294 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 101.82 qty 30 (order 20206636107)
+2020-04-30 10:54:33,355 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20205854815
+2020-04-30 10:54:33,863 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.53 qty 30
+2020-04-30 10:54:34,273 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.53 qty 30 (order 20206667784)
+2020-04-30 10:56:34,284 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20206667784
+2020-04-30 10:56:35,908 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.55 qty 30
+2020-04-30 10:56:36,191 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.55 qty 30 (order 20206731043)
+2020-04-30 10:57:36,199 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20206731043
+2020-04-30 10:57:36,607 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.57 qty 30
+2020-04-30 10:57:36,983 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.57 qty 30 (order 20206781402)
+2020-04-30 10:58:45,964 INFO  [Spreader sist7]  robot.SpreadlerSell - SELL RU000A0ZYQY7 pr 102.52 qt 30
+2020-04-30 10:58:46,203 INFO  [Spreader sist7]  robot.SpreadlerSell - PolzuciiSell RU000A0ZYQY7 SUCCESS
+2020-04-30 10:58:46,203 INFO  [Spreader sist7]  robot.SpreadlerSell - PolzuchiiSell RU000A0ZYQY7 exit
+2020-04-30 10:58:46,208 INFO  [Spreader sist7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYQY7 start
+2020-04-30 10:58:46,215 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.17 qty 30
+2020-04-30 10:58:46,607 INFO  [Spreader sist7]        common.Orders - POLZB buy order RU000A0ZYQY7 price 102.17 qty 30 (order 20206830094)
+2020-04-30 10:59:36,995 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20206781402
+2020-04-30 10:59:37,909 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.59 qty 30
+2020-04-30 10:59:38,231 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.59 qty 30 (order 20206861069)
+2020-04-30 11:00:38,239 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20206861069
+2020-04-30 11:00:38,544 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.60 qty 30
+2020-04-30 11:00:39,082 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.60 qty 30 (order 20206904130)
+2020-04-30 11:01:34,325 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20206636107
+2020-04-30 11:01:34,935 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.05 qty 30
+2020-04-30 11:01:35,420 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.05 qty 30 (order 20206953599)
+2020-04-30 11:09:06,031 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20206572580
+2020-04-30 11:09:06,532 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.71 qty 20
+2020-04-30 11:09:06,903 INFO  [Spreader sist6]        common.Orders - POLZB buy order RU000A0JXN21 price 102.71 qty 20 (order 20207340301)
+2020-04-30 11:10:39,201 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20206904130
+2020-04-30 11:10:39,617 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.61 qty 30
+2020-04-30 11:10:39,956 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.61 qty 30 (order 20207399085)
+2020-04-30 11:13:40,016 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20207399085
+2020-04-30 11:13:40,363 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.63 qty 30
+2020-04-30 11:13:40,667 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.63 qty 30 (order 20207516793)
+2020-04-30 11:14:40,708 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20207516793
+2020-04-30 11:14:41,152 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.64 qty 30
+2020-04-30 11:14:41,477 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.64 qty 30 (order 20207548415)
+2020-04-30 11:16:01,812 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20204706001
+2020-04-30 11:16:02,262 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.87 qty 30 (id 903337258)
+2020-04-30 11:16:02,604 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.87 qty 30 (order 20207599282)
+2020-04-30 11:16:22,621 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20207599282
+2020-04-30 11:16:22,946 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.86 qty 30 (id 903316574)
+2020-04-30 11:16:23,267 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.86 qty 30 (order 20207616703)
+2020-04-30 11:16:41,558 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20207548415
+2020-04-30 11:16:41,779 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.65 qty 30
+2020-04-30 11:16:42,173 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.65 qty 30 (order 20207631982)
+2020-04-30 11:18:42,216 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20207631982
+2020-04-30 11:18:42,769 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30
+2020-04-30 11:18:43,744 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30 (order 20207711380)
+2020-04-30 11:19:26,327 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20205985437
+2020-04-30 11:19:26,785 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.52 qty 30
+2020-04-30 11:19:27,340 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.52 qty 30 (order 20207738711)
+2020-04-30 11:20:27,371 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20207738711
+2020-04-30 11:20:27,834 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.53 qty 30
+2020-04-30 11:20:28,286 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.53 qty 30 (order 20207789846)
+2020-04-30 11:28:35,776 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20206953599
+2020-04-30 11:28:36,020 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.06 qty 30
+2020-04-30 11:28:36,324 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.06 qty 30 (order 20208144957)
+2020-04-30 11:32:29,354 INFO  [Spreader tink1]   robot.SpreadlerBuy - BUY RU000A0JXQ85 pr 101.81 qt 20
+2020-04-30 11:32:30,918 INFO  [Spreader tink1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ85 SUCCESS
+2020-04-30 11:32:30,918 INFO  [Spreader tink1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ85 exit
+2020-04-30 11:32:30,918 INFO  [Spreader tink1]  robot.SpreadlerSell - PolzuchiiSell RU000A0JXQ85 start
+2020-04-30 11:32:30,918 INFO  [Spreader tink1]        common.Orders - POLZS sell order RU000A0JXQ85 price 102.06 qty 20 (id 902348602)
+2020-04-30 11:32:31,329 INFO  [Spreader tink1]        common.Orders - POLZS sell order RU000A0JXQ85 price 102.06 qty 20 (order 20208290805)
+2020-04-30 11:32:33,754 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20205989815
+2020-04-30 11:32:34,170 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 106.01 qty 22
+2020-04-30 11:32:34,561 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 106.01 qty 22 (order 20208292886)
+2020-04-30 11:38:43,991 INFO  [Spreader nornik5]   robot.SpreadlerBuy - BUY RU000A0JW5C7 pr 118.66 qt 30
+2020-04-30 11:38:44,420 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 SUCCESS
+2020-04-30 11:38:44,420 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 exit
+2020-04-30 11:38:44,430 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuchiiSell RU000A0JW5C7 start
+2020-04-30 11:38:44,431 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 118.96 qty 30 (id 901975089)
+2020-04-30 11:38:44,728 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 118.96 qty 30 (order 20208523841)
+2020-04-30 11:53:05,295 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20207616703
+2020-04-30 11:53:05,928 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.80 qty 30 (id 901113592)
+2020-04-30 11:53:06,228 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.80 qty 30 (order 20208904373)
+2020-04-30 11:57:26,373 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20208904373
+2020-04-30 11:57:26,790 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.75 qty 30 (id 900852730)
+2020-04-30 11:57:27,037 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.75 qty 30 (order 20209009217)
+2020-04-30 12:08:04,545 INFO  [Spreader mts9]  robot.SpreadlerSell - SELL RU000A100A66 pr 108.74 qt 11
+2020-04-30 12:08:07,539 INFO  [Spreader mts9]  robot.SpreadlerSell - PolzuciiSell RU000A100A66 SUCCESS
+2020-04-30 12:08:07,539 INFO  [Spreader mts9]  robot.SpreadlerSell - PolzuchiiSell RU000A100A66 exit
+2020-04-30 12:08:07,554 INFO  [Spreader mts9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100A66 start
+2020-04-30 12:08:07,554 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.30 qty 30
+2020-04-30 12:08:08,056 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.30 qty 30 (order 20209283369)
+2020-04-30 12:09:08,070 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209283369
+2020-04-30 12:09:08,371 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.31 qty 30
+2020-04-30 12:09:08,650 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.31 qty 30 (order 20209303496)
+2020-04-30 12:09:52,813 INFO  [Spreader tink1]  robot.SpreadlerSell - SELL RU000A0JXQ85 pr 102.06 qt 20
+2020-04-30 12:09:53,621 INFO  [Spreader tink1]  robot.SpreadlerSell - PolzuciiSell RU000A0JXQ85 SUCCESS
+2020-04-30 12:09:53,621 INFO  [Spreader tink1]  robot.SpreadlerSell - PolzuchiiSell RU000A0JXQ85 exit
+2020-04-30 12:09:53,637 INFO  [Spreader tink1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ85 start
+2020-04-30 12:10:10,283 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.35 qty 20
+2020-04-30 12:10:10,715 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.35 qty 20 (order 20209324969)
+2020-04-30 12:10:50,340 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209303496
+2020-04-30 12:10:50,904 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.32 qty 30
+2020-04-30 12:10:51,410 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.32 qty 30 (order 20209345536)
+2020-04-30 12:11:51,423 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209345536
+2020-04-30 12:11:51,740 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.33 qty 30
+2020-04-30 12:11:51,988 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.33 qty 30 (order 20209363915)
+2020-04-30 12:12:10,453 INFO  [Spreader segez4]        common.Orders - POLZS kill order 20209009217
+2020-04-30 12:12:10,870 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.49 qty 30 (id 899968650)
+2020-04-30 12:12:11,304 INFO  [Spreader segez4]        common.Orders - POLZS sell order RU000A101D13 price 99.49 qty 30 (order 20209367672)
+2020-04-30 12:13:52,021 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209363915
+2020-04-30 12:13:52,237 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.34 qty 30
+2020-04-30 12:13:52,545 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.34 qty 30 (order 20209396881)
+2020-04-30 12:14:52,555 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209396881
+2020-04-30 12:14:52,761 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.35 qty 30
+2020-04-30 12:14:53,011 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.35 qty 30 (order 20209413190)
+2020-04-30 12:15:53,024 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209413190
+2020-04-30 12:15:53,458 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.36 qty 30
+2020-04-30 12:15:53,975 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.36 qty 30 (order 20209431768)
+2020-04-30 12:17:54,021 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209431768
+2020-04-30 12:17:54,423 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.38 qty 30
+2020-04-30 12:17:54,756 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.38 qty 30 (order 20209470618)
+2020-04-30 12:18:10,828 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20209324969
+2020-04-30 12:18:11,344 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.38 qty 20
+2020-04-30 12:18:11,747 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.38 qty 20 (order 20209475235)
+2020-04-30 12:21:54,798 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209470618
+2020-04-30 12:21:55,331 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.40 qty 30
+2020-04-30 12:21:55,787 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.40 qty 30 (order 20209547825)
+2020-04-30 12:22:55,801 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209547825
+2020-04-30 12:22:56,635 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.42 qty 30
+2020-04-30 12:22:57,068 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.42 qty 30 (order 20209572181)
+2020-04-30 12:24:57,109 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209572181
+2020-04-30 12:24:57,611 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.44 qty 30
+2020-04-30 12:24:57,919 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.44 qty 30 (order 20209607251)
+2020-04-30 12:25:50,615 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20208144957
+2020-04-30 12:25:51,148 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.20 qty 30
+2020-04-30 12:25:51,514 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.20 qty 30 (order 20209622436)
+2020-04-30 12:25:52,020 INFO  [Spreader segez4]  robot.SpreadlerSell - SELL RU000A101D13 pr 99.49 qt 30
+2020-04-30 12:25:53,061 INFO  [Spreader segez4]  robot.SpreadlerSell - PolzuciiSell RU000A101D13 SUCCESS
+2020-04-30 12:25:53,061 INFO  [Spreader segez4]  robot.SpreadlerSell - PolzuchiiSell RU000A101D13 exit
+2020-04-30 12:25:53,077 INFO  [Spreader segez4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101D13 start
+2020-04-30 12:25:53,077 INFO  [Spreader segez4]        common.Orders - POLZB buy order RU000A101D13 price 98.63 qty 30
+2020-04-30 12:25:53,255 INFO  [Spreader segez4]        common.Orders - POLZB buy order RU000A101D13 price 98.63 qty 30 (order 20209622779)
+2020-04-30 12:25:57,931 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209607251
+2020-04-30 12:25:58,463 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.46 qty 30
+2020-04-30 12:25:59,066 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.46 qty 30 (order 20209624509)
+2020-04-30 12:26:59,105 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209624509
+2020-04-30 12:26:59,522 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.48 qty 30
+2020-04-30 12:26:59,839 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.48 qty 30 (order 20209646152)
+2020-04-30 12:27:59,855 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209646152
+2020-04-30 12:28:00,172 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.50 qty 30
+2020-04-30 12:28:00,519 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.50 qty 30 (order 20209667427)
+2020-04-30 12:30:00,553 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209667427
+2020-04-30 12:30:00,890 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.52 qty 30
+2020-04-30 12:30:01,218 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.52 qty 30 (order 20209730446)
+2020-04-30 12:31:01,228 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209730446
+2020-04-30 12:31:01,647 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.54 qty 30
+2020-04-30 12:31:01,949 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.54 qty 30 (order 20209760723)
+2020-04-30 12:33:01,990 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209760723
+2020-04-30 12:33:02,223 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.56 qty 30
+2020-04-30 12:33:02,555 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.56 qty 30 (order 20209810768)
+2020-04-30 12:35:02,582 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209810768
+2020-04-30 12:35:02,883 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.58 qty 30
+2020-04-30 12:35:03,191 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.58 qty 30 (order 20209851746)
+2020-04-30 12:35:50,817 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20207789846
+2020-04-30 12:35:51,219 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.54 qty 30
+2020-04-30 12:35:51,522 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.54 qty 30 (order 20209870074)
+2020-04-30 12:36:03,201 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209851746
+2020-04-30 12:36:03,704 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.60 qty 30
+2020-04-30 12:36:04,507 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.60 qty 30 (order 20209874435)
+2020-04-30 12:37:04,533 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209874435
+2020-04-30 12:37:04,961 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.62 qty 30
+2020-04-30 12:37:05,363 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.62 qty 30 (order 20209900923)
+2020-04-30 12:39:05,391 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209900923
+2020-04-30 12:39:06,131 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.64 qty 30
+2020-04-30 12:39:06,479 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.64 qty 30 (order 20209934041)
+2020-04-30 12:40:06,490 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209934041
+2020-04-30 12:40:07,010 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.66 qty 30
+2020-04-30 12:40:07,379 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.66 qty 30 (order 20209949942)
+2020-04-30 12:41:07,390 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209949942
+2020-04-30 12:41:07,709 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.68 qty 30
+2020-04-30 12:41:07,992 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.68 qty 30 (order 20209967217)
+2020-04-30 12:42:07,994 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209967217
+2020-04-30 12:42:08,310 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.70 qty 30
+2020-04-30 12:42:08,596 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.70 qty 30 (order 20209985422)
+2020-04-30 12:44:08,627 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20209985422
+2020-04-30 12:44:08,944 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.72 qty 30
+2020-04-30 12:44:09,244 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.72 qty 30 (order 20210023198)
+2020-04-30 12:45:09,270 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210023198
+2020-04-30 12:45:09,693 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.74 qty 30
+2020-04-30 12:45:10,126 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.74 qty 30 (order 20210048481)
+2020-04-30 12:45:50,930 INFO  [Spreader lsr3]   robot.SpreadlerBuy - BUY RU000A0ZYBV5 pr 101.29 qt 30
+2020-04-30 12:45:52,003 INFO  [Spreader lsr3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYBV5 SUCCESS
+2020-04-30 12:45:52,003 INFO  [Spreader lsr3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYBV5 exit
+2020-04-30 12:45:52,021 INFO  [Spreader lsr3]  robot.SpreadlerSell - PolzuchiiSell RU000A0ZYBV5 start
+2020-04-30 12:45:52,062 INFO  [Spreader lsr3]        common.Orders - POLZS sell order RU000A0ZYBV5 price 101.59 qty 30 (id 897947458)
+2020-04-30 12:45:52,437 INFO  [Spreader lsr3]        common.Orders - POLZS sell order RU000A0ZYBV5 price 101.59 qty 30 (order 20210063378)
+2020-04-30 12:46:10,151 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210048481
+2020-04-30 12:46:10,554 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.76 qty 30
+2020-04-30 12:46:10,955 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.76 qty 30 (order 20210069029)
+2020-04-30 12:47:10,967 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210069029
+2020-04-30 12:47:11,286 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.78 qty 30
+2020-04-30 12:47:11,669 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.78 qty 30 (order 20210089119)
+2020-04-30 12:49:11,698 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210089119
+2020-04-30 12:49:12,100 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.79 qty 30
+2020-04-30 12:49:12,487 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.79 qty 30 (order 20210122134)
+2020-04-30 12:50:12,525 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210122134
+2020-04-30 12:50:12,739 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.80 qty 30
+2020-04-30 12:50:13,039 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.80 qty 30 (order 20210137707)
+2020-04-30 12:51:13,063 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210137707
+2020-04-30 12:51:14,281 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.81 qty 30
+2020-04-30 12:51:14,799 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.81 qty 30 (order 20210154889)
+2020-04-30 12:51:52,172 INFO  [Spreader sist10]   robot.SpreadlerBuy - BUY RU000A1008J4 pr 106.01 qt 22
+2020-04-30 12:51:52,591 INFO  [Spreader sist10]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008J4 SUCCESS
+2020-04-30 12:51:52,591 INFO  [Spreader sist10]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008J4 exit
+2020-04-30 12:51:52,606 INFO  [Spreader sist10]  robot.SpreadlerSell - PolzuchiiSell RU000A1008J4 start
+2020-04-30 12:51:52,606 INFO  [Spreader sist10]        common.Orders - POLZS sell order RU000A1008J4 price 106.31 qty 50 (id 897586914)
+2020-04-30 12:51:53,193 INFO  [Spreader sist10]        common.Orders - POLZS sell order RU000A1008J4 price 106.31 qty 50 (order 20210168617)
+2020-04-30 12:52:14,822 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210154889
+2020-04-30 12:52:15,240 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.82 qty 30
+2020-04-30 12:52:15,642 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.82 qty 30 (order 20210173871)
+2020-04-30 12:54:15,674 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210173871
+2020-04-30 12:54:16,106 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.83 qty 30
+2020-04-30 12:54:16,360 INFO  [Spreader mts9]        common.Orders - POLZB buy order RU000A100A66 price 107.83 qty 30 (order 20210202487)
+2020-04-30 13:07:51,119 INFO  [Spreader sam8]   robot.SpreadlerBuy - BUY RU000A101H43 pr 99.06 qt 9
+2020-04-30 13:07:53,397 INFO  [Spreader sam8]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101H43 SUCCESS
+2020-04-30 13:07:53,397 INFO  [Spreader sam8]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101H43 exit
+2020-04-30 13:07:53,428 INFO  [Spreader sam8]  robot.SpreadlerSell - PolzuchiiSell RU000A101H43 start
+2020-04-30 13:07:53,444 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.49 qty 30 (id 896626076)
+2020-04-30 13:07:53,798 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.49 qty 30 (order 20210496199)
+2020-04-30 13:08:53,853 INFO  [Spreader sam8]        common.Orders - POLZS kill order 20210496199
+2020-04-30 13:08:54,691 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.48 qty 30 (id 896564829)
+2020-04-30 13:08:55,006 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.48 qty 30 (order 20210516268)
+2020-04-30 13:17:33,785 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 118.96 qt 18
+2020-04-30 13:17:35,310 INFO  [Spreader sam8]        common.Orders - POLZS kill order 20210516268
+2020-04-30 13:17:35,622 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.47 qty 30 (id 896043898)
+2020-04-30 13:17:36,023 INFO  [Spreader sam8]        common.Orders - POLZS sell order RU000A101H43 price 99.47 qty 30 (order 20210688843)
+2020-04-30 13:19:56,102 INFO  [Spreader sam8]  robot.SpreadlerSell - SELL RU000A101H43 pr 99.47 qt 1
+2020-04-30 13:22:53,650 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20209622436
+2020-04-30 13:22:53,962 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.21 qty 30
+2020-04-30 13:22:54,260 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.21 qty 30 (order 20210770351)
+2020-04-30 13:22:56,687 INFO  [Spreader sam8]  robot.SpreadlerSell - SELL RU000A101H43 pr 99.47 qt 2
+2020-04-30 13:24:54,547 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 118.96 qt 1
+2020-04-30 13:25:15,155 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 118.96 qt 5
+2020-04-30 13:25:57,354 INFO  [Spreader sam8]  robot.SpreadlerSell - SELL RU000A101H43 pr 99.47 qt 1
+2020-04-30 13:26:35,727 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 118.96 qt 1
+2020-04-30 13:26:38,003 INFO  [Spreader sam8]  robot.SpreadlerSell - SELL RU000A101H43 pr 99.47 qt 16
+2020-04-30 13:27:56,300 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 118.96 qt 5
+2020-04-30 13:27:56,816 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuciiSell RU000A0JW5C7 SUCCESS
+2020-04-30 13:27:56,816 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuchiiSell RU000A0JW5C7 exit
+2020-04-30 13:27:56,821 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 start
+2020-04-30 13:27:56,827 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30
+2020-04-30 13:27:57,137 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30 (order 20210854692)
+2020-04-30 13:31:58,600 INFO  [Spreader sam8]  robot.SpreadlerSell - SELL RU000A101H43 pr 99.47 qt 10
+2020-04-30 13:31:59,160 INFO  [Spreader sam8]  robot.SpreadlerSell - PolzuciiSell RU000A101H43 SUCCESS
+2020-04-30 13:31:59,160 INFO  [Spreader sam8]  robot.SpreadlerSell - PolzuchiiSell RU000A101H43 exit
+2020-04-30 13:31:59,170 INFO  [Spreader sam8]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101H43 start
+2020-04-30 13:31:59,180 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.06 qty 30
+2020-04-30 13:31:59,720 INFO  [Spreader sam8]        common.Orders - POLZB buy order RU000A101H43 price 99.06 qty 30 (order 20210928836)
+2020-04-30 13:34:13,016 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20209475235
+2020-04-30 13:34:13,456 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.39 qty 20
+2020-04-30 13:34:13,797 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.39 qty 20 (order 20210972308)
+2020-04-30 13:34:53,710 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20209870074
+2020-04-30 13:34:54,031 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.56 qty 30
+2020-04-30 13:34:54,442 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB buy order RU000A0JXQK2 price 105.56 qty 30 (order 20210990434)
+2020-04-30 13:34:54,442 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20210770351
+2020-04-30 13:34:54,643 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.33 qty 30
+2020-04-30 13:34:54,974 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.33 qty 30 (order 20210990573)
+2020-04-30 13:40:55,093 INFO  [Spreader lsr3]  robot.SpreadlerSell - SELL RU000A0ZYBV5 pr 101.59 qt 30
+2020-04-30 13:40:55,643 INFO  [Spreader lsr3]  robot.SpreadlerSell - PolzuciiSell RU000A0ZYBV5 SUCCESS
+2020-04-30 13:40:55,643 INFO  [Spreader lsr3]  robot.SpreadlerSell - PolzuchiiSell RU000A0ZYBV5 exit
+2020-04-30 13:40:55,653 INFO  [Spreader lsr3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYBV5 start
+2020-04-30 13:40:55,663 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.29 qty 30
+2020-04-30 13:40:56,218 INFO  [Spreader lsr3]        common.Orders - POLZB buy order RU000A0ZYBV5 price 101.29 qty 30 (order 20211134947)
+2020-04-30 13:51:55,154 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20210990573
+2020-04-30 13:51:55,578 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.35 qty 30
+2020-04-30 13:51:55,838 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.35 qty 30 (order 20211404023)
+2020-04-30 14:20:16,811 INFO  [Spreader ok2]  robot.SpreadlerSell - SELL RU000A1009Z8 pr 102.82 qt 3
+2020-04-30 14:24:36,939 INFO  [Spreader sist10]  robot.SpreadlerSell - SELL RU000A1008J4 pr 106.31 qt 46
+2020-04-30 14:28:18,423 INFO  [Spreader ok2]  robot.SpreadlerSell - SELL RU000A1009Z8 pr 102.82 qt 8
+2020-04-30 14:44:19,256 INFO  [Spreader ok2]  robot.SpreadlerSell - SELL RU000A1009Z8 pr 102.82 qt 1
+2020-04-30 14:53:40,548 INFO  [Spreader ok2]  robot.SpreadlerSell - SELL RU000A1009Z8 pr 102.82 qt 38
+2020-04-30 14:53:40,898 INFO  [Spreader ok2]  robot.SpreadlerSell - PolzuciiSell RU000A1009Z8 SUCCESS
+2020-04-30 14:53:40,898 INFO  [Spreader ok2]  robot.SpreadlerSell - PolzuchiiSell RU000A1009Z8 exit
+2020-04-30 14:53:40,908 INFO  [Spreader ok2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1009Z8 start
+2020-04-30 14:53:40,908 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.66 qty 50
+2020-04-30 14:53:41,042 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.66 qty 50 (order 20212883998)
+2020-04-30 14:53:54,518 INFO  [Spreader rosnft_2r5]   robot.SpreadlerBuy - BUY RU000A0ZYVU5 pr 102.05 qt 1
+2020-04-30 15:04:18,491 INFO  [Spreader sist10]  robot.SpreadlerSell - SELL RU000A1008J4 pr 106.31 qt 4
+2020-04-30 15:04:19,082 INFO  [Spreader sist10]  robot.SpreadlerSell - PolzuciiSell RU000A1008J4 SUCCESS
+2020-04-30 15:04:19,082 INFO  [Spreader sist10]  robot.SpreadlerSell - PolzuchiiSell RU000A1008J4 exit
+2020-04-30 15:04:19,082 INFO  [Spreader sist10]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008J4 start
+2020-04-30 15:04:19,092 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 106.01 qty 50
+2020-04-30 15:04:19,467 INFO  [Spreader sist10]        common.Orders - POLZB buy order RU000A1008J4 price 106.01 qty 50 (order 20213163298)
+2020-04-30 15:06:56,614 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20211404023
+2020-04-30 15:06:57,133 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.36 qty 30
+2020-04-30 15:06:57,578 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.36 qty 30 (order 20213234278)
+2020-04-30 15:12:57,632 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20213234278
+2020-04-30 15:12:58,044 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.41 qty 30
+2020-04-30 15:12:58,415 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.41 qty 30 (order 20213382769)
+2020-04-30 15:13:58,424 INFO  [Spreader nornik5]   robot.SpreadlerBuy - BUY RU000A0JW5C7 pr 118.66 qt 30
+2020-04-30 15:13:58,978 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 SUCCESS
+2020-04-30 15:13:58,978 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 exit
+2020-04-30 15:13:58,988 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuchiiSell RU000A0JW5C7 start
+2020-04-30 15:13:58,999 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.60 qty 30 (id 889060521)
+2020-04-30 15:13:59,275 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.60 qty 30 (order 20213406244)
+2020-04-30 15:23:59,073 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20213382769
+2020-04-30 15:23:59,723 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.43 qty 30
+2020-04-30 15:23:59,979 INFO  [Spreader tink2]        common.Orders - POLZB buy order RU000A1008B1 price 102.43 qty 30 (order 20213635774)
+2020-04-30 15:38:00,017 INFO  [Spreader nornik5]        common.Orders - POLZS kill order 20213406244
+2020-04-30 15:38:00,528 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.50 qty 30 (id 887618992)
+2020-04-30 15:38:00,899 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.50 qty 30 (order 20213950422)
+2020-04-30 15:38:20,906 INFO  [Spreader nornik5]        common.Orders - POLZS kill order 20213950422
+2020-04-30 15:38:21,210 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.49 qty 30 (id 887598310)
+2020-04-30 15:38:21,490 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.49 qty 30 (order 20213963427)
+2020-04-30 15:39:01,500 INFO  [Spreader nornik5]        common.Orders - POLZS kill order 20213963427
+2020-04-30 15:39:02,122 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.00 qty 30 (id 887557398)
+2020-04-30 15:39:02,455 INFO  [Spreader nornik5]        common.Orders - POLZS sell order RU000A0JW5C7 price 119.00 qty 30 (order 20213996515)
+2020-04-30 15:45:02,631 INFO  [Spreader nornik5]  robot.SpreadlerSell - SELL RU000A0JW5C7 pr 119 qt 30
+2020-04-30 15:45:04,751 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuciiSell RU000A0JW5C7 SUCCESS
+2020-04-30 15:45:04,751 INFO  [Spreader nornik5]  robot.SpreadlerSell - PolzuchiiSell RU000A0JW5C7 exit
+2020-04-30 15:45:04,761 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 start
+2020-04-30 15:45:04,761 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30
+2020-04-30 15:45:05,085 INFO  [Spreader nornik5]        common.Orders - POLZB buy order RU000A0JW5C7 price 118.66 qty 30 (order 20214180914)
+2020-04-30 15:50:15,233 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20210972308
+2020-04-30 15:50:15,660 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.81 qty 20
+2020-04-30 15:50:16,021 INFO  [Spreader tink1]        common.Orders - POLZB buy order RU000A0JXQ85 price 101.81 qty 20 (order 20214331232)
+2020-04-30 16:13:55,658 INFO  [Spreader rosnft_2r5]   robot.SpreadlerBuy - BUY RU000A0ZYVU5 pr 102.05 qt 3
+2020-04-30 17:14:57,736 INFO  [Spreader sist9]   robot.SpreadlerBuy - BUY RU000A1005L6 pr 104.51 qt 30
+2020-04-30 17:15:00,128 INFO  [Spreader sist9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1005L6 SUCCESS
+2020-04-30 17:15:00,128 INFO  [Spreader sist9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1005L6 exit
+2020-04-30 17:15:00,138 INFO  [Spreader sist9]  robot.SpreadlerSell - PolzuchiiSell RU000A1005L6 start
+2020-04-30 17:15:00,138 INFO  [Spreader sist9]        common.Orders - POLZS sell order RU000A1005L6 price 104.81 qty 30 (id 881799382)
+2020-04-30 17:15:00,378 INFO  [Spreader sist9]        common.Orders - POLZS sell order RU000A1005L6 price 104.81 qty 30 (order 20216964735)
+2020-04-30 17:46:21,364 INFO  [Spreader sist9]  robot.SpreadlerSell - SELL RU000A1005L6 pr 104.81 qt 10
+2020-04-30 17:54:03,438 INFO  [Spreader sist9]  robot.SpreadlerSell - SELL RU000A1005L6 pr 104.81 qt 1
+2020-04-30 17:59:03,854 INFO  [Spreader sist9]  robot.SpreadlerSell - SELL RU000A1005L6 pr 104.81 qt 1
+2020-04-30 18:06:24,873 INFO  [Spreader sist9]  robot.SpreadlerSell - SELL RU000A1005L6 pr 104.81 qt 5
+2020-04-30 18:17:45,533 INFO  [Spreader sist9]  robot.SpreadlerSell - SELL RU000A1005L6 pr 104.81 qt 13
+2020-04-30 18:17:45,800 INFO  [Spreader sist9]  robot.SpreadlerSell - PolzuciiSell RU000A1005L6 SUCCESS
+2020-04-30 18:17:45,800 INFO  [Spreader sist9]  robot.SpreadlerSell - PolzuchiiSell RU000A1005L6 exit
+2020-04-30 18:17:45,800 INFO  [Spreader sist9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1005L6 start
+2020-04-30 18:17:45,816 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.51 qty 30
+2020-04-30 18:17:46,258 INFO  [Spreader sist9]        common.Orders - POLZB buy order RU000A1005L6 price 104.51 qty 30 (order 20218621185)
+2020-04-30 18:22:42,899 INFO  [Spreader ok2]        common.Orders - POLZB kill order 20212883998
+2020-04-30 18:22:43,316 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.69 qty 50
+2020-04-30 18:22:43,638 INFO  [Spreader ok2]        common.Orders - POLZB buy order RU000A1009Z8 price 102.69 qty 50 (order 20218759665)
+2020-04-30 19:00:00,057 INFO  [Spreader sist6]        common.Orders - POLZB kill order 20207340301
+2020-04-30 19:00:00,057 INFO  [Spreader rosnft_2r4]        common.Orders - POLZB kill order 20204785791
+2020-04-30 19:00:00,057 INFO  [Spreader fsk4]        common.Orders - POLZB kill order 20204077654
+2020-04-30 19:00:00,057 INFO  [Spreader mts9]        common.Orders - POLZB kill order 20210202487
+2020-04-30 19:00:00,057 INFO  [Spreader sam8]        common.Orders - POLZB kill order 20210928836
+2020-04-30 19:00:00,057 INFO  [Spreader ok2]        common.Orders - POLZB kill order 20218759665
+2020-04-30 19:00:00,057 INFO  [Spreader rosnft_1r4]        common.Orders - POLZB kill order 20210990434
+2020-04-30 19:00:00,057 INFO  [Spreader ok1]        common.Orders - POLZB kill order 20204081338
+2020-04-30 19:00:00,057 INFO  [Spreader tink2]        common.Orders - POLZB kill order 20213635774
+2020-04-30 19:00:00,057 INFO  [Spreader pik7]        common.Orders - POLZB kill order 20205895762
+2020-04-30 19:00:00,057 INFO  [Spreader cppk]        common.Orders - POLZB kill order 20204527362
+2020-04-30 19:00:00,057 INFO  [Spreader sist10]        common.Orders - POLZB kill order 20213163298
+2020-04-30 19:00:00,057 INFO  [Spreader dff1]        common.Orders - POLZB kill order 20204531030
+2020-04-30 19:00:00,057 INFO  [Spreader ritbf]        common.Orders - POLZB kill order 20205750036
+2020-04-30 19:00:00,057 INFO  [Spreader tink3]        common.Orders - POLZB kill order 20205050306
+2020-04-30 19:00:00,057 INFO  [Spreader ok3]        common.Orders - POLZB kill order 20204071395
+2020-04-30 19:00:00,057 INFO  [Spreader sist9]        common.Orders - POLZB kill order 20218621185
+2020-04-30 19:00:00,057 INFO  [Spreader rosnft_2r5]        common.Orders - POLZB kill order 20204082486
+2020-04-30 19:00:00,057 INFO  [Spreader sist7]        common.Orders - POLZB kill order 20206830094
+2020-04-30 19:00:00,057 INFO  [Spreader pik2]        common.Orders - POLZB kill order 20204586354
+2020-04-30 19:00:00,057 INFO  [Spreader tink1]        common.Orders - POLZB kill order 20214331232
+2020-04-30 19:00:00,057 INFO  [Spreader nornik5]        common.Orders - POLZB kill order 20214180914
+2020-04-30 19:00:00,057 INFO  [Spreader segez4]        common.Orders - POLZB kill order 20209622779
+2020-04-30 19:00:00,057 INFO  [Spreader lsr3]        common.Orders - POLZB kill order 20211134947
+2020-04-30 19:00:00,057 INFO  [Spreader pik3]        common.Orders - POLZB kill order 20204453304
+2020-04-30 19:00:00,057 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader cppk
+2020-04-30 19:00:00,067 INFO  [Spreader sist6]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXN21 exit
+2020-04-30 19:00:00,067 INFO  [Spreader sist6]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,067 INFO  [Spreader pik3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXY44 exit
+2020-04-30 19:00:00,067 INFO  [Spreader pik3]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,067 INFO  [Spreader lsr3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYBV5 exit
+2020-04-30 19:00:00,067 INFO  [Spreader lsr3]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,067 INFO  [Spreader segez4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101D13 exit
+2020-04-30 19:00:00,067 INFO  [Spreader segez4]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader nornik5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JW5C7 exit
+2020-04-30 19:00:00,077 INFO  [Spreader nornik5]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader tink1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ85 exit
+2020-04-30 19:00:00,077 INFO  [Spreader tink1]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader pik2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQ93 exit
+2020-04-30 19:00:00,077 INFO  [Spreader pik2]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader sist7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYQY7 exit
+2020-04-30 19:00:00,077 INFO  [Spreader sist7]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader rosnft_2r5]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYVU5 exit
+2020-04-30 19:00:00,077 INFO  [Spreader rosnft_2r5]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader sist9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1005L6 exit
+2020-04-30 19:00:00,077 INFO  [Spreader sist9]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,077 INFO  [Spreader ok3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1014B9 exit
+2020-04-30 19:00:00,077 INFO  [Spreader ok3]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [Spreader tink3]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100V79 exit
+2020-04-30 19:00:00,087 INFO  [Spreader tink3]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [Spreader ritbf]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100JH0 exit
+2020-04-30 19:00:00,087 INFO  [Spreader ritbf]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [Spreader dff1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYM21 exit
+2020-04-30 19:00:00,087 INFO  [Spreader dff1]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [Spreader sist10]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008J4 exit
+2020-04-30 19:00:00,087 INFO  [Spreader sist10]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [Spreader cppk]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZZFH2 exit
+2020-04-30 19:00:00,087 INFO  [Spreader cppk]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,087 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,087 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader fsk4
+2020-04-30 19:00:00,087 INFO  [Spreader pik7]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZZBJ7 exit
+2020-04-30 19:00:00,087 INFO  [Spreader pik7]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader tink2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1008B1 exit
+2020-04-30 19:00:00,097 INFO  [Spreader tink2]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader ok1]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQH8 exit
+2020-04-30 19:00:00,097 INFO  [Spreader ok1]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader rosnft_1r4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0JXQK2 exit
+2020-04-30 19:00:00,097 INFO  [Spreader rosnft_1r4]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader ok2]   robot.SpreadlerBuy - PolzuchiiBuy RU000A1009Z8 exit
+2020-04-30 19:00:00,097 INFO  [Spreader ok2]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader sam8]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101H43 exit
+2020-04-30 19:00:00,097 INFO  [Spreader sam8]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,097 INFO  [Spreader mts9]   robot.SpreadlerBuy - PolzuchiiBuy RU000A100A66 exit
+2020-04-30 19:00:00,097 INFO  [Spreader mts9]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,107 INFO  [Spreader fsk4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A101CL5 exit
+2020-04-30 19:00:00,107 INFO  [Spreader fsk4]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader rosnft_1r4
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader rosnft_2r4
+2020-04-30 19:00:00,107 INFO  [Spreader rosnft_2r4]   robot.SpreadlerBuy - PolzuchiiBuy RU000A0ZYT40 exit
+2020-04-30 19:00:00,107 INFO  [Spreader rosnft_2r4]  robot.SpreadlerBond - Buy returned without success
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader sam8
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader rosnft_2r5
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader pik7
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader pik2
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader tink2
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader ok1
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader tink3
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader pik3
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader ritbf
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader ok3
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader segez4
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader ok2
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader sist6
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader rzd28
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader dff1
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader sist9
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader sist7
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader nornik5
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader tink1
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader sist10
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader lsr3
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner - Stop Spreader mts9
+2020-04-30 19:00:00,107 INFO  [DefaultQuartzScheduler_Worker-3] robot.SpreadlerRunner -     stopped
+2020-04-30 19:00:00,727 INFO  [DefaultQuartzScheduler_Worker-3]              pnl.PnL -     PnL 
+from 30.04.2020 00:00:00 to 01.05.2020 00:00:00
+
+  Realized PnL=1203.1
+  fee ~= 347.15200
+2020-04-30 19:28:02,475 INFO  [main] robot.SpreadlerRunner - exit
+2020-04-30 20:13:09,063 INFO  [main] org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2020-04-30 20:13:09,068 INFO  [main] org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: main
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2020-04-30 20:13:09,084 INFO  [main] org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+2020-04-30 20:14:22,759 ERROR [main] robot.SpreadlerRunner - Уже есть такой спредлер
+java.lang.Exception: Уже есть такой спредлер
+	at robot.SpreadlerConfigurator.add(SpreadlerSaver.kt:42)
+	at robot.SpreadlerConfigurator.add(SpreadlerSaver.kt:57)
+	at robot.SpreadlerRunner.add(SpreadlerRunner.kt:181)
+	at robot.SpreadlerRunner.run(SpreadlerRunner.kt:70)
+	at robot.SpreadlerRunnerKt.main(SpreadlerRunner.kt:27)
+	at robot.SpreadlerRunnerKt.main(SpreadlerRunner.kt)
+2020-04-30 20:14:58,775 INFO  [main] robot.SpreadlerRunner - exit

@@ -1,0 +1,280 @@
+File C:/projects/IdeaProjects/kotuik/kotuik.mv.db, 40960 bytes, 0 MB
+0000 fileHeader H:2,block:3,blockSize:1000,chunk:38,clean:1,created:1716898f1c9,format:1,version:38,fletcher:6cf27033
+1000 fileHeader H:2,block:3,blockSize:1000,chunk:38,clean:1,created:1716898f1c9,format:1,version:38,fletcher:6cf27033
+
+2000 chunkHeader chunk:c,block:2,len:1,map:a,max:930,next:5,pages:3,root:300000149d2,time:10d8b598,version:c
++009a leaf, map 3, 6 entries, 1124 bytes, maxLen 600
++04fe leaf, map 8, 6 entries, 41 bytes, maxLen 30
++0527 leaf, map 0, 23 entries, 767 bytes, maxLen 300
+    chunk.9 = chunk:9,block:3,len:2,liveMax:0,livePages:0,map:a,max:1530,next:6,pages:12,root:24000042f52,time:bb69c3f,version:9
+    chunk.a = chunk:a,block:6,len:2,liveMax:d80,livePages:e,map:a,max:1240,next:8,pages:11,root:28000034a52,time:bb7d3a0,version:a
+    chunk.b = chunk:b,block:8,len:2,liveMax:d80,livePages:e,map:a,max:16b0,next:a,pages:11,root:2c000041192,time:10d8ad3a,version:b
+    map.1 = name:openTransactions
+    map.2 = name:undoLog
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog = 2
+    root.2 = 0
+    root.3 = 30000002696
+    root.8 = 30000013f82
+    root.a = 2c0000149cf
+map 0: 767 bytes, 39%
+map 3: 1124 bytes, 58%
+map 8: 41 bytes, 2%
++0f80 chunkFooter chunk:c,block:2,version:c,fletcher:aad239f7
+
+3000 chunkHeader chunk:38,block:3,len:1,map:14,max:400,next:4,pages:1,root:e0000002754,time:161afbe4,version:38
++009d leaf, map 0, 25 entries, 1000 bytes, maxLen 400
+    chunk.37 = chunk:37,block:9,len:1,liveMax:600,livePages:1,map:13,max:c00,next:b,pages:2,root:dc000014816,time:1163e839,version:37
+    chunk.a = chunk:a,block:5,len:2,liveMax:d80,livePages:e,map:a,max:1240,pages:11,root:28000034a52,time:bb7d3a0,version:a,pinCount:0
+    chunk.b = chunk:b,block:7,len:2,liveMax:d80,livePages:e,map:a,max:16b0,pages:11,root:2c000041192,time:10d8ad3a,version:b,pinCount:0
+    chunk.c = chunk:c,block:2,len:1,liveMax:30,livePages:1,map:a,max:930,next:5,pages:3,root:300000149d2,time:10d8b598,unusedAtVersion:c,version:c,pinCount:0
+    map.1 = name:openTransactions
+    map.13 = name:undoLog.1,createVersion:32
+    map.14 = name:undoLog,createVersion:37
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog = 14
+    name.undoLog.1 = 13
+    root.3 = dc000002f56
+    root.8 = 30000013f82
+    root.a = 2c0000149cf
+map 0: 1000 bytes, 100%
++0f80 chunkFooter chunk:38,block:3,version:38,fletcher:ad5394ad
+
+4000 chunkHeader chunk:36,block:4,len:1,map:13,max:600,next:9,pages:1,root:d8000002f56,time:1163e834,version:36
++00bd leaf, map 0, 24 entries, 1144 bytes, maxLen 600
+    chunk.34 = chunk:34,block:3,len:1,liveMax:600,livePages:1,map:13,max:c00,next:4,pages:2,root:d0000014816,time:1163e82b,unusedAtVersion:34,version:34,pinCount:0
+    chunk.35 = chunk:35,block:a,len:1,liveMax:0,livePages:0,map:13,max:600,pages:1,root:d4000002f56,time:1163e830,unused:1163e834,unusedAtVersion:35,version:35,pinCount:0
+    chunk.a = chunk:a,block:5,len:2,liveMax:d80,livePages:e,map:a,max:1240,pages:11,root:28000034a52,time:bb7d3a0,version:a,pinCount:0
+    chunk.b = chunk:b,block:7,len:2,liveMax:d80,livePages:e,map:a,max:16b0,pages:11,root:2c000041192,time:10d8ad3a,version:b,pinCount:0
+    chunk.c = chunk:c,block:2,len:1,liveMax:30,livePages:1,map:a,max:930,next:5,pages:3,root:300000149d2,time:10d8b598,unusedAtVersion:c,version:c,pinCount:0
+    map.1 = name:openTransactions
+    map.13 = name:undoLog.1,createVersion:32
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog.1 = 13
+    root.3 = d0000002f56
+    root.8 = 30000013f82
+    root.a = 2c0000149cf
+map 0: 1144 bytes, 100%
++0f80 chunkFooter chunk:36,block:4,version:36,fletcher:ab4492ac
+
+5000 chunkHeader chunk:a,block:5,len:2,map:a,max:1240,pages:11,root:28000034a52,time:bb7d3a0,version:a
++0099 node, map a, 15 entries, 169 bytes, maxLen c0
+    2 children @ chunk a +0142
+    2 children @ chunk a +0206
+    2 children @ chunk a +02c3
+    2 children @ chunk a +0380
+    2 children @ chunk a +0448
+    2 children @ chunk a +050d
+    2 children @ chunk a +05d9
+    2 children @ chunk a +069d
+    2 children @ chunk a +076b
+    2 children @ chunk a +083f
+    2 children @ chunk a +0914
+    2 children @ chunk a +09de
+    2 children @ chunk a +0ab0
+    2 children @ chunk a +0b83
+    2 children @ chunk a +0c59
++0142 leaf, map a, 2 entries, 196 bytes, maxLen 100
++0206 leaf, map a, 2 entries, 189 bytes, maxLen c0
++02c3 leaf, map a, 2 entries, 189 bytes, maxLen c0
++0380 leaf, map a, 2 entries, 200 bytes, maxLen 100
++0448 leaf, map a, 2 entries, 197 bytes, maxLen 100
++050d leaf, map a, 2 entries, 204 bytes, maxLen 100
++05d9 leaf, map a, 2 entries, 196 bytes, maxLen 100
++069d leaf, map a, 2 entries, 206 bytes, maxLen 100
++076b leaf, map a, 2 entries, 212 bytes, maxLen 100
++083f leaf, map a, 2 entries, 213 bytes, maxLen 100
++0914 leaf, map a, 2 entries, 202 bytes, maxLen 100
++09de leaf, map a, 2 entries, 210 bytes, maxLen 100
++0ab0 leaf, map a, 2 entries, 211 bytes, maxLen 100
++0b83 leaf, map a, 2 entries, 214 bytes, maxLen 100
++0c59 leaf, map a, 2 entries, 208 bytes, maxLen 100
++0d29 leaf, map 0, 22 entries, 654 bytes, maxLen 300
+    chunk.8 = chunk:8,block:5,len:1,liveMax:0,livePages:0,map:a,max:930,next:6,pages:3,root:200000148d2,time:1b66625,unused:bb7d3a1,version:8
+    chunk.9 = chunk:9,block:3,len:2,liveMax:630,livePages:2,map:a,max:1530,next:6,pages:12,root:24000042f52,time:bb69c3f,version:9
+    map.1 = name:openTransactions
+    map.2 = name:undoLog
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog = 2
+    root.2 = 0
+    root.3 = 24000002656
+    root.8 = 24000013f42
+    root.a = 2800000264b
+map 0: 654 bytes, 16%
+map a: 3216 bytes, 83%
++1f80 chunkFooter chunk:a,block:5,version:a,fletcher:a6d238f7
+
+7000 chunkHeader chunk:b,block:7,len:2,map:a,max:16b0,pages:11,root:2c000041192,time:10d8ad3a,version:b
++009a leaf, map 3, 6 entries, 1124 bytes, maxLen 600
++04fe leaf, map 8, 6 entries, 41 bytes, maxLen 30
++0527 node, map a, 27 entries, 301 bytes, maxLen 180
+    2 children @ chunk a +0142
+    2 children @ chunk a +0206
+    2 children @ chunk a +02c3
+    2 children @ chunk a +0380
+    2 children @ chunk a +0448
+    2 children @ chunk a +050d
+    2 children @ chunk a +05d9
+    2 children @ chunk a +069d
+    2 children @ chunk a +076b
+    2 children @ chunk a +083f
+    2 children @ chunk a +0914
+    2 children @ chunk a +09de
+    2 children @ chunk a +0ab0
+    2 children @ chunk a +0b83
+    1 children @ chunk b +0654
+    2 children @ chunk b +06c2
+    2 children @ chunk b +0794
+    2 children @ chunk b +0866
+    2 children @ chunk b +0936
+    2 children @ chunk b +0a0b
+    2 children @ chunk b +0ad9
+    2 children @ chunk b +0ba0
+    2 children @ chunk b +0c79
+    2 children @ chunk b +0d51
+    2 children @ chunk b +0e2a
+    1 children @ chunk b +0efd
+    2 children @ chunk b +0f71
++0654 leaf, map a, 1 entries, 110 bytes, maxLen 80
++06c2 leaf, map a, 2 entries, 210 bytes, maxLen 100
++0794 leaf, map a, 2 entries, 210 bytes, maxLen 100
++0866 leaf, map a, 2 entries, 208 bytes, maxLen 100
++0936 leaf, map a, 2 entries, 213 bytes, maxLen 100
++0a0b leaf, map a, 2 entries, 206 bytes, maxLen 100
++0ad9 leaf, map a, 2 entries, 199 bytes, maxLen 100
++0ba0 leaf, map a, 2 entries, 217 bytes, maxLen 100
++0c79 leaf, map a, 2 entries, 216 bytes, maxLen 100
++0d51 leaf, map a, 2 entries, 217 bytes, maxLen 100
++0e2a leaf, map a, 2 entries, 211 bytes, maxLen 100
++0efd leaf, map a, 1 entries, 116 bytes, maxLen 80
++0f71 leaf, map a, 2 entries, 213 bytes, maxLen 100
++1046 leaf, map 0, 22 entries, 641 bytes, maxLen 300
+    chunk.9 = chunk:9,block:3,len:2,liveMax:0,livePages:0,map:a,max:1530,next:6,pages:12,root:24000042f52,time:bb69c3f,version:9
+    chunk.a = chunk:a,block:6,len:2,liveMax:d80,livePages:e,map:a,max:1240,next:8,pages:11,root:28000034a52,time:bb7d3a0,version:a
+    map.1 = name:openTransactions
+    map.2 = name:undoLog
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog = 2
+    root.2 = 0
+    root.3 = 2c000002696
+    root.8 = 2c000013f82
+    root.a = 2c0000149cf
+map 0: 641 bytes, 13%
+map 3: 1124 bytes, 24%
+map 8: 41 bytes, 0%
+map a: 2847 bytes, 61%
++1f80 chunkFooter chunk:b,block:7,version:b,fletcher:bdd23cf7
+
+9000 chunkHeader chunk:37,block:9,len:1,map:13,max:c00,next:b,pages:2,root:dc000014816,time:1163e839,version:37
++00bd leaf, map 3, 6 entries, 1123 bytes, maxLen 600
++0520 leaf, map 0, 25 entries, 1331 bytes, maxLen 600
+    chunk.34 = chunk:34,block:3,len:1,liveMax:0,livePages:0,map:13,max:c00,next:4,pages:2,root:d0000014816,time:1163e82b,unused:1163e839,unusedAtVersion:36,version:34,pinCount:0
+    chunk.35 = chunk:35,block:a,len:1,liveMax:0,livePages:0,map:13,max:600,pages:1,root:d4000002f56,time:1163e830,unused:1163e834,unusedAtVersion:35,version:35,pinCount:0
+    chunk.36 = chunk:36,block:4,len:1,liveMax:0,livePages:0,map:13,max:600,next:9,pages:1,root:d8000002f56,time:1163e834,unused:1163e839,unusedAtVersion:36,version:36,pinCount:0
+    chunk.a = chunk:a,block:5,len:2,liveMax:d80,livePages:e,map:a,max:1240,pages:11,root:28000034a52,time:bb7d3a0,version:a,pinCount:0
+    chunk.b = chunk:b,block:7,len:2,liveMax:d80,livePages:e,map:a,max:16b0,pages:11,root:2c000041192,time:10d8ad3a,version:b,pinCount:0
+    chunk.c = chunk:c,block:2,len:1,liveMax:30,livePages:1,map:a,max:930,next:5,pages:3,root:300000149d2,time:10d8b598,unusedAtVersion:c,version:c,pinCount:0
+    map.1 = name:openTransactions
+    map.13 = name:undoLog.1,createVersion:32
+    map.3 = name:table.0
+    map.4 = name:lobMap
+    map.5 = name:lobRef
+    map.6 = name:lobData
+    map.8 = name:index.0,createVersion:1
+    map.a = name:table.3,createVersion:7
+    name.index.0 = 8
+    name.lobData = 6
+    name.lobMap = 4
+    name.lobRef = 5
+    name.openTransactions = 1
+    name.table.0 = 3
+    name.table.3 = a
+    name.undoLog.1 = 13
+    root.3 = dc000002f56
+    root.8 = 30000013f82
+    root.a = 2c0000149cf
+map 0: 1331 bytes, 54%
+map 3: 1123 bytes, 45%
++0f80 chunkFooter chunk:37,block:9,version:37,fletcher:ac7293b2
+
+a000 eof
+
+page size total: 15053 bytes, page count: 41, average page size: 367 bytes
+map 0: 5537 bytes, 36%
+map 3: 3371 bytes, 22%
+map 8: 82 bytes, 0%
+map a: 6063 bytes, 40%
+Created: 2020-04-11 12:36:26 (+0 s)
+Last modified: 2020-04-15 19:37:33 (+370867 s)
+File length: 40960
+The last chunk is not listed
+Chunk length: 24576
+Chunk count: 4
+Used space: 59%
+Chunk fill rate: 53%
+Chunk fill rate excluding empty chunks: 53%
+  Chunk 10: 2020-04-13 19:13:02 (+196596 s), 73% used, 2 blocks
+  Chunk 11: 2020-04-14 19:07:01 (+282635 s), 59% used, 2 blocks
+  Chunk 12: 2020-04-14 19:07:03 (+282637 s), 3% used, 1 blocks
+  Chunk 55: 2020-04-14 21:39:06 (+291760 s), 50% used, 1 blocks
+

@@ -1,0 +1,287 @@
+2020-04-11 20:24:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE TRADE(
+    TRADE_ID IDENTITY,
+    CLASS_CODE VARCHAR(30),
+    SEC_CODE VARCHAR(250),
+    DIRECTION VARCHAR(10),
+    QUANTITY INTEGER,
+    PRICE NUMBER,
+    CURRENCY VARCHAR(20)
+    AMOUNT[*] NUMBER,
+    TRADE_DATETIME TIMESTAMP,
+    TRANS_ID VARCHAR2(30) NULL,
+    QUIK_TRADE_ID VARCHAR2(30) NULL,
+    ORDER_NUM VARCHAR2(30) NULL,
+    POSITION INTEGER NULL,
+    BUY_AMOUNT NUMBER NULL,
+    SELL_AMOUNT NUMBER NULL,
+    REALIZED_PNL NUMBER NULL,
+    FEE_AMOUNT NUMBER NULL
+    );
+
+ "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+create table trade(
+    trade_id identity,
+    class_code varchar(30),
+    sec_code varchar(250),
+    direction varchar(10),
+    quantity integer,
+    price number,
+    currency varchar(20)
+    amount number,
+    trade_datetime timestamp,
+    trans_id varchar2(30) null,
+    quik_trade_id varchar2(30) null,
+    order_num varchar2(30) null,
+    position integer null,
+    buy_amount number null,
+    sell_amount number null,
+    realized_pnl number null,
+    fee_amount number null
+    );
+
+ [42001-197]
+2020-04-11 20:24:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "TRADE" not found; SQL statement:
+drop table trade [42102-197]
+2020-04-11 20:28:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO TRADE (CLASS_CODE, SEC_CODE, DIRECTION, QUANTITY, PRICE, CURRENCY, AMOUNT, TRADE_DATETIME, TRANS_ID, QUIK_TRADE_ID, ORDER_NUM, POSITION, BUY_AMOUNT, SELL_AMOUNT, REALIZED_PNL, FEE_AMOUNT)
+VALUES(:[*]1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16) "; expected "), DEFAULT, NOT, EXISTS, INTERSECTS, SELECT, FROM, WITH"; SQL statement:
+insert into trade (class_code, sec_code, direction, quantity, price, currency, amount, trade_datetime, trans_id, quik_trade_id, order_num, position, buy_amount, sell_amount, realized_pnl, fee_amount)
+values(:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16) [42001-197]
+2020-04-11 20:29:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO TRADE (CLASS_CODE, SEC_CODE, DIRECTION, QUANTITY, PRICE, CURRENCY, AMOUNT, TRADE_DATETIME, TRANS_ID, QUIK_TRADE_ID, ORDER_NUM, POSITION, BUY_AMOUNT, SELL_AMOUNT, REALIZED_PNL, FEE_AMOUNT)
+VALUES(:[*]1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16); "; expected "), DEFAULT, NOT, EXISTS, INTERSECTS, SELECT, FROM, WITH"; SQL statement:
+insert into trade (class_code, sec_code, direction, quantity, price, currency, amount, trade_datetime, trans_id, quik_trade_id, order_num, position, buy_amount, sell_amount, realized_pnl, fee_amount)
+values(:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16); [42001-197]
+2020-04-13 19:09:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: This method is not allowed for a prepared statement; use a regular statement instead. [90130-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:302)
+	at db.dao.TradeDAO.select(TradeDAO.kt:74)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+2020-04-13 19:11:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "RU000A0ZZFH2" not found; SQL statement:
+select trade_id, class_code, sec_code, direction, quantity, price, currency, amount, trade_datetime, trans_id, quik_trade_id, order_num, position, buy_amount, sell_amount, realized_pnl, fee_amount from trade  where sec_code=RU000A0ZZFH2 and trade_datetime = (select max(trade_datetime) from trade where sec_code=RU000A0ZZFH2 and realized_pnl is not null) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.expression.Comparison.optimize(Comparison.java:179)
+	at org.h2.expression.ConditionAndOr.optimize(ConditionAndOr.java:130)
+	at org.h2.command.dml.Select.prepare(Select.java:861)
+	at org.h2.command.Parser.prepareCommand(Parser.java:283)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:78)
+	at db.dao.TradeDAO.select(TradeDAO.kt:74)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.PnL.calc(PnL.kt:58)
+	at pnl.PnLKt.main(PnL.kt:15)
+	at pnl.PnLKt.main(PnL.kt)
+2020-04-13 19:12:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "RU000A0ZZFH2" not found; SQL statement:
+select trade_id, class_code, sec_code, direction, quantity, price, currency, amount, trade_datetime, trans_id, quik_trade_id, order_num, position, buy_amount, sell_amount, realized_pnl, fee_amount from trade  where sec_code=RU000A0ZZFH2 and trade_datetime = (select max(trade_datetime) from trade where sec_code='RU000A0ZZFH2' and realized_pnl is not null) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.expression.Comparison.optimize(Comparison.java:179)
+	at org.h2.expression.ConditionAndOr.optimize(ConditionAndOr.java:130)
+	at org.h2.command.dml.Select.prepare(Select.java:861)
+	at org.h2.command.Parser.prepareCommand(Parser.java:283)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:78)
+	at db.dao.TradeDAO.select(TradeDAO.kt:74)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.PnL.calc(PnL.kt:58)
+	at pnl.PnLKt.main(PnL.kt:15)
+	at pnl.PnLKt.main(PnL.kt)
+2020-04-13 19:13:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Error parsing "13.4.2020 .0:0:0"; SQL statement:
+select trade_id, class_code, sec_code, direction, quantity, price, currency, amount, trade_datetime, trans_id, quik_trade_id, order_num, position, buy_amount, sell_amount, realized_pnl, fee_amount from trade  where trade_datetime>=PARSEDATETIME('13.4.2020 .0:0:0', 'dd.MM.yyyy HH:mm:ss') and trade_datetime<PARSEDATETIME('14.4.2020 .0:0:0', 'dd.MM.yyyy HH:mm:ss') [90014-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.util.DateTimeFunctions.parseDateTime(DateTimeFunctions.java:703)
+	at org.h2.expression.Function.getValueWithArgs(Function.java:1471)
+	at org.h2.expression.Function.getValue(Function.java:567)
+	at org.h2.expression.Function.optimize(Function.java:2326)
+	at org.h2.expression.Comparison.optimize(Comparison.java:179)
+	at org.h2.expression.ConditionAndOr.optimize(ConditionAndOr.java:130)
+	at org.h2.command.dml.Select.prepare(Select.java:861)
+	at org.h2.command.Parser.prepareCommand(Parser.java:283)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:78)
+	at db.dao.TradeDAO.select(TradeDAO.kt:74)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.PnL.sendResult(PnL.kt:26)
+	at pnl.PnLKt.main(PnL.kt:18)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: java.text.ParseException: Unparseable date: "13.4.2020 .0:0:0"
+	at java.base/java.text.DateFormat.parse(DateFormat.java:395)
+	at org.h2.util.DateTimeFunctions.parseDateTime(DateTimeFunctions.java:699)
+	... 16 more
+2020-04-15 19:37:33 database: opening C:/projects/IdeaProjects/kotuik/kotuik
+org.h2.message.DbException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.mvstore.db.MVPrimaryIndex.getRow(MVPrimaryIndex.java:202)
+	at org.h2.mvstore.db.MVTable.getRow(MVTable.java:492)
+	at org.h2.mvstore.db.MVSecondaryIndex$MVStoreCursor.get(MVSecondaryIndex.java:493)
+	at org.h2.engine.Database.open(Database.java:768)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at common.DBConnector.connection(DBConnector.kt:20)
+	at db.dao.TradeDAO.select(TradeDAO.kt:66)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: org.h2.jdbc.JdbcSQLException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 25 more
+2020-04-15 19:37:56 database: opening C:/projects/IdeaProjects/kotuik/kotuik
+org.h2.message.DbException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.mvstore.db.MVPrimaryIndex.getRow(MVPrimaryIndex.java:202)
+	at org.h2.mvstore.db.MVTable.getRow(MVTable.java:492)
+	at org.h2.mvstore.db.MVSecondaryIndex$MVStoreCursor.get(MVSecondaryIndex.java:493)
+	at org.h2.engine.Database.open(Database.java:768)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at common.DBConnector.connection(DBConnector.kt:20)
+	at db.dao.TradeDAO.select(TradeDAO.kt:66)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: org.h2.jdbc.JdbcSQLException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 25 more
+2020-04-15 19:45:12 database: opening C:/projects/IdeaProjects/kotuik/kotuik
+org.h2.message.DbException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.mvstore.db.MVPrimaryIndex.getRow(MVPrimaryIndex.java:202)
+	at org.h2.mvstore.db.MVTable.getRow(MVTable.java:492)
+	at org.h2.mvstore.db.MVSecondaryIndex$MVStoreCursor.get(MVSecondaryIndex.java:493)
+	at org.h2.engine.Database.open(Database.java:768)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at common.DBConnector.connection(DBConnector.kt:20)
+	at db.dao.TradeDAO.select(TradeDAO.kt:66)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: org.h2.jdbc.JdbcSQLException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 25 more
+2020-04-15 19:55:03 database: opening C:/projects/IdeaProjects/kotuik/kotuik
+org.h2.message.DbException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.mvstore.db.MVPrimaryIndex.getRow(MVPrimaryIndex.java:202)
+	at org.h2.mvstore.db.MVTable.getRow(MVTable.java:492)
+	at org.h2.mvstore.db.MVSecondaryIndex$MVStoreCursor.get(MVSecondaryIndex.java:493)
+	at org.h2.engine.Database.open(Database.java:768)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at common.DBConnector.connection(DBConnector.kt:20)
+	at db.dao.TradeDAO.select(TradeDAO.kt:66)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: org.h2.jdbc.JdbcSQLException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 10" [90143-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 25 more
+2020-04-16 19:22:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "TRADE" not found; SQL statement:
+drop table trade [42102-197]
+2020-04-16 19:26:14 database: opening C:/projects/IdeaProjects/kotuik/kotuik
+org.h2.message.DbException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 58" [90143-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.mvstore.db.MVPrimaryIndex.getRow(MVPrimaryIndex.java:202)
+	at org.h2.mvstore.db.MVTable.getRow(MVTable.java:492)
+	at org.h2.mvstore.db.MVSecondaryIndex$MVStoreCursor.get(MVSecondaryIndex.java:493)
+	at org.h2.engine.Database.open(Database.java:768)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at common.DBConnector.connection(DBConnector.kt:20)
+	at db.dao.TradeDAO.select(TradeDAO.kt:66)
+	at db.dao.TradeDAO.select(TradeDAO.kt:60)
+	at pnl.TradesFromQuik.load(TradesFromQuik.kt:40)
+	at pnl.PnLKt.main(PnL.kt:14)
+	at pnl.PnLKt.main(PnL.kt)
+Caused by: org.h2.jdbc.JdbcSQLException: Row {1} not found in primary index "PUBLIC.SYS_DATA: 58" [90143-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 25 more

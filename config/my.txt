@@ -1,0 +1,31 @@
+{ "classCode": "TQCB", "securityCode": "RU000A100V79", "id": 5, "maxBuyPrice": 99.35, "quantity": 30, "maxShift": 30, "minSellSpread": 0.2, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0JXY44", "id": 6, "maxBuyPrice": 104.6, "quantity": 30, "maxShift": 30, "minSellSpread": 0.2, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0ZZBJ7", "id": 7, "maxBuyPrice": 100.61, "quantity": 30, "maxShift": 30, "minSellSpread": 0.24, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A1008B1", "id": 8, "maxBuyPrice": 101.2, "quantity": 30, "maxShift": 30, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A101H43", "id": "sam8", "maxBuyPrice": 96.6, "quantity": 30, "maxShift": 30, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A0JXQK2", "id": "rosnft_1r4", "maxBuyPrice": 103.5, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 98.8, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0ZYM21", "id": "dff1", "maxBuyPrice": 95.2, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A1008J4", "id": "sist10", "maxBuyPrice": 104.14, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A0JTU85", "id": "rzd28", "maxBuyPrice": 100.57, "quantity": 40, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 40, "updated": "06.04.2020 16:33:27" }
+
+{ "classCode": "EQOB", "securityCode": "RU000A1009Z8", "id": "ok2", "maxBuyPrice": 101.50, "quantity": 50, "maxShift": 20, "minSellSpread": 0.3, "buyStage": false, "buyPrice": 101.50, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0JXQH8", "id": "ok1", "maxBuyPrice": 102.03, "quantity": 50, "maxShift": 20, "minSellSpread": 0.3, "buyStage": false, "buyPrice": 101.9, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A1014B9", "id": "ok3", "maxBuyPrice": 93.01, "quantity": 30, "maxShift": 20, "minSellSpread": 0.19, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A101CL5", "id": "fsk4", "maxBuyPrice": 96.3, "quantity": 50, "maxShift": 20, "minSellSpread": 0.4, "buyStage": true, "buyPrice": 90, "restQuantity": 50, "updated": "06.04.2020 16:33:27" }
+
+{ "classCode": "TQCB", "securityCode": "RU000A100A66", "id": "mts9", "maxBuyPrice": 104.6, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A0ZYVU5", "id": "rosnft_2r5", "maxBuyPrice": 99.6, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A0ZYT40", "id": "rosnft_2r4", "maxBuyPrice": 100.8, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0ZYBV5", "id": "lsr3", "maxBuyPrice": 98.39, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0JW5C7", "id": "nornik5", "maxBuyPrice": 115.8, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A101D13", "id": "segez4", "maxBuyPrice": 97.4, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A0ZYQY7", "id": "sist7", "maxBuyPrice": 101.65, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+
+
+
+{ "classCode": "EQOB", "securityCode": "RU000A1011C3", "id": "rusal4", "maxBuyPrice": 100, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A100D30", "id": "belarus3", "maxBuyPrice": 100, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "TQCB", "securityCode": "RU000A100LS3", "id": "evhim4", "maxBuyPrice": 100, "quantity": 30, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A101LJ0", "id": "evhim8", "maxBuyPrice": 100, "quantity": 30, "maxShift": 20, "minSellSpread": 0.4, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+{ "classCode": "EQOB", "securityCode": "RU000A101GZ6", "id": "urka6", "maxBuyPrice": 99, "quantity": 30, "maxShift": 20, "minSellSpread": 0.4, "buyStage": true, "buyPrice": 90, "restQuantity": 30, "updated": "06.04.2020 16:33:27" }
+
