@@ -1,8 +1,13 @@
 package pnl
 
+import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
+import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
+import common.Connector
 import db.Trade
 import db.dao.TradeDAO
 import org.slf4j.LoggerFactory
+import robot.SpreadlerBond
+import robot.SpreadlerConfigurator
 import robot.Telega
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -36,12 +41,68 @@ object PnL {
             throw Exception("Not Calculated")
         }
 
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+        val unrealized = unrealizedSpreadlers()
 
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val msg = "    PnL \nfrom ${from.format(formatter)} to ${to.format(formatter)}\n\n" +
-                "  Realized PnL=$realizedPnL\n  fee ~= $fee"
+                "  Realized PnL= $realizedPnL\n" +
+                "  Fee        ~= $fee\n" +
+                "  Unrealized  = $unrealized"
         log.info(msg)
         Telega.Holder.get().sendMessage(msg)
+    }
+
+    private fun unrealizedSpreadlers(): BigDecimal {
+        var unrealized = BigDecimal.ZERO
+        for (spreadler in SpreadlerConfigurator.config.spreadlers) {
+            val select = TradeDAO.select("sec_code='${spreadler.securityCode}' and trade_datetime = " +
+                    "(select max(trade_datetime) from trade where sec_code='${spreadler.securityCode}')"
+            , "trade_id desc")
+            if (select.isEmpty()) {
+                continue;
+            }
+            val lastTrade: Trade = select.first()
+
+            val position = lastTrade.position!!
+            val buyAmount = lastTrade.buyAmount!!
+            if(position == 0) {
+                continue
+            }
+
+            val rpcClient = Connector.get()
+            synchronized(rpcClient) {
+                val fullPrice = fullPrice(spreadler, rpcClient)
+
+                unrealized += fullPrice * BigDecimal(position) - buyAmount
+            }
+        }
+
+        return unrealized
+    }
+
+    private fun fullPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
+        val lastPrice = lastPrice(spreadler, rpcClient)
+        val faceValue = faceValue(spreadler, rpcClient)
+        val nkd = nkd(spreadler, rpcClient)
+        return lastPrice/BigDecimal("100") * faceValue + nkd
+    }
+
+    private fun lastPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
+        val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "LAST")
+        val ex = rpcClient.qlua_getParamEx(args)
+        return BigDecimal(ex.paramValue)
+    }
+
+    private fun nkd(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
+        val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "ACCRUEDINT")
+        val ex = rpcClient.qlua_getParamEx(args)
+        return BigDecimal(ex.paramValue)
+    }
+
+    private fun faceValue(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
+        val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "SEC_FACE_VALUE")
+        val ex = rpcClient.qlua_getParamEx(args)
+        return BigDecimal(ex.paramValue)
     }
 
     private fun sql(time: LocalDateTime): String {
