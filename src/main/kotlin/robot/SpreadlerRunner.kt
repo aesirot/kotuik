@@ -53,6 +53,8 @@ object SpreadlerRunner {
                         stopAll()
                         log.info("exit")
                         exitProcess(0)
+                    } else if (line == "pastuh") {
+                        pastuh()
                     } else if (line == "start all") {
                         startAll()
                     } else if (line.startsWith("start")) {
@@ -185,6 +187,10 @@ object SpreadlerRunner {
     }
 
     fun pastuh() {
+        if (threads.size>0) {
+            println("Stop all spreadlers to run pastuh")
+            return
+        }
         SpreadlerConfigurator.config.spreadlers.forEach { Pastuh.adjustToday(it) }
     }
 
