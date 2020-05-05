@@ -85,7 +85,7 @@ object SpreadlerRunner {
         val pastuh = JobBuilder.newJob(PastuhJob::class.java).build()
         val triggerPastuh: Trigger = newTrigger()
                 .withIdentity(triggerKey("pastuh", "spreadler"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("9 57 0 ? * 1-5"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 57 09 ? * 1-5"))
                 .build()
         scheduler.scheduleJob(pastuh, triggerPastuh)
 
