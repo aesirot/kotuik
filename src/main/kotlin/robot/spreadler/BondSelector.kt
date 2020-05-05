@@ -40,7 +40,7 @@ object BondSelector {
 
             val medianSpread = calculateMedianDaySpread(bond, bars, 21)
             if (medianSpread > BigDecimal("0.3")) {
-                log.info("'${bond.shortName}': ${bond.name} (${bond.secCode}) median volume $medianVolume, spread $medianSpread")
+                log.info("'${bond.shortName}': ${bond.name} (${bond.secCode}) медиана объема $medianVolume, размах $medianSpread")
             }
 
         }
