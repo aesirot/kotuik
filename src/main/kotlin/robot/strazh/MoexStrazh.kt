@@ -7,8 +7,6 @@ import com.enfernuz.quik.lua.rpc.api.messages.datasource.Size
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.T
 import common.Connector
 import common.Util
-import org.quartz.Job
-import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
 import robot.SpreadlerRunner
 import robot.Telega
@@ -21,7 +19,7 @@ class MoexStrazh {
     }
 
     private val log = LoggerFactory.getLogger(this::class.java)
-    private var lastDay: LocalDate? = null
+    private var initDay: LocalDate? = null
     private var dataSource: CreateDataSource.Result? = null
 
     private var buyBunLevel = BigDecimal.ZERO
@@ -35,7 +33,7 @@ class MoexStrazh {
 
             val size = rpcClient.datasource_Size(Size.Args(dataSource!!.datasourceUUID))
             val dataSourceTime = rpcClient.datasource_T(T.Args(dataSource!!.datasourceUUID, size))
-            lastDay = Util.toLocalDateTime(dataSourceTime).toLocalDate()
+            initDay = LocalDate.now()
 
             val bars = Util.toBars(dataSource!!)
 
@@ -78,7 +76,7 @@ class MoexStrazh {
     }
 
     fun isDayOpen(): Boolean {
-        return lastDay != null && lastDay!! == LocalDate.now()
+        return initDay != null && initDay!! == LocalDate.now()
     }
 
     fun isBuyApproved(): Boolean {
