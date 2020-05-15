@@ -62,7 +62,7 @@ class MoexStrazh {
             }
         }
 
-        val yesterdayClose = bars[bars.size - 2].close //предпоследний день, если сейчас больше 10, то вчера
+        val yesterdayClose = bars[bars.size - 2].close //предпоследний день, если сейчас больше 10, то это вчера
 
         val periodLevel = highestAvg * BigDecimal("0.96")
         val todayLevel = yesterdayClose * BigDecimal("0.98")
