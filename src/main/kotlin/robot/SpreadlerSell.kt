@@ -11,9 +11,10 @@ class SpreadlerSell(classCode: String,
                     startPrice: BigDecimal,
                     minPrice: BigDecimal,
                     maxShift: Int,
-                    private val aggressiveSpread: BigDecimal) : PolzuchiiSell(classCode, securityCode, quantity, startPrice, minPrice, maxShift) {
+                    private val aggressiveSpread: BigDecimal,
+                    private val katapultSpread: BigDecimal) : PolzuchiiSell(classCode, securityCode, quantity, startPrice, minPrice, maxShift) {
 
-    override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
+    public override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
         synchronized(rpcClient) {
             val args2 = GetQuoteLevel2.Args(classCode, securityCode)
 
@@ -28,12 +29,18 @@ class SpreadlerSell(classCode: String,
                 if (price >= orderPrice) {
                     return orderPrice
                 }
+                if (price < this.minPrice && totalQty >= this.restQuantity * 100) {
+                    //очень много заявок меньше минимальной цены, пытаемся "катапультироваться"
+                    if (price >= minPrice - katapultSpread) {
+                        log.info("катапульта $stakan")
+                        return price - getStep()
+                    }
+                }
 
-                if (totalQty >= this.maxShift) {
+                if (totalQty >= this.maxShift && price >= this.minPrice) {
                     if (price > this.minPrice + aggressiveSpread && totalQty > this.restQuantity) {
                         //агрессивно выходим вперед
                         return price - getStep()
-
                     }
                     if (totalQty >= this.restQuantity * 10) {
                         price -= getStep() //перед большой заявкой

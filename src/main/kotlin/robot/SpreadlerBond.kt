@@ -25,8 +25,10 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
 
     @Transient
     var currentStrategy: InterruptableStrategy? = null
+
     @Transient
     private var stop = false
+
     @Transient
     lateinit var log: Logger
 
@@ -44,7 +46,7 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
                 val startBuyPrice = maxBuyPrice - BigDecimal.ONE
 
                 val buy = SpreadlerBuy(classCode, securityCode, restQuantity, startBuyPrice,
-                        maxBuyPrice, maxShift, aggressiveSpread?:DEFAULT_AGGRESSION)
+                        maxBuyPrice, maxShift, aggressiveSpread ?: DEFAULT_AGGRESSION)
                 buy.updateCallback = {
                     if (it.restQuantity != this.restQuantity || it.orderPrice != this.buyPrice) {
                         this.restQuantity = it.restQuantity
@@ -80,7 +82,8 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
                 //val maxSellPrice = (buy.orderPrice * BigDecimal("1.01")).setScale(3, RoundingMode.UP)
 
                 val sell = SpreadlerSell(classCode, securityCode, restQuantity, maxSellPrice,
-                        minSellPrice, maxShift, aggressiveSpread?: DEFAULT_AGGRESSION)
+                        minSellPrice, maxShift, aggressiveSpread ?: DEFAULT_AGGRESSION,
+                        BigDecimal("0.19"))
                 sell.updateCallback = {
                     if (it.restQuantity != this.restQuantity) {
                         this.restQuantity = it.restQuantity
@@ -122,10 +125,10 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
         val rpcClient = Connector.get()
         synchronized(rpcClient) {
             val args = GetDepoEx.Args(BCS_FIRM, BCS_CLIENT_CODE, securityCode, BCS_ACCOUNT, 2) //t+2
-            val depoEx = rpcClient.qlua_getDepoEx(args)!!
+            val currentBal = rpcClient.qlua_getDepoEx(args)?.currentBal?:0
 
-            if (depoEx.currentBal < restQuantity) {
-                log.error("Not enough $securityCode - currentBal=${depoEx.currentBal}, restQuantity=$restQuantity")
+            if (currentBal < restQuantity) {
+                log.error("Not enough $securityCode - currentBal=${currentBal}, restQuantity=$restQuantity")
                 return false
             }
             return true
