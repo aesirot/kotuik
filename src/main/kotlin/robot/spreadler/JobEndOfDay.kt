@@ -1,5 +1,6 @@
 package robot.spreadler
 
+import common.DBConnector
 import org.h2.tools.Backup
 import org.quartz.Job
 import org.quartz.JobExecutionContext
@@ -22,10 +23,12 @@ class JobEndOfDay: Job {
         val today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
         PnL.sendResult(today, today.plusDays(1))
 
-        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
-        val backupName = "./logs/_bk_kotuik${today.format(formatter)}.zip"
-        Backup.execute(backupName,".", "kotuik", false)
-
+        synchronized(DBConnector) {
+            DBConnector.connection().close()
+            val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+            val backupName = "./logs/_bk_kotuik${today.format(formatter)}.zip"
+            Backup.execute(backupName, ".", "kotuik", false)
+        }
         p0!!.getScheduler().unscheduleJob(TriggerKey.triggerKey("triggerEOD", "spreadler"));
     }
 
