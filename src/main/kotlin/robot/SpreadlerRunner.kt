@@ -85,7 +85,7 @@ object SpreadlerRunner {
         val pastuh = JobBuilder.newJob(PastuhJob::class.java).build()
         val triggerPastuh: Trigger = newTrigger()
                 .withIdentity(triggerKey("pastuh", "spreadler"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 57 09 ? * 1-5"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 57 9 ? * 1-5"))
                 .build()
         scheduler.scheduleJob(pastuh, triggerPastuh)
 
@@ -107,7 +107,7 @@ object SpreadlerRunner {
         val triggerMoneyLimit: Trigger = newTrigger()
                 .withIdentity(triggerKey("triggerMoneyLimit", "spreadler"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 0, 0))
+                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 1, 0))
                         .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
                         .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
                         .onMondayThroughFriday())
@@ -118,7 +118,7 @@ object SpreadlerRunner {
         val moexTrigger: Trigger = newTrigger()
                 .withIdentity(triggerKey("triggerMoexStrazh", "spreadler"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 1, 10))
+                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 2, 10))
                         .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
                         .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
                         .onMondayThroughFriday())
@@ -187,6 +187,7 @@ object SpreadlerRunner {
     }
 
     fun pastuh() {
+        log.info("pastuh")
         if (threads.size>0) {
             println("Stop all spreadlers to run pastuh")
             return
@@ -261,7 +262,7 @@ object SpreadlerRunner {
         log.info("stop buy spreadlers")
         val stopping = ArrayList<String>()
         for (spreadler in SpreadlerConfigurator.config.spreadlers) {
-            if (spreadler.buyStage) {
+            if (spreadler.buyStage && threads.containsKey(spreadler.id)) {
                 spreadler.stop()
                 stopping.add(spreadler.id)
             }
