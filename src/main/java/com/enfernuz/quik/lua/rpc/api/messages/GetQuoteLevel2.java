@@ -83,7 +83,7 @@ public final class GetQuoteLevel2 implements RemoteProcedure {
 
         @JsonCreator
         @Builder
-        private Result(
+        public Result(
                 @JsonProperty(value = BID_COUNT, required = true) @NonNull final String bidCount,
                 @JsonProperty(value = OFFER_COUNT, required = true) @NonNull final String offerCount,
                 @JsonProperty(value = BIDS, required = true) @NonNull final Iterable<? extends QuoteEntry> bids,
@@ -157,7 +157,7 @@ public final class GetQuoteLevel2 implements RemoteProcedure {
 
         @JsonCreator
         @Builder
-        private QuoteEntry(
+        public QuoteEntry(
                 @JsonProperty(value = PRICE, required = true) @NonNull final String price,
                 @JsonProperty(value = QUANTITY, required = true) @NonNull final String quantity) {
 
