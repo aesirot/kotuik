@@ -26,7 +26,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Реализация компонента <b>Java-обёртка над API QLua терминала QUIK на базе ZeroMQ</b>.
  */
-public final class ZmqTcpQluaRpcClient extends AbstractTcpZmqClient implements RemoteProcedureCaller, TcpQluaRpcClient, ZmqSecurable {
+public class ZmqTcpQluaRpcClient extends AbstractTcpZmqClient implements RemoteProcedureCaller, TcpQluaRpcClient, ZmqSecurable {
 
     private ZMQ.Context zmqContext;
     private ZMQ.Socket reqSocket;
