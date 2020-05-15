@@ -12,11 +12,14 @@ import org.slf4j.LoggerFactory
 import robot.SpreadlerRunner
 import robot.Telega
 import java.math.BigDecimal
+import java.time.LocalDate
 
 class MoneyLimitStrazh : Job {
     val log = LoggerFactory.getLogger(this::class.java)
 
-    val minTriggerLimit = HashMap<String, BigDecimal>()
+    private val minTriggerLimit = HashMap<String, BigDecimal>()
+
+    private var triggeredDay: LocalDate? = null
 
     init {
         minTriggerLimit["SUR"] = BigDecimal("100000")
@@ -24,11 +27,14 @@ class MoneyLimitStrazh : Job {
     }
 
     override fun execute(p0: JobExecutionContext?) {
+        if (triggeredDay != null && triggeredDay == LocalDate.now()) {
+            return // 1 раз за день
+        }
         val rpcClient = Connector.get()
         for (entry in minTriggerLimit) {
             val currentBal = getCurrentBal(entry, rpcClient)
             if (currentBal < entry.value) {
-                p0!!.getScheduler().unscheduleJob(TriggerKey.triggerKey("triggerMoneyLimit", "spreadler"));
+                triggeredDay = LocalDate.now()
                 belowLimit(entry.key, entry.value, currentBal)
             }
         }
