@@ -7,6 +7,7 @@ import common.Connector
 import common.Constants
 import org.quartz.Job
 import org.quartz.JobExecutionContext
+import org.quartz.TriggerKey
 import org.slf4j.LoggerFactory
 import robot.SpreadlerRunner
 import robot.Telega
@@ -18,7 +19,7 @@ class MoneyLimitStrazh : Job {
     val minTriggerLimit = HashMap<String, BigDecimal>()
 
     init {
-        minTriggerLimit["SUR"] = BigDecimal("50000")
+        minTriggerLimit["SUR"] = BigDecimal("100000")
         //minTriggerLimit["USD"] = BigDecimal("1000")
     }
 
@@ -27,6 +28,7 @@ class MoneyLimitStrazh : Job {
         for (entry in minTriggerLimit) {
             val currentBal = getCurrentBal(entry, rpcClient)
             if (currentBal < entry.value) {
+                p0!!.getScheduler().unscheduleJob(TriggerKey.triggerKey("triggerMoneyLimit", "spreadler"));
                 belowLimit(entry.key, entry.value, currentBal)
             }
         }
