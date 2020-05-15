@@ -12,6 +12,8 @@ import robot.SpreadlerRunner
 import robot.Telega
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 class MoexStrazh {
     object holder {
@@ -62,7 +64,7 @@ class MoexStrazh {
             }
         }
 
-        val yesterdayClose = bars[bars.size - 2].close //предпоследний день, если сейчас больше 10, то это вчера
+        val yesterdayClose: BigDecimal = yesterdayClose(bars)
 
         val periodLevel = highestAvg * BigDecimal("0.96")
         val todayLevel = yesterdayClose * BigDecimal("0.98")
@@ -73,6 +75,16 @@ class MoexStrazh {
         val max = periodLevel.max(todayLevel)
         log.info("опасный уровень унижения $max")
         return max
+    }
+
+    private fun yesterdayClose(bars: ArrayList<Bar>): BigDecimal {
+        val yesterdayClose: BigDecimal
+        if (bars.last().datetime > LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)) {
+            yesterdayClose = bars[bars.size - 2].close //предпоследний день, если сейчас больше 10, то это вчера
+        } else {
+            yesterdayClose = bars.last().close
+        }
+        return yesterdayClose
     }
 
     fun isDayOpen(): Boolean {
