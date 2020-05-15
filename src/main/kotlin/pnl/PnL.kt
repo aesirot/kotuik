@@ -47,7 +47,7 @@ object PnL {
         val msg = "    PnL \nfrom ${from.format(formatter)} to ${to.format(formatter)}\n\n" +
                 "  Realized PnL= $realizedPnL\n" +
                 "  Fee        ~= $fee\n" +
-                "  Unrealized  = $unrealized"
+                "  Unrealized  = ${unrealized.stripTrailingZeros()}"
         log.info(msg)
         Telega.Holder.get().sendMessage(msg)
     }
@@ -73,7 +73,7 @@ object PnL {
             synchronized(rpcClient) {
                 val fullPrice = fullPrice(spreadler, rpcClient)
 
-                unrealized += fullPrice * BigDecimal(position) - buyAmount
+                unrealized += fullPrice * BigDecimal(position) + lastTrade.sellAmount!! - buyAmount
             }
         }
 
@@ -83,7 +83,7 @@ object PnL {
     private fun fullPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
         val lastPrice = lastPrice(spreadler, rpcClient)
         val faceValue = faceValue(spreadler, rpcClient)
-        val nkd = nkd(spreadler, rpcClient)
+        val nkd = BigDecimal.ZERO //nkd(spreadler, rpcClient) из квика суммы сделок без нкд
         return lastPrice/BigDecimal("100") * faceValue + nkd
     }
 
