@@ -63,15 +63,6 @@ open class PolzuchiiBuy(private val classCode: String,
 
         try {
             while (!stop) {
-                restQuantity = restOrderAmount(rpcClient, orderId, restQuantity)
-                updateCallback.invoke(this)
-                if (restQuantity == 0) {
-                    orderId = 0
-                    success = true
-                    log.info("PolzuchiiBuy $securityCode SUCCESS")
-                    break
-                }
-
                 val calculatedPrice = calculatePrice(rpcClient, classCode, securityCode, orderPrice)
 
                 if (orderId == 0L || calculatedPrice.compareTo(orderPrice) != 0) {
@@ -86,6 +77,15 @@ open class PolzuchiiBuy(private val classCode: String,
                     lock.withLock {
                         lockCondition.await(1, TimeUnit.MINUTES)
                     }
+                }
+
+                restQuantity = restOrderAmount(rpcClient, orderId, restQuantity)
+                updateCallback.invoke(this)
+                if (restQuantity == 0) {
+                    orderId = 0
+                    success = true
+                    log.info("PolzuchiiBuy $securityCode SUCCESS")
+                    break
                 }
             }
         } catch (e: Exception) {
