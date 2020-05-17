@@ -5,3 +5,4 @@
 kotuik.mv.db
 kotuik.trace.db
 /.idea/
+*.iml
