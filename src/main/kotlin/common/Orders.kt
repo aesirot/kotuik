@@ -4,6 +4,11 @@ import com.enfernuz.quik.lua.rpc.api.messages.SendTransaction
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.absoluteValue
 
 object Orders {
@@ -13,8 +18,10 @@ object Orders {
 
     val currentOrders = ArrayList<OrderInfo>()
     private var lastOrderIdx = -1
+    private val limitSpeedQueue = LinkedList<LocalDateTime>()
 
     private fun generateTransId(): Long {
+        limitSpeed()
         return System.currentTimeMillis().toInt().absoluteValue.toLong()
         //return System.currentTimeMillis()
     }
@@ -152,6 +159,29 @@ object Orders {
             log.info("$strategy sell order $securityCode price $price qty $quantity (order $orderNum)")
             return orderNum
         }
+    }
+
+    /**
+     * Quik не принимает больше 30 транзакций в секунду
+     * + (есть инфа) БКС берет по 2 рубля за транзакцию, при превышении 20 в секунду
+     * На срочке вроде есть еще коммиссия за "холостые" заявки, при превышении 20 000 в день, но это пока за рамками
+     */
+    private fun limitSpeed() {
+        var t: LocalDateTime
+        while (true) {
+            t = LocalDateTime.now()
+            val secondAgo = t.minus(1, ChronoUnit.SECONDS)
+            while (limitSpeedQueue.size > 0 && limitSpeedQueue.peek() < secondAgo) {
+                limitSpeedQueue.poll()
+            }
+            if (limitSpeedQueue.size < 20) {
+                break
+            }
+
+            log.info("превышена скорость 20 транзакций в секунду, притормаживаем")
+            Thread.sleep(100)
+        }
+        limitSpeedQueue.add(t)
     }
 }
 
