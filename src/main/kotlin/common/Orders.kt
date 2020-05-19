@@ -99,8 +99,10 @@ object Orders {
         synchronized(rpcClient) {
             var idx = lastOrderIdx + 1 //пока  убрать инкремент, т.к. иногда бы
             val start = System.currentTimeMillis()
+            var attempts = 0
             while (System.currentTimeMillis() < start + 5000) {
                 val item = rpcClient.qlua_getItem("Orders", idx)
+                attempts++
                 if (item != null) {
                     val orderNum = item["order_num"]
                     val orderTransId = item["trans_id"]
@@ -123,9 +125,30 @@ object Orders {
                 }
                 Thread.sleep(10)
             }
+
+            log.error("attempts $attempts")
+            logOrdersNotFound(rpcClient)
         }
 
         throw Exception("Timeout to find order using trans_id=$transId")
+    }
+
+    private fun logOrdersNotFound(rpcClient: ZmqTcpQluaRpcClient) {
+        log.error("current idx $lastOrderIdx")
+        val last = rpcClient.qlua_getItem("Orders", lastOrderIdx)
+        log.error("$last")
+        val lastP1 = rpcClient.qlua_getItem("Orders", lastOrderIdx + 1)
+        if (lastP1 == null) {
+            log.error("$lastP1")
+        } else {
+            log.error("lastP1 null")
+        }
+        val lastP2 = rpcClient.qlua_getItem("Orders", lastOrderIdx + 2)
+        if (lastP2 == null) {
+            log.error("$lastP2")
+        } else {
+            log.error("lastP2 null")
+        }
     }
 
     fun sellOrder(classCode: String, securityCode: String, quantity: Int,
