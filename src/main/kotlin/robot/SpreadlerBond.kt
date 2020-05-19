@@ -142,7 +142,7 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
             val stakan = rpcClient.qlua_getQuoteLevel2(args2)
 
             //лучший bid последний, лучший offer первый
-            val bestSellPrice = BigDecimal(stakan.offers[0].price)
+            //val bestSellPrice = BigDecimal(stakan.offers[0].price)
             /*if (bestSellPrice < maxBuyPrice.add(BigDecimal("0.1"))) {
                 log.error("maxBuyPrice $maxBuyPrice and current sell price $bestSellPrice are too close")
                 return false
