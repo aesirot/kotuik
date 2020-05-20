@@ -45,9 +45,9 @@ object PnL {
 
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val msg = "    PnL \nfrom ${from.format(formatter)} to ${to.format(formatter)}\n\n" +
-                "  Realized PnL= $realizedPnL\n" +
-                "  Fee        ~= $fee\n" +
-                "  Unrealized  = ${unrealized.stripTrailingZeros()}"
+                "  Realized PnL= ${realizedPnL.toPlainString()}\n" +
+                "  Fee        ~= ${fee.toPlainString()}\n" +
+                "  Unrealized  = ${unrealized.stripTrailingZeros().toPlainString()}"
         log.info(msg)
         Telega.Holder.get().sendMessage(msg)
     }
