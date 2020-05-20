@@ -18,6 +18,6 @@ object Constants {
     const val BUY = "B"
     const val SELL = "S"
 
-    val DEFAULT_AGGRESSION = BigDecimal("0.2")
+    val DEFAULT_AGGRESSION = BigDecimal("0.1")
 
 }
