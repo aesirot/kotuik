@@ -34,7 +34,7 @@ fun main() {
 
 open class PolzuchiiBuy(private val classCode: String,
                         private val securityCode: String,
-                        private val quantity: Int,
+                        protected val quantity: Int,
                         private val startPrice: BigDecimal,
                         val maxPrice: BigDecimal,
                         val maxShift: Int) : Runnable, InterruptableStrategy {
