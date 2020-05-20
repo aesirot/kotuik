@@ -100,7 +100,8 @@ object Orders {
             var idx = lastOrderIdx + 1 //пока  убрать инкремент, т.к. иногда бы
             val start = System.currentTimeMillis()
             var attempts = 0
-            while (System.currentTimeMillis() < start + 5000) {
+            //while (System.currentTimeMillis() < start + 5000) {
+            while (System.currentTimeMillis() < start + 15000) { // реальный случай, может проблема wifi
                 val item = rpcClient.qlua_getItem("Orders", idx)
                 attempts++
                 if (item != null) {
