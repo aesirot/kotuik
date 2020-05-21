@@ -114,6 +114,17 @@ object SpreadlerRunner {
                 .build()
         scheduler.scheduleJob(moneyLimit, triggerMoneyLimit)
 
+        val connectionJob = JobBuilder.newJob(MoexStrazhJob::class.java).build()
+        val connectionTrigger: Trigger = newTrigger()
+                .withIdentity(triggerKey("connectionStrazh", "spreadler"))
+                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
+                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(9, 55, 0))
+                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
+                        .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
+                        .onMondayThroughFriday())
+                .build()
+        scheduler.scheduleJob(connectionJob, connectionTrigger)
+
         val moexStrazhJob = JobBuilder.newJob(MoexStrazhJob::class.java).build()
         val moexTrigger: Trigger = newTrigger()
                 .withIdentity(triggerKey("triggerMoexStrazh", "spreadler"))
