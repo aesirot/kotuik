@@ -20,7 +20,7 @@ class SpreadlerBuy constructor(classCode: String,
             val args2 = GetQuoteLevel2.Args(classCode, securityCode)
             val stakan = rpcClient.qlua_getQuoteLevel2(args2)
 
-            val maxPriceCorrected: BigDecimal = maxPriceCorrected(stakan)
+            val maxPriceCorrected: BigDecimal = maxPriceCorrected(stakan, orderPrice)
 
             //лучший bid последний, лучший offer первый
             var totalQty = 0
@@ -48,7 +48,7 @@ class SpreadlerBuy constructor(classCode: String,
         }
     }
 
-    private fun maxPriceCorrected(stakan: @NotNull GetQuoteLevel2.Result): BigDecimal {
+    private fun maxPriceCorrected(stakan: @NotNull GetQuoteLevel2.Result, orderPrice: BigDecimal): BigDecimal {
         val maxPriceCorrected: BigDecimal
         var bigSellPrice = bigSellPrice(stakan)
         if (bigSellPrice == null) {
@@ -56,7 +56,9 @@ class SpreadlerBuy constructor(classCode: String,
         } else {
             val shiftedFromBigSell = bigSellPrice - minSellSpread - getStep()
             maxPriceCorrected = maxPrice.min(shiftedFromBigSell)
-            log.info("maxPriceCorrected $maxPrice -> $maxPriceCorrected")
+            if (maxPriceCorrected.compareTo(maxPrice) != 0 && maxPriceCorrected < orderPrice) {
+                log.info("maxPriceCorrected $maxPrice -> $maxPriceCorrected")
+            }
         }
         return maxPriceCorrected
     }
@@ -64,9 +66,9 @@ class SpreadlerBuy constructor(classCode: String,
     private fun bigSellPrice(stakan: @NotNull GetQuoteLevel2.Result): BigDecimal? {
         var totalQty = 0
         if (Util.stakanCount(stakan.offerCount) > 0) {
-            for (i in 0..Util.stakanCount(stakan.bidCount)) {
-                var price = BigDecimal(stakan.bids[i].price)
-                totalQty += stakan.bids[i].quantity.toInt()
+            for (i in 0..Util.stakanCount(stakan.offerCount)-1) {
+                var price = BigDecimal(stakan.offers[i].price)
+                totalQty += stakan.offers[i].quantity.toInt()
                 if (totalQty >= this.quantity * 30) {
                     return price
                 }
