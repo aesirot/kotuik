@@ -97,7 +97,7 @@ object Orders {
         //другие способы найти - подписка на onTransReply - это может и быстрее (?), но
         //встает вопрос параллельной работы нескольких процессов + все равно синхронное ожидание
         synchronized(rpcClient) {
-            var idx = lastOrderIdx + 1 //пока  убрать инкремент, т.к. иногда бы
+            var idx = lastOrderIdx + 1
             val start = System.currentTimeMillis()
             var attempts = 0
             //while (System.currentTimeMillis() < start + 5000) {
