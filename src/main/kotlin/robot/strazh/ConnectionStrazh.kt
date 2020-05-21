@@ -35,9 +35,13 @@ class ConnectionStrazh : Job {
         }
 
         if (connected && !currentConnected) {
-            Telega.Holder.get().sendMessage("соединение квика потеряно")
+            val message = "соединение квика потеряно"
+            log.error(message)
+            Telega.Holder.get().sendMessage(message)
         } else if (!connected && currentConnected) {
-            Telega.Holder.get().sendMessage("соединение восстановлено")
+            val message = "соединение восстановлено"
+            log.info(message)
+            Telega.Holder.get().sendMessage(message)
         }
         connected = currentConnected
 
