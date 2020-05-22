@@ -105,18 +105,15 @@ class MoexStrazh {
         }
 
         val rpcClient = Connector.get()
+        val d: BigDecimal
         synchronized(rpcClient) {
             val ex = rpcClient.qlua_getParamEx(GetParamEx.Args("INDX", "IMOEX", "CURRENTVALUE"))
-            val d = BigDecimal(ex.paramValue)
-            buyApproved = (d > buyBunLevel)
+            d = BigDecimal(ex.paramValue)
         }
-/*
-        val bars = Util.toBars(dataSource!!)
-        buyApproved = checkLastIndexValue(bars)
-*/
 
+        buyApproved = (d > buyBunLevel)
         if (!buyApproved) {
-            val msg = "MOEX упал, снимаю покупки"
+            val msg = "MOEX упал {${d.toPlainString()}}, снимаю покупки"
             Telega.Holder.get().sendMessage(msg)
             log.error(msg)
 
