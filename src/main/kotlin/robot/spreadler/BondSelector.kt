@@ -7,7 +7,9 @@ import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource.Interv
 import common.Connector
 import common.Util
 import org.slf4j.LoggerFactory
+import robot.SpreadlerConfigurator
 import java.math.BigDecimal
+import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
 fun main() {
@@ -17,6 +19,7 @@ fun main() {
 
 object BondSelector {
     val log = LoggerFactory.getLogger(this::class.java)
+    val decimalFormat = DecimalFormat("0.00")
 
     private class SecurityInfo(val classCode: String,
                                val secCode: String,
@@ -27,6 +30,7 @@ object BondSelector {
     fun run() {
 
         val bonds = loadAllBonds()
+        println("корИмя;имя;класс;код;мед объема;мед размах;погашение;есть;есть колво;инструкция")
         for (bond in bonds) {
             val bars = loadBars(bond)
             if (bars.size < 21) {
@@ -39,8 +43,20 @@ object BondSelector {
             }
 
             val medianSpread = calculateMedianDaySpread(bond, bars, 21)
+
+            val instr = ("add { \"classCode\": \"${bond.classCode}\", \"securityCode\": \"${bond.secCode}\", " +
+                    "\"id\": \"\", \"maxBuyPrice\": 80, " +
+                    "\"quantity\": 30, \"maxShift\": 20, \"minSellSpread\": 0.3, " +
+                    "\"buyStage\": true, \"buyPrice\": 80, " +
+                    "\"restQuantity\": 30, \"updated\": \"01.01.2020 00:00:00\" }").replace("\"", "\"\"")
+
+            val any = SpreadlerConfigurator.config.spreadlers.find { it.securityCode == bond.secCode }
+            val exists = if (any != null) "Д" else ""
+            val existQuantity = any?.quantity?.toString() ?: ""
+
             if (medianSpread > BigDecimal("0.3")) {
-                log.info("'${bond.shortName}': ${bond.name} (${bond.secCode}) медиана объема $medianVolume, размах $medianSpread")
+                println("\"${bond.shortName}\";\"${bond.name}\";\"${bond.classCode}\";\"${bond.secCode}\";\"$medianVolume\"" +
+                        ";\"${decimalFormat.format(medianSpread)}\";\"${bond.matDate}\";\"$exists\";\"$existQuantity\";\"$instr\"")
             }
 
         }
