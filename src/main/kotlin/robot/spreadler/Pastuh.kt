@@ -107,7 +107,8 @@ object Pastuh {
         val step = step(scale)
         var current = max
         var maxFuncValue: Int? = null
-        var optimumPrice: BigDecimal? = null
+        var optimumPriceMin: BigDecimal? = null
+        var optimumPriceMax: BigDecimal? = null
 
         //выколотый случай - вообще не было такого широкого спреда - отступаем от минимума спред и не играем
         //почему от минимума - на случай если на продажу просто плита, которая 1 раз отступила, а на покупку 0
@@ -118,14 +119,25 @@ object Pastuh {
         while (current >= min + delta) {
             val functionValue = priceFunction(integral4BuyCalc, current, integral4SellCalc, delta)
             if (maxFuncValue == null || functionValue >= maxFuncValue) {
+                if (maxFuncValue == null || functionValue > maxFuncValue) {
+                    optimumPriceMax = current
+                }
+                optimumPriceMin = current
+
                 maxFuncValue = functionValue
-                optimumPrice = current
             }
 
             current -= step
         }
 
-        return optimumPrice!!
+        val optimumPriceDownFromMax = optimumPriceMax!! - delta
+        if (optimumPriceDownFromMax > optimumPriceMin!!) {
+            log.info("широкий разрыв оптимума от ${optimumPriceMin.toPlainString()}" +
+                    " до ${optimumPriceMax.toPlainString()} - берем ${optimumPriceDownFromMax.toPlainString()}")
+            return optimumPriceDownFromMax
+        }
+
+        return optimumPriceMin!!
     }
 
     private fun step(scale: Int): BigDecimal {
