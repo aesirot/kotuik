@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory
 import robot.spreadler.JobEndOfDay
 import robot.spreadler.JobStartAll
 import robot.spreadler.PastuhJob
-import robot.strazh.ConnectionStrazh
-import robot.strazh.MoexStrazh
-import robot.strazh.MoexStrazhJob
-import robot.strazh.MoneyLimitStrazh
+import robot.strazh.*
 import java.math.BigDecimal
 import kotlin.NoSuchElementException
 import kotlin.collections.ArrayList
@@ -96,6 +93,13 @@ object SpreadlerRunner {
                 .withSchedule(CronScheduleBuilder.cronSchedule("10 0 10 ? * 1-5"))
                 .build()
         scheduler.scheduleJob(startAll, triggerStart)
+
+        val dayOpenJob = JobBuilder.newJob(DayOpenStrazh::class.java).build()
+        val triggerDayOpen: Trigger = newTrigger()
+                .withIdentity(triggerKey("dayOpen", "g3"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("10 1 10 ? * 1-5"))
+                .build()
+        scheduler.scheduleJob(dayOpenJob, triggerDayOpen)
 
         val endOfDay = JobBuilder.newJob(JobEndOfDay::class.java).build()
         val triggerEOD: Trigger = newTrigger()
