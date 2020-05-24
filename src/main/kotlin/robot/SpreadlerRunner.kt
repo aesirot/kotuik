@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import robot.spreadler.JobEndOfDay
 import robot.spreadler.JobStartAll
 import robot.spreadler.PastuhJob
+import robot.strazh.ConnectionStrazh
 import robot.strazh.MoexStrazh
 import robot.strazh.MoexStrazhJob
 import robot.strazh.MoneyLimitStrazh
@@ -114,9 +115,9 @@ object SpreadlerRunner {
                 .build()
         scheduler.scheduleJob(moneyLimit, triggerMoneyLimit)
 
-        val connectionJob = JobBuilder.newJob(MoexStrazhJob::class.java).build()
+        val connectionJob = JobBuilder.newJob(ConnectionStrazh::class.java).build()
         val connectionTrigger: Trigger = newTrigger()
-                .withIdentity(triggerKey("connectionStrazh", "spreadler"))
+                .withIdentity(triggerKey("connectionStrazh", "s2"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
                         .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(9, 55, 0))
                         .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
@@ -127,7 +128,7 @@ object SpreadlerRunner {
 
         val moexStrazhJob = JobBuilder.newJob(MoexStrazhJob::class.java).build()
         val moexTrigger: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerMoexStrazh", "spreadler"))
+                .withIdentity(triggerKey("triggerMoexStrazh", "s3"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
                         .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 2, 10))
                         .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
