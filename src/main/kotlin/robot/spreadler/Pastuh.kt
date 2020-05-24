@@ -179,7 +179,7 @@ object Pastuh {
      * dayLag 1 - (первый бар вчера, последний бар вчера)
      * dayLag 2 - (первый бар позавчера, последний бар вчера)
      */
-    fun findPeriodOfDaysBefore(bars: ArrayList<Bar>, dayLag: Int, todayStartIdx: Int = -1): Pair<Int, Int> {
+    fun findPeriodOfDaysBefore(bars: List<Bar>, dayLag: Int, todayStartIdx: Int = -1): Pair<Int, Int> {
         var day: LocalDateTime
 
         var idx: Int

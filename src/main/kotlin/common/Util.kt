@@ -7,6 +7,9 @@ import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.util.concurrent.TimeUnit
 
 object Util {
 
@@ -40,7 +43,26 @@ object Util {
     fun toLocalDateTime(time: DataSourceTime): LocalDateTime =
             LocalDateTime.of(time.year, time.month, time.day, time.hour, time.min, time.sec, time.ms * 1000000)
 
-    fun toBars(dataSource: CreateDataSource.Result): ArrayList<Bar> {
+    fun fromLocalDateTime(time: LocalDateTime): DataSourceTime =
+            DataSourceTime(time.year, time.monthValue, time.dayOfMonth, time.dayOfWeek.value, time.hour, time.minute
+                    , time.second, time.get(ChronoField.MILLI_OF_SECOND), 0)
+
+    fun toBars(dataSource: CreateDataSource.Result, count: Int = 0): List<Bar> {
+        val rpcClient = Connector.get()
+        synchronized(rpcClient) {
+            val bars = rpcClient.datasource_Bars(Bars.Args(dataSource.datasourceUUID, count))
+
+            return bars.map { Bar(toLocalDateTime(it.datetime)
+                    , BigDecimal(it.open)
+                    , BigDecimal(it.high)
+                    , BigDecimal(it.low)
+                    , BigDecimal(it.close)
+                    , it.volume.toLong()) }
+                    .toList()
+        }
+    }
+
+    fun toBarsOld(dataSource: CreateDataSource.Result): List<Bar> {
         val result = ArrayList<Bar>()
         val rpcClient = Connector.get()
         //log.info("start")

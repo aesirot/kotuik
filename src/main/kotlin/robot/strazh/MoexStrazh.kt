@@ -45,10 +45,10 @@ class MoexStrazh {
         }
     }
 
-    private fun checkLastIndexValue(bars: ArrayList<Bar>) =
+    private fun checkLastIndexValue(bars: List<Bar>) =
             bars[bars.size - 1].close > buyBunLevel
 
-    fun calculateDangerLevel(bars: ArrayList<Bar>): BigDecimal {
+    fun calculateDangerLevel(bars: List<Bar>): BigDecimal {
         var highestAvg = BigDecimal.ZERO
         val daysDepth = 5
         val avgHighDays = 5
@@ -77,7 +77,7 @@ class MoexStrazh {
         return max
     }
 
-    private fun yesterdayClose(bars: ArrayList<Bar>): BigDecimal {
+    private fun yesterdayClose(bars: List<Bar>): BigDecimal {
         val yesterdayClose: BigDecimal
         if (bars.last().datetime > LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)) {
             yesterdayClose = bars[bars.size - 2].close //предпоследний день, если сейчас больше 10, то это вчера
