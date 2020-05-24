@@ -33,7 +33,7 @@ public class DataSourceTime implements Comparable<DataSourceTime> {
 
     @JsonCreator
     @Builder
-    private DataSourceTime(@JsonProperty(value = YEAR, required = true) final int year,
+    public DataSourceTime(@JsonProperty(value = YEAR, required = true) final int year,
                    @JsonProperty(value = MONTH, required = true) final int month,
                    @JsonProperty(value = DAY, required = true) final int day,
                    @JsonProperty(value = WEEK_DAY, required = true) final int weekDay,
@@ -83,5 +83,41 @@ public class DataSourceTime implements Comparable<DataSourceTime> {
                 .add(MS, ms)
                 .add(COUNT, count)
                 .toString();
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getWeekDay() {
+        return weekDay;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getSec() {
+        return sec;
+    }
+
+    public int getMs() {
+        return ms;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

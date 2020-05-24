@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMsg;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkState;
@@ -508,6 +509,11 @@ public class ZmqTcpQluaRpcClient extends AbstractTcpZmqClient implements RemoteP
     @Override
     public @NotNull String datasource_V(@NotNull final V.Args args) {
         return makeRPC(V.class, args, V.Result.class).getValue();
+    }
+
+    @Override
+    public List<Bar> datasource_Bars(@NotNull final Bars.Args args) {
+        return makeRPC(Bars.class, args, Bars.Result.class).getBars();
     }
 
     private <T extends RemoteProcedure> void makeRPC(@NotNull final Class<T> remoteProcedureClass, final RpcArgs<T> args) {

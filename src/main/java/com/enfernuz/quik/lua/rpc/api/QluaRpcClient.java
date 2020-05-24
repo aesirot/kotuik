@@ -7,7 +7,9 @@ import com.enfernuz.quik.lua.rpc.api.security.Securable;
 import com.enfernuz.quik.lua.rpc.api.messages.GetCandlesByIndex;
 import com.enfernuz.quik.lua.rpc.api.structures.*;
 import com.enfernuz.quik.lua.rpc.io.Gateway;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -250,4 +252,6 @@ public interface QluaRpcClient extends Gateway, Securable {
     DataSourceTime datasource_T(T.Args args);
 
     String datasource_V(V.Args args);
+
+    List<Bar> datasource_Bars(@NotNull final Bars.Args args);
 }

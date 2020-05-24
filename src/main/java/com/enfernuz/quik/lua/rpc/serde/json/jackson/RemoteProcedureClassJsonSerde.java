@@ -128,6 +128,7 @@ public final class RemoteProcedureClassJsonSerde {
         result.put(Size.class, "datasource.Size");
         result.put(T.class, "datasource.T");
         result.put(V.class, "datasource.V");
+        result.put(Bars.class, "datasource.Bars");
 
         result.put(SysDate.class, "os.sysdate");
 

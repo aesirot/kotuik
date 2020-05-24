@@ -38,7 +38,11 @@ local function to_string_string_table (t)
   local result = {}
   for k, v in pairs(t) do
     --result[utils.Cp1251ToUtf8(tostring(k))] = utils.Cp1251ToUtf8(tostring(v))
-	result[tostring(k)] = tostring(v)
+    if (k == "datetime") then
+      result[k] = v
+    else
+  	  result[tostring(k)] = tostring(v)
+    end
   end
   
   return result
@@ -647,6 +651,35 @@ module["datasource.SetEmptyCallback"] = function (args)
   
   local ds = get_datasource(args.datasource_uuid)
   return requireNonNil(ds:SetEmptyCallback())
+end
+
+module["datasource.Bars"] = function (args)
+
+  local ds = get_datasource(args.datasource_uuid)
+  local dsSize = ds:Size()
+  if dsSize == 0 then
+    return {}
+  end
+
+  local size = args.count
+  if (args.count == 0 or args.count > dsSize) then
+    size = dsSize
+  end
+
+  local result = {}
+  local idx = 1
+
+  for i = dsSize-size+1, dsSize do
+    result[idx] = {open = ds:O(i),
+      high = ds:H(i),
+      low = ds:L(i),
+      close = ds:C(i),
+      volume = ds:V(i),
+      datetime = ds:T(i)}
+      idx = idx + 1
+  end
+
+  return {bars = result}
 end
 
 -- TODO: test

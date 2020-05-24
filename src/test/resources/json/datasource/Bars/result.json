@@ -1,0 +1,12 @@
+{
+  "bars":[
+    {
+      "open":"2",
+      "close":"3",
+      "high":"4",
+      "low":"1",
+      "volume":"1",
+      "datetime":{"year":1, "month":2, "day":3, "week_day":4, "hour":5, "min":6, "sec":7, "ms":8, "count":9}
+    }
+  ]
+}

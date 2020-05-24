@@ -1,9 +1,12 @@
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.messages.Message
+import com.enfernuz.quik.lua.rpc.api.messages.datasource.Bars
+import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import com.enfernuz.quik.lua.rpc.application.RpcExampleApplication
 import com.enfernuz.quik.lua.rpc.config.ClientConfiguration
 import com.enfernuz.quik.lua.rpc.config.JsonClientConfigurationReader
+import common.Util
 import java.io.File
 import java.math.BigDecimal
 
@@ -46,7 +49,9 @@ fun main() {
             return
         }
 
-
+        val dataSource = Util.dataSource("INDX", "IMOEX", CreateDataSource.Interval.INTERVAL_D1, rpcClient)
+        val bars = rpcClient.datasource_Bars(Bars.Args(dataSource.datasourceUUID, 0))
+        bars.size
 
 /*
         println("Выполнение удалённой процедуры 'message' на терминале QUIK...")

@@ -63,7 +63,7 @@ object BondSelector {
 
     }
 
-    private fun calculateMedianDayVolume(bond: SecurityInfo, bars: ArrayList<Bar>, depth: Int): Long {
+    private fun calculateMedianDayVolume(bond: SecurityInfo, bars: List<Bar>, depth: Int): Long {
         if (bars.size < depth) {
             return 0L
         }
@@ -78,7 +78,7 @@ object BondSelector {
         return volumes[10]
     }
 
-    private fun loadBars(bond: SecurityInfo): ArrayList<Bar> {
+    private fun loadBars(bond: SecurityInfo): List<Bar> {
         val rpcClient = Connector.get()
         synchronized(rpcClient) {
             val dataSource = Util.dataSource(bond.classCode, bond.secCode, INTERVAL_D1, rpcClient)
@@ -90,7 +90,7 @@ object BondSelector {
         }
     }
 
-    private fun calculateMedianDaySpread(bond: SecurityInfo, bars: ArrayList<Bar>, depth: Int): BigDecimal {
+    private fun calculateMedianDaySpread(bond: SecurityInfo, bars: List<Bar>, depth: Int): BigDecimal {
         if (bars.size < depth) {
             return BigDecimal.ZERO
         }
