@@ -139,13 +139,13 @@ object Orders {
         val last = rpcClient.qlua_getItem("Orders", lastOrderIdx)
         log.error("$last")
         val lastP1 = rpcClient.qlua_getItem("Orders", lastOrderIdx + 1)
-        if (lastP1 == null) {
+        if (lastP1 != null) {
             log.error("$lastP1")
         } else {
             log.error("lastP1 null")
         }
         val lastP2 = rpcClient.qlua_getItem("Orders", lastOrderIdx + 2)
-        if (lastP2 == null) {
+        if (lastP2 != null) {
             log.error("$lastP2")
         } else {
             log.error("lastP2 null")
