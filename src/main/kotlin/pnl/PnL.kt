@@ -90,7 +90,15 @@ object PnL {
     private fun lastPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
         val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "LAST")
         val ex = rpcClient.qlua_getParamEx(args)
-        return BigDecimal(ex.paramValue)
+        val price = BigDecimal(ex.paramValue)
+
+        if (price > BigDecimal.ZERO) {
+            return price
+        }
+
+        val args2 = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "PREVPRICE")
+        val ex2 = rpcClient.qlua_getParamEx(args2)
+        return BigDecimal(ex2.paramValue)
     }
 
     private fun nkd(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
