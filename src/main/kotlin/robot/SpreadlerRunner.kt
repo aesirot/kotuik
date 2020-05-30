@@ -119,7 +119,7 @@ object SpreadlerRunner {
                 .build()
         scheduler.scheduleJob(moneyLimit, triggerMoneyLimit)
 
-        val connectionJob = JobBuilder.newJob(ConnectionStrazh::class.java).build()
+        val connectionJob = JobBuilder.newJob(ConnectionStrazhJob::class.java).build()
         val connectionTrigger: Trigger = newTrigger()
                 .withIdentity(triggerKey("connectionStrazh", "s2"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
