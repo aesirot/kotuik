@@ -111,6 +111,10 @@ class MoexStrazh {
             d = BigDecimal(ex.paramValue)
         }
 
+        if (d.equals(BigDecimal.ZERO)) {
+            log.error("пропало соединение?")
+            return
+        }
         buyApproved = (d > buyBunLevel)
         if (!buyApproved) {
             val msg = "MOEX упал {${d.toPlainString()}}, снимаю покупки"
