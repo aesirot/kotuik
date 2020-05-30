@@ -4,6 +4,7 @@ import com.enfernuz.quik.lua.rpc.api.messages.SendTransaction
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -19,6 +20,7 @@ object Orders {
     val currentOrders = ArrayList<OrderInfo>()
     private var lastOrderIdx = -1
     private val limitSpeedQueue = LinkedList<LocalDateTime>()
+    private var lastOrderDay = LocalDate.now()
 
     private fun generateTransId(): Long {
         limitSpeed()
@@ -96,6 +98,12 @@ object Orders {
         //нужно найти orderNum , чтобы была возможность его отменить
         //другие способы найти - подписка на onTransReply - это может и быстрее (?), но
         //встает вопрос параллельной работы нескольких процессов + все равно синхронное ожидание
+        val now = LocalDate.now()
+        if (now.isAfter(lastOrderDay)) {
+            lastOrderIdx = -1
+            lastOrderDay = now
+        }
+
         synchronized(rpcClient) {
             var idx = lastOrderIdx + 1
             val start = System.currentTimeMillis()
