@@ -7,6 +7,7 @@ import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
@@ -14,6 +15,8 @@ import java.util.concurrent.TimeUnit
 object Util {
 
     val log = LoggerFactory.getLogger(this::class.simpleName)
+
+    val datetimeFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS")
 
     fun dataSource(classCode: String, securityCode: String, interval: CreateDataSource.Interval, rpcClient: ZmqTcpQluaRpcClient): CreateDataSource.Result {
         val args = CreateDataSource.Args(classCode, securityCode, interval, "")
@@ -88,7 +91,7 @@ object Util {
             countStr.toBigDecimal().intValueExact()
 
     fun datetime(datetimeStr: String): LocalDateTime {
-        return LocalDateTime.now()!!
+        return LocalDateTime.parse(datetimeStr, datetimeFormat)
     }
 
 }

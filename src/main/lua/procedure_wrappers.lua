@@ -38,13 +38,13 @@ local function to_string_string_table (t)
   local result = {}
   for k, v in pairs(t) do
     --result[utils.Cp1251ToUtf8(tostring(k))] = utils.Cp1251ToUtf8(tostring(v))
-    if (k == "datetime") then
-      result[k] = v
+    if (type(v) == "table") and (v.year ~= nil) then
+      result[tostring(k)] = string.format("%04s.%02s.%02s %02s:%02s:%02s.%03s", v.year, v.month, v.day, v.hour, v.min, v.sec, v.ms)
     else
   	  result[tostring(k)] = tostring(v)
     end
   end
-  
+
   return result
 end
 
