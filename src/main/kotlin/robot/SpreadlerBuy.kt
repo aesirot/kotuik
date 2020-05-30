@@ -7,13 +7,14 @@ import org.jetbrains.annotations.NotNull
 import java.math.BigDecimal
 
 class SpreadlerBuy constructor(classCode: String,
-                                         securityCode: String,
-                                         quantity: Int,
-                                         startPrice: BigDecimal,
-                                         maxPrice: BigDecimal,
-                                         maxShift: Int,
-                                         private val aggressiveSpread: BigDecimal,
-                                         private val minSellSpread: BigDecimal) : PolzuchiiBuy(classCode, securityCode, quantity, startPrice, maxPrice, maxShift) {
+                               securityCode: String,
+                               quantity: Int,
+                               startPrice: BigDecimal,
+                               maxPrice: BigDecimal,
+                               maxShift: Int,
+                               private val fullSpreadlerQuantity: Int,
+                               private val aggressiveSpread: BigDecimal,
+                               private val minSellSpread: BigDecimal) : PolzuchiiBuy(classCode, securityCode, quantity, startPrice, maxPrice, maxShift) {
 
     override fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
         synchronized(rpcClient) {
@@ -66,10 +67,10 @@ class SpreadlerBuy constructor(classCode: String,
     private fun bigSellPrice(stakan: @NotNull GetQuoteLevel2.Result): BigDecimal? {
         var totalQty = 0
         if (Util.stakanCount(stakan.offerCount) > 0) {
-            for (i in 0..Util.stakanCount(stakan.offerCount)-1) {
+            for (i in 0..Util.stakanCount(stakan.offerCount) - 1) {
                 var price = BigDecimal(stakan.offers[i].price)
                 totalQty += stakan.offers[i].quantity.toInt()
-                if (totalQty >= this.quantity * 30) {
+                if (totalQty >= this.fullSpreadlerQuantity * 30) {
                     return price
                 }
             }
