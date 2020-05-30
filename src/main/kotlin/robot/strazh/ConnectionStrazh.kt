@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory
 import robot.Telega
 import java.util.concurrent.*
 
-class ConnectionStrazh : Job {
+object ConnectionStrazh {
     val log = LoggerFactory.getLogger(this::class.java)
     var connected: Boolean = true
 
-    override fun execute(context: JobExecutionContext?) {
+    fun check() {
         val task: FutureTask<Boolean> = FutureTask {
             val rpcClient = Connector.get()
             synchronized(rpcClient) {
