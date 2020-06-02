@@ -206,11 +206,11 @@ object Orders {
             while (limitSpeedQueue.size > 0 && limitSpeedQueue.peek() < secondAgo) {
                 limitSpeedQueue.poll()
             }
-            if (limitSpeedQueue.size < 20) {
+            if (limitSpeedQueue.size < 10) {
                 break
             }
 
-            log.info("превышена скорость 20 транзакций в секунду, притормаживаем")
+            log.info("превышена скорость 10 транзакций в секунду, притормаживаем")
             Thread.sleep(100)
         }
         limitSpeedQueue.add(t)
