@@ -108,7 +108,7 @@ object SpreadlerRunner {
                 .build()
         scheduler.scheduleJob(endOfDay, triggerEOD)
 
-        val moneyLimit = JobBuilder.newJob(MoneyLimitStrazh::class.java).build()
+        val moneyLimit = JobBuilder.newJob(MoneyLimitStrazhJob::class.java).build()
         val triggerMoneyLimit: Trigger = newTrigger()
                 .withIdentity(triggerKey("triggerMoneyLimit", "spreadler"))
                 .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()

@@ -14,7 +14,7 @@ import robot.Telega
 import java.math.BigDecimal
 import java.time.LocalDate
 
-class MoneyLimitStrazh : Job {
+object MoneyLimitStrazh {
     val log = LoggerFactory.getLogger(this::class.java)
 
     private val minTriggerLimit = HashMap<String, BigDecimal>()
@@ -26,9 +26,9 @@ class MoneyLimitStrazh : Job {
         //minTriggerLimit["USD"] = BigDecimal("1000")
     }
 
-    override fun execute(p0: JobExecutionContext?) {
+    fun check() {
         if (triggeredDay != null && triggeredDay == LocalDate.now()) {
-            return // 1 раз за день
+            return // срабатывает 1 раз в день (если запустили руками дальше, то не мешаем)
         }
         val rpcClient = Connector.get()
         for (entry in minTriggerLimit) {
