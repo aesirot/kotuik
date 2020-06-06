@@ -2,7 +2,11 @@ package common
 
 import com.enfernuz.quik.lua.rpc.api.messages.SendTransaction
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
+import com.sun.jna.ptr.DoubleByReference
+import com.sun.jna.ptr.IntByReference
+import com.sun.jna.ptr.NativeLongByReference
 import org.slf4j.LoggerFactory
+import java.io.StringReader
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -63,6 +67,10 @@ object Orders {
 
     fun buyOrder(classCode: String, securityCode: String, quantity: Int,
                  price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+            return buyOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
+        }
+
         synchronized(rpcClient) {
             val transId = generateTransId()
             log.info("$strategy buy order $securityCode price $price qty $quantity")
@@ -91,6 +99,52 @@ object Orders {
             val orderNum = findCurrentOrderNum(rpcClient, transId, securityCode)
             log.info("$strategy buy order $securityCode price $price qty $quantity (order $orderNum)")
             return orderNum
+        }
+    }
+
+    fun buyOrder2(classCode: String, securityCode: String, quantity: Int,
+                  price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+        val transId = generateTransId()
+        log.info("$strategy buy order $securityCode price $price qty $quantity")
+        if (testMode) {
+            return 1
+        }
+
+        val map = HashMap<String, String>()
+        map.put("OPERATION", Constants.BUY)
+        map.put("CLASSCODE", classCode)
+        map.put("SECCODE", securityCode)
+        map.put("QUANTITY", quantity.toString())
+        map.put("PRICE", price.toString())
+        map.put("TRANS_ID", transId.toString())
+        map.put("ACCOUNT", Constants.BCS_ACCOUNT)
+        map.put("CLIENT_CODE", Constants.BCS_CLIENT_CODE)
+        map.put("COMMENT", strategy)
+        map.put("ACTION", "NEW_ORDER")
+
+        val transaction = map.entries.joinToString("; ") { "${it.key}=${it.value}" }
+
+        val resultCode = NativeLongByReference()
+        val extendedErrorCode = NativeLongByReference()
+        val orderNum = DoubleByReference()
+        val resultMessage = ByteArray(255)
+        val errorMessage = ByteArray(255)
+        Trans2Quik.get().TRANS2QUIK_SEND_SYNC_TRANSACTION(transaction,
+                resultCode,
+                IntByReference(transId.toInt()),
+                orderNum,
+                resultMessage,
+                resultMessage.size,
+                extendedErrorCode,
+                errorMessage,
+                errorMessage.size
+        )
+
+        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt()) {
+            log.info("$strategy sell order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
+            return orderNum.value.toLong()
+        } else {
+            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
         }
     }
 
@@ -162,6 +216,10 @@ object Orders {
 
     fun sellOrder(classCode: String, securityCode: String, quantity: Int,
                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+            return sellOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
+        }
+
         synchronized(rpcClient) {
             val transId = generateTransId()
             log.info("$strategy sell order $securityCode price $price qty $quantity (id $transId)")
@@ -193,27 +251,78 @@ object Orders {
         }
     }
 
+    fun sellOrder2(classCode: String, securityCode: String, quantity: Int,
+                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+        val transId = generateTransId()
+        log.info("$strategy sell order $securityCode price $price qty $quantity (id $transId)")
+        if (testMode) {
+            return 1
+        }
+
+        val map = HashMap<String, String>()
+        map.put("OPERATION", Constants.SELL)
+        map.put("CLASSCODE", classCode)
+        map.put("SECCODE", securityCode)
+        map.put("QUANTITY", quantity.toString())
+        map.put("PRICE", price.toString())
+        map.put("TRANS_ID", transId.toString())
+        map.put("ACCOUNT", Constants.BCS_ACCOUNT)
+        map.put("CLIENT_CODE", Constants.BCS_CLIENT_CODE)
+        map.put("COMMENT", strategy)
+        map.put("ACTION", "NEW_ORDER")
+
+        val transaction = map.entries.joinToString("; ") { "${it.key}=${it.value}" }
+
+        val resultCode = NativeLongByReference()
+        val extendedErrorCode = NativeLongByReference()
+        val orderNum = DoubleByReference()
+        val resultMessage = ByteArray(255)
+        val errorMessage = ByteArray(255)
+        Trans2Quik.get().TRANS2QUIK_SEND_SYNC_TRANSACTION(transaction,
+                resultCode,
+                IntByReference(transId.toInt()),
+                orderNum,
+                resultMessage,
+                resultMessage.size,
+                extendedErrorCode,
+                errorMessage,
+                errorMessage.size
+        )
+
+        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt()) {
+            log.info("$strategy sell order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
+            return orderNum.value.toLong()
+        } else {
+            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
+        }
+    }
+
     /**
      * Quik не принимает больше 30 транзакций в секунду
      * + (есть инфа) БКС берет по 2 рубля за транзакцию, при превышении 20 в секунду
      * На срочке вроде есть еще коммиссия за "холостые" заявки, при превышении 20 000 в день, но это пока за рамками
+     *
+     * Quik на своей стороне (видимо) как-то группирует. Или считает странно. Т.к. когда ограничение было 20 -
+     * он иногда ругался "превышено 30 транзакций в секунду". Поэтому текущее ограничение 10.
      */
     private fun limitSpeed() {
-        var t: LocalDateTime
-        while (true) {
-            t = LocalDateTime.now()
-            val secondAgo = t.minus(1, ChronoUnit.SECONDS)
-            while (limitSpeedQueue.size > 0 && limitSpeedQueue.peek() < secondAgo) {
-                limitSpeedQueue.poll()
-            }
-            if (limitSpeedQueue.size < 10) {
-                break
-            }
+        synchronized(this) {
+            var t: LocalDateTime
+            while (true) {
+                t = LocalDateTime.now()
+                val secondAgo = t.minus(1, ChronoUnit.SECONDS)
+                while (limitSpeedQueue.size > 0 && limitSpeedQueue.peek() < secondAgo) {
+                    limitSpeedQueue.poll()
+                }
+                if (limitSpeedQueue.size < 10) {
+                    break
+                }
 
-            log.info("превышена скорость 10 транзакций в секунду, притормаживаем")
-            Thread.sleep(100)
+                log.info("превышена скорость 10 транзакций в секунду, притормаживаем")
+                Thread.sleep(100)
+            }
+            limitSpeedQueue.add(t)
         }
-        limitSpeedQueue.add(t)
     }
 }
 
