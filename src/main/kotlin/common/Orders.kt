@@ -33,6 +33,11 @@ object Orders {
     }
 
     fun cancelOrder(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
+        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+            cancelOrder2(classCode, securityCode, orderId, strategy, rpcClient)
+            return
+        }
+
         log.info("$strategy kill order $orderId")
         if (testMode) {
             return
@@ -63,6 +68,43 @@ object Orders {
             }
             Thread.sleep(100)
         }
+    }
+
+    fun cancelOrder2(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
+        log.info("$strategy kill order $orderId")
+        if (testMode) {
+            return
+        }
+
+        val transId = generateTransId()
+        val map = HashMap<String, String>()
+        map["ACTION"] = "KILL_ORDER"
+        map["CLASSCODE"] = classCode
+        map["SECCODE"] = securityCode
+        map["ORDER_KEY"] = orderId.toString()
+        map["TRANS_ID"] = transId.toString()
+
+        val transaction = map.entries.joinToString("; ") { "${it.key}=${it.value}" }
+
+        val resultCode = NativeLongByReference()
+        val extendedErrorCode = NativeLongByReference()
+        val orderNum = DoubleByReference()
+        val resultMessage = ByteArray(255)
+        val errorMessage = ByteArray(255)
+        Trans2Quik.get().TRANS2QUIK_SEND_SYNC_TRANSACTION(transaction,
+                resultCode,
+                IntByReference(transId.toInt()),
+                orderNum,
+                resultMessage,
+                resultMessage.size,
+                extendedErrorCode,
+                errorMessage,
+                errorMessage.size
+        )
+        if (Trans2Quik.TRANS2QUIK_SUCCESS != resultCode.value.toInt()) {
+            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
+        }
+        log.info("$strategy kill order $orderId +")
     }
 
     fun buyOrder(classCode: String, securityCode: String, quantity: Int,
