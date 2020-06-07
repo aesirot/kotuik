@@ -6,8 +6,8 @@ import com.sun.jna.ptr.DoubleByReference
 import com.sun.jna.ptr.IntByReference
 import com.sun.jna.ptr.NativeLongByReference
 import org.slf4j.LoggerFactory
-import java.io.StringReader
 import java.math.BigDecimal
+import java.nio.charset.Charset
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -101,10 +101,15 @@ object Orders {
                 errorMessage,
                 errorMessage.size
         )
-        if (Trans2Quik.TRANS2QUIK_SUCCESS != resultCode.value.toInt()) {
-            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
+
+        val resultMessageStr = Trans2Quik.parseString(resultMessage)
+        val errorMessageStr = Trans2Quik.parseString(errorMessage)
+
+        if (Trans2Quik.TRANS2QUIK_SUCCESS != resultCode.value.toInt() || !resultMessageStr.isEmpty() || !errorMessageStr.isEmpty()) {
+            val message = "Failed to cancel transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
+            throw Exception(message)
         }
-        log.info("$strategy kill order $orderId +")
+        log.info("$strategy killed order $orderId")
     }
 
     fun buyOrder(classCode: String, securityCode: String, quantity: Int,
@@ -182,11 +187,15 @@ object Orders {
                 errorMessage.size
         )
 
-        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt()) {
-            log.info("$strategy sell order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
+        val resultMessageStr = Trans2Quik.parseString(resultMessage)
+        val errorMessageStr = Trans2Quik.parseString(errorMessage)
+
+        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt() && resultMessageStr.isEmpty() && errorMessageStr.isEmpty()) {
+            log.info("$strategy buy order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
             return orderNum.value.toLong()
         } else {
-            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
+            val message = "Failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
+            throw Exception(message)
         }
     }
 
@@ -331,11 +340,15 @@ object Orders {
                 errorMessage.size
         )
 
-        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt()) {
+        val resultMessageStr = Trans2Quik.parseString(resultMessage)
+        val errorMessageStr = Trans2Quik.parseString(errorMessage)
+
+        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt() && resultMessageStr.isEmpty() && errorMessageStr.isEmpty()) {
             log.info("$strategy sell order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
             return orderNum.value.toLong()
         } else {
-            throw Exception("Failed transaction $resultCode ${resultMessage.contentToString()} $extendedErrorCode ${errorMessage.contentToString()}")
+            val message = "Failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
+            throw Exception(message)
         }
     }
 

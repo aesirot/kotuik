@@ -8,6 +8,7 @@ import org.jtrans2quik.wrapper.Trans2QuikLibrary
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.nio.charset.Charset
 
 object Trans2Quik {
     const val TRANS2QUIK_SUCCESS = 0
@@ -57,11 +58,14 @@ object Trans2Quik {
 
         if (returnCode.toInt() == TRANS2QUIK_SUCCESS || returnCode.toInt() == TRANS2QUIK_ALREADY_CONNECTED_TO_QUIK) {
             this.library = library
+        } else {
+            val message = "Trans2Quik cant connect: $returnCode"
+            logger.error(message)
+            throw Exception(message)
         }
-
-        val message = "Trans2Quik cant connect: $returnCode"
-        logger.error(message)
-        throw Exception(message)
     }
+
+    fun parseString(bytes: ByteArray) =
+            bytes.toString(Charset.forName("cp1251")).trim('\u0000')
 
 }

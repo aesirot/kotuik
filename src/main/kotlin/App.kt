@@ -6,6 +6,8 @@ import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import com.enfernuz.quik.lua.rpc.application.RpcExampleApplication
 import com.enfernuz.quik.lua.rpc.config.ClientConfiguration
 import com.enfernuz.quik.lua.rpc.config.JsonClientConfigurationReader
+import common.Orders
+import common.Trans2Quik
 import common.Util
 import java.io.File
 import java.math.BigDecimal
@@ -43,15 +45,17 @@ fun main() {
         println("Соединение с RPC-сервисом...")
         rpcClient.open()
 
-        val connected = rpcClient.qlua_isConnected()
+        /*val connected = rpcClient.qlua_isConnected()
         if (connected != 1) {
             println("Quik is not connected $connected")
             return
-        }
+        }*/
 
-        val dataSource = Util.dataSource("INDX", "IMOEX", CreateDataSource.Interval.INTERVAL_D1, rpcClient)
+/*        val dataSource = Util.dataSource("INDX", "IMOEX", CreateDataSource.Interval.INTERVAL_D1, rpcClient)
         val bars = rpcClient.datasource_Bars(Bars.Args(dataSource.datasourceUUID, 0))
         bars.size
+*/
+        Orders.sellOrder("TQCB", "RU000A0ZYM21", 1, BigDecimal.ONE, rpcClient, "test")
 
 /*
         println("Выполнение удалённой процедуры 'message' на терминале QUIK...")
@@ -65,13 +69,16 @@ fun main() {
 */
 
 
+/*
         val thread = Thread(StakanLogger(rpcClient))
         thread.start()
         thread.join()
+*/
 
         println("Выход из программы...")
     } catch (ex: Exception) {
         println("Не удалось выполнить удалённый вызов процедуры.")
+        ex.stackTrace
         ex.printStackTrace()
     } finally {
         rpcClient?.close()
