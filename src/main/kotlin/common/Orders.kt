@@ -7,7 +7,6 @@ import com.sun.jna.ptr.IntByReference
 import com.sun.jna.ptr.NativeLongByReference
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
-import java.nio.charset.Charset
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -105,7 +104,7 @@ object Orders {
         val resultMessageStr = Trans2Quik.parseString(resultMessage)
         val errorMessageStr = Trans2Quik.parseString(errorMessage)
 
-        if (Trans2Quik.TRANS2QUIK_SUCCESS != resultCode.value.toInt() || !resultMessageStr.isEmpty() || !errorMessageStr.isEmpty()) {
+        if (3 != resultCode.value.toInt() || 0 != extendedErrorCode.value.toInt() || !errorMessageStr.isEmpty()) {
             val message = "Failed to cancel transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
             throw Exception(message)
         }
@@ -173,13 +172,13 @@ object Orders {
 
         val resultCode = NativeLongByReference()
         val extendedErrorCode = NativeLongByReference()
-        val orderNum = DoubleByReference()
+        val orderNumReference = DoubleByReference()
         val resultMessage = ByteArray(255)
         val errorMessage = ByteArray(255)
         Trans2Quik.get().TRANS2QUIK_SEND_SYNC_TRANSACTION(transaction,
                 resultCode,
                 IntByReference(transId.toInt()),
-                orderNum,
+                orderNumReference,
                 resultMessage,
                 resultMessage.size,
                 extendedErrorCode,
@@ -190,9 +189,10 @@ object Orders {
         val resultMessageStr = Trans2Quik.parseString(resultMessage)
         val errorMessageStr = Trans2Quik.parseString(errorMessage)
 
-        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt() && resultMessageStr.isEmpty() && errorMessageStr.isEmpty()) {
-            log.info("$strategy buy order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
-            return orderNum.value.toLong()
+        val orderNum = orderNumReference.getPointer().getLong(0L)
+        if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
+            log.info("$strategy buy order $securityCode price $price qty $quantity (order $orderNum) $resultMessageStr")
+            return orderNum
         } else {
             val message = "Failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
             throw Exception(message)
@@ -326,13 +326,13 @@ object Orders {
 
         val resultCode = NativeLongByReference()
         val extendedErrorCode = NativeLongByReference()
-        val orderNum = DoubleByReference()
+        val orderNumReference = DoubleByReference()
         val resultMessage = ByteArray(255)
         val errorMessage = ByteArray(255)
         Trans2Quik.get().TRANS2QUIK_SEND_SYNC_TRANSACTION(transaction,
                 resultCode,
                 IntByReference(transId.toInt()),
-                orderNum,
+                orderNumReference,
                 resultMessage,
                 resultMessage.size,
                 extendedErrorCode,
@@ -343,9 +343,10 @@ object Orders {
         val resultMessageStr = Trans2Quik.parseString(resultMessage)
         val errorMessageStr = Trans2Quik.parseString(errorMessage)
 
-        if (Trans2Quik.TRANS2QUIK_SUCCESS == resultCode.value.toInt() && resultMessageStr.isEmpty() && errorMessageStr.isEmpty()) {
-            log.info("$strategy sell order $securityCode price $price qty $quantity (order ${orderNum.value.toLong()})")
-            return orderNum.value.toLong()
+        val orderNum = orderNumReference.getPointer().getLong(0L)
+        if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
+            log.info("$strategy sell order $securityCode price $price qty $quantity (order $orderNum) $resultMessageStr")
+            return orderNum
         } else {
             val message = "Failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr"
             throw Exception(message)

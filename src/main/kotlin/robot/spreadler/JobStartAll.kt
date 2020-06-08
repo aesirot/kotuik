@@ -9,7 +9,6 @@ class JobStartAll: Job {
 
     override fun execute(p0: JobExecutionContext?) {
         SpreadlerRunner.startAll()
-        //p0!!.getScheduler().unscheduleJob(TriggerKey.triggerKey("triggerStart", "spreadler"));
     }
 
 }

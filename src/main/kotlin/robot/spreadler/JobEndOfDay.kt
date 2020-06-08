@@ -29,7 +29,6 @@ class JobEndOfDay: Job {
             val backupName = "./logs/_bk_kotuik${today.format(formatter)}.zip"
             Backup.execute(backupName, ".", "kotuik", false)
         }
-        p0!!.getScheduler().unscheduleJob(TriggerKey.triggerKey("triggerEOD", "spreadler"));
     }
 
 }
