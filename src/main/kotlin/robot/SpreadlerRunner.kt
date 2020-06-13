@@ -235,8 +235,10 @@ object SpreadlerRunner {
 
     private fun start(spreadler: SpreadlerBond) {
         if (threads.containsKey(spreadler.id)) {
-            log.info("Spreader ${spreadler.securityCode} is already running")
-            return
+            if (threads[spreadler.id]!!.isAlive) {
+                log.info("Spreader ${spreadler.securityCode} is already running")
+                return
+            }
         }
         val thread = Thread(spreadler)
         thread.name = "Spreader ${spreadler.id}"

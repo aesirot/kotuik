@@ -6,8 +6,12 @@ import kotlin.collections.ArrayList
 import kotlin.math.absoluteValue
 
 fun main() {
-    while (true) {
+    val thread = Thread {
+        Thread.sleep(10000)
+    }
+    thread.start()
+    for (i in 1..12) {
         Thread.sleep(1000)
-        println(LocalDateTime.now())
+        println("${thread.isAlive}")
     }
 }
