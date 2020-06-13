@@ -2,6 +2,7 @@ package common
 
 import com.enfernuz.quik.lua.rpc.api.messages.SendTransaction
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
+import com.google.common.collect.Lists
 import com.sun.jna.ptr.DoubleByReference
 import com.sun.jna.ptr.IntByReference
 import com.sun.jna.ptr.NativeLongByReference
@@ -25,6 +26,9 @@ object Orders {
     private val limitSpeedQueue = LinkedList<LocalDateTime>()
     private var lastOrderDay = LocalDate.now()
 
+    private val transSec = Lists.newArrayList<String>("RU000A0JXN21", "RU000A1008J4", "RU000A0ZYQY7"
+    ,"RU000A1005L6","RU000A0JWZY6","RU000A101012","RU000A100N12", "RU000A0ZYM21", "RU000A101CL5")
+
     private fun generateTransId(): Long {
         limitSpeed()
         return System.currentTimeMillis().toInt().absoluteValue.toLong()
@@ -32,7 +36,7 @@ object Orders {
     }
 
     fun cancelOrder(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
-        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+        if (transSec.contains(securityCode)) {
             cancelOrder2(classCode, securityCode, orderId, strategy, rpcClient)
             return
         }
@@ -113,7 +117,7 @@ object Orders {
 
     fun buyOrder(classCode: String, securityCode: String, quantity: Int,
                  price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
-        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+        if (transSec.contains(securityCode)) {
             return buyOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
         }
 
@@ -267,7 +271,7 @@ object Orders {
 
     fun sellOrder(classCode: String, securityCode: String, quantity: Int,
                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
-        if ("RU000A0ZYM21" == securityCode || "RU000A101CL5" == securityCode) {
+        if (transSec.contains(securityCode)) {
             return sellOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
         }
 
@@ -303,7 +307,7 @@ object Orders {
     }
 
     fun sellOrder2(classCode: String, securityCode: String, quantity: Int,
-                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String, retry: Boolean = false): Long {
         val transId = generateTransId()
         log.info("$strategy sell order $securityCode price $price qty $quantity (id $transId)")
         if (testMode) {
@@ -344,7 +348,13 @@ object Orders {
         val errorMessageStr = Trans2Quik.parseString(errorMessage)
 
         val orderNum = orderNumReference.getPointer().getLong(0L)
-        if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
+        if (6 == resultCode.value.toInt() && !retry) {
+            //Данный инструмент запрещен для операции шорт
+            //скорее всего квик не успел пересчитать лимиты, пробуем еще раз
+            log.error("Retry failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr")
+            Thread.sleep(1000)
+            return sellOrder2(classCode, securityCode, quantity, price, rpcClient, strategy, true)
+        } else if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
             log.info("$strategy sell order $securityCode price $price qty $quantity (order $orderNum) $resultMessageStr")
             return orderNum
         } else {
