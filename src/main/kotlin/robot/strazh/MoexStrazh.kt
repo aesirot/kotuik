@@ -111,7 +111,7 @@ class MoexStrazh {
             d = BigDecimal(ex.paramValue)
         }
 
-        if (d.equals(BigDecimal.ZERO)) {
+        if (d.compareTo(BigDecimal.ZERO) == 0) {
             log.error("пропало соединение?")
             return
         }
