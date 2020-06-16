@@ -67,10 +67,10 @@ open class PolzuchiiBuy(private val classCode: String,
 
                 if (orderId == 0L || calculatedPrice.compareTo(orderPrice) != 0) {
                     if (orderId != 0L) {
-                        Orders.cancelOrder(classCode, securityCode, orderId, STRATEGY, rpcClient)
+                        Orders.cancelOrderDLL(classCode, securityCode, orderId, STRATEGY, rpcClient)
                     }
                     orderPrice = calculatedPrice
-                    orderId = Orders.buyOrder(classCode, securityCode, restQuantity, calculatedPrice, rpcClient, STRATEGY)
+                    orderId = Orders.buyOrderDLL(classCode, securityCode, restQuantity, calculatedPrice, rpcClient, STRATEGY)
                 }
 
                 if (!stop) { //если за время постановки ордера пришла команда на остановку
@@ -94,7 +94,7 @@ open class PolzuchiiBuy(private val classCode: String,
 
         if (orderId != 0L) {
             try {
-                Orders.cancelOrder(classCode, securityCode, orderId, STRATEGY, rpcClient)
+                Orders.cancelOrderDLL(classCode, securityCode, orderId, STRATEGY, rpcClient)
             } catch (e: Exception) {
                 log.error(e.message, e)
             }

@@ -26,21 +26,13 @@ object Orders {
     private val limitSpeedQueue = LinkedList<LocalDateTime>()
     private var lastOrderDay = LocalDate.now()
 
-    private val transSec = Lists.newArrayList<String>("RU000A0JXN21", "RU000A1008J4", "RU000A0ZYQY7"
-    ,"RU000A1005L6","RU000A0JWZY6","RU000A101012","RU000A100N12", "RU000A0ZYM21", "RU000A101CL5")
-
     private fun generateTransId(): Long {
         limitSpeed()
         return System.currentTimeMillis().toInt().absoluteValue.toLong()
         //return System.currentTimeMillis()
     }
 
-    fun cancelOrder(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
-        if (transSec.contains(securityCode)) {
-            cancelOrder2(classCode, securityCode, orderId, strategy, rpcClient)
-            return
-        }
-
+    fun cancelOrderRPC(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
         log.info("$strategy kill order $orderId")
         if (testMode) {
             return
@@ -73,7 +65,7 @@ object Orders {
         }
     }
 
-    fun cancelOrder2(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
+    fun cancelOrderDLL(classCode: String, securityCode: String, orderId: Long, strategy: String, rpcClient: ZmqTcpQluaRpcClient) {
         log.info("$strategy kill order $orderId")
         if (testMode) {
             return
@@ -115,12 +107,8 @@ object Orders {
         log.info("$strategy killed order $orderId")
     }
 
-    fun buyOrder(classCode: String, securityCode: String, quantity: Int,
-                 price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
-        if (transSec.contains(securityCode)) {
-            return buyOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
-        }
-
+    fun buyOrderRPC(classCode: String, securityCode: String, quantity: Int,
+                    price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
         synchronized(rpcClient) {
             val transId = generateTransId()
             log.info("$strategy buy order $securityCode price $price qty $quantity")
@@ -152,8 +140,8 @@ object Orders {
         }
     }
 
-    fun buyOrder2(classCode: String, securityCode: String, quantity: Int,
-                  price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
+    fun buyOrderDLL(classCode: String, securityCode: String, quantity: Int,
+                    price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
         val transId = generateTransId()
         log.info("$strategy buy order $securityCode price $price qty $quantity")
         if (testMode) {
@@ -269,12 +257,8 @@ object Orders {
         }
     }
 
-    fun sellOrder(classCode: String, securityCode: String, quantity: Int,
-                  price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
-        if (transSec.contains(securityCode)) {
-            return sellOrder2(classCode, securityCode, quantity, price, rpcClient, strategy)
-        }
-
+    fun sellOrderRPC(classCode: String, securityCode: String, quantity: Int,
+                     price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String): Long {
         synchronized(rpcClient) {
             val transId = generateTransId()
             log.info("$strategy sell order $securityCode price $price qty $quantity (id $transId)")
@@ -306,8 +290,8 @@ object Orders {
         }
     }
 
-    fun sellOrder2(classCode: String, securityCode: String, quantity: Int,
-                   price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String, retry: Boolean = false): Long {
+    fun sellOrderDLL(classCode: String, securityCode: String, quantity: Int,
+                     price: BigDecimal, rpcClient: ZmqTcpQluaRpcClient, strategy: String, retry: Boolean = false): Long {
         val transId = generateTransId()
         log.info("$strategy sell order $securityCode price $price qty $quantity (id $transId)")
         if (testMode) {
@@ -352,8 +336,8 @@ object Orders {
             //Данный инструмент запрещен для операции шорт
             //скорее всего квик не успел пересчитать лимиты, пробуем еще раз
             log.error("Retry failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr")
-            Thread.sleep(1000)
-            return sellOrder2(classCode, securityCode, quantity, price, rpcClient, strategy, true)
+            Thread.sleep(2000)
+            return sellOrderDLL(classCode, securityCode, quantity, price, rpcClient, strategy, true)
         } else if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
             log.info("$strategy sell order $securityCode price $price qty $quantity (order $orderNum) $resultMessageStr")
             return orderNum

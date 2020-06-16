@@ -56,10 +56,10 @@ class LozniiSell(val classCode: String, val securityCode: String, val scale: Int
 
                 if (price != orderPrice) {
                     if (orderId != 0L) {
-                        Orders.cancelOrder(classCode, securityCode, orderId, STRATEGY, rpcClient)
+                        Orders.cancelOrderRPC(classCode, securityCode, orderId, STRATEGY, rpcClient)
                     }
                     orderPrice = price
-                    orderId = Orders.sellOrder(classCode, securityCode, quantity, price, rpcClient, STRATEGY)
+                    orderId = Orders.sellOrderRPC(classCode, securityCode, quantity, price, rpcClient, STRATEGY)
                 }
 
                 lock.withLock {
@@ -72,7 +72,7 @@ class LozniiSell(val classCode: String, val securityCode: String, val scale: Int
 
         if (orderId != 0L) {
             try {
-                Orders.cancelOrder(classCode, securityCode, orderId, STRATEGY, rpcClient)
+                Orders.cancelOrderRPC(classCode, securityCode, orderId, STRATEGY, rpcClient)
             } catch (e: Exception) {
                 log.error(e.message, e)
             }

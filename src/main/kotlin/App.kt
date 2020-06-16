@@ -1,14 +1,7 @@
-import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
-import com.enfernuz.quik.lua.rpc.api.messages.Message
-import com.enfernuz.quik.lua.rpc.api.messages.datasource.Bars
-import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
-import com.enfernuz.quik.lua.rpc.application.RpcExampleApplication
 import com.enfernuz.quik.lua.rpc.config.ClientConfiguration
 import com.enfernuz.quik.lua.rpc.config.JsonClientConfigurationReader
 import common.Orders
-import common.Trans2Quik
-import common.Util
 import java.io.File
 import java.math.BigDecimal
 
@@ -55,7 +48,7 @@ fun main() {
         val bars = rpcClient.datasource_Bars(Bars.Args(dataSource.datasourceUUID, 0))
         bars.size
 */
-        Orders.sellOrder("TQCB", "RU000A0ZYM21", 1, BigDecimal.ONE, rpcClient, "test")
+        Orders.sellOrderRPC("TQCB", "RU000A0ZYM21", 1, BigDecimal.ONE, rpcClient, "test")
 
 /*
         println("Выполнение удалённой процедуры 'message' на терминале QUIK...")
