@@ -23,4 +23,11 @@ object DBConnector {
         return connection!!
     }
 
+    fun close() {
+        if (connection != null) {
+            connection!!.close()
+            connection = null
+        }
+    }
+
 }
