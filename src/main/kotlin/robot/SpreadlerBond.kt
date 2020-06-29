@@ -126,13 +126,52 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
         val rpcClient = Connector.get()
         synchronized(rpcClient) {
             val args = GetDepoEx.Args(BCS_FIRM, BCS_CLIENT_CODE, securityCode, BCS_ACCOUNT, 2) //t+2
-            val currentBal = rpcClient.qlua_getDepoEx(args)?.currentBal?:0
+            val currentBal = rpcClient.qlua_getDepoEx(args)?.currentBal ?: 0
 
             if (currentBal < restQuantity) {
                 log.error("Not enough $securityCode - currentBal=${currentBal}, restQuantity=$restQuantity")
                 return false
             }
             return true
+        }
+    }
+
+    fun syncWithLimit() {
+        val rpcClient = Connector.get()
+        synchronized(rpcClient) {
+            val args = GetDepoEx.Args(BCS_FIRM, BCS_CLIENT_CODE, securityCode, BCS_ACCOUNT, 2) //t+2
+            val currentBal = rpcClient.qlua_getDepoEx(args)?.currentBal ?: 0
+
+            if (currentBal > this.quantity + 1) {
+                log.info("$id - skip sync, current balance $currentBal . May be position were here")
+            }
+
+            if (buyStage) {
+                if (quantity - restQuantity == currentBal) {
+                    return
+                } else if (currentBal > quantity - restQuantity) {
+                    log.info("SYNC REST QUANTITY. buy=$buyStage Current bal=$currentBal, restQuantity=$restQuantity")
+                    restQuantity = quantity - currentBal
+                    if (restQuantity == 0) {
+                        this.buyStage = false
+                        this.restQuantity = quantity
+                    }
+                    save()
+                }
+            } else {
+                if (restQuantity == currentBal) {
+                    return
+                } else if (restQuantity < currentBal) {
+                    log.info("SYNC REST QUANTITY. buy=$buyStage Current bal=$currentBal, restQuantity=$restQuantity")
+                    if (currentBal == 0) {
+                        this.buyStage = true
+                        this.restQuantity = quantity
+                    } else {
+                        this.restQuantity = currentBal
+                    }
+                    save()
+                }
+            }
         }
     }
 

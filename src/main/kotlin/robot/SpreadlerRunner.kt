@@ -55,6 +55,8 @@ object SpreadlerRunner {
                         pastuh()
                     } else if (line == "start all") {
                         startAll()
+                    } else if (line == "sync all") {
+                        syncAll()
                     } else if (line.startsWith("start")) {
                         val id = line.substring(6).trim()
                         start(id)
@@ -67,6 +69,9 @@ object SpreadlerRunner {
                     } else if (line.startsWith("set")) {
                         val id = line.substring(4).trim()
                         update(id)
+                    } else if (line.startsWith("sync")) {
+                        val id = line.substring(5).trim()
+                        sync(id)
                     }
                 }
             } catch (e: Exception) {
@@ -204,7 +209,7 @@ object SpreadlerRunner {
 
     fun pastuh() {
         log.info("pastuh")
-        if (threads.size>0) {
+        if (threads.size > 0) {
             println("Stop all spreadlers to run pastuh")
             return
         }
@@ -244,6 +249,22 @@ object SpreadlerRunner {
         thread.name = "Spreader ${spreadler.id}"
         threads.put(spreadler.id, thread)
         thread.start()
+    }
+
+    private fun syncAll() {
+        for (spreadler in SpreadlerConfigurator.config.spreadlers) {
+            sync(spreadler.id)
+        }
+    }
+
+    private fun sync(id: String) {
+        try {
+            stop(id)
+            val spreadler = SpreadlerConfigurator.config.spreadlers.first { it.id == id }
+            spreadler.syncWithLimit()
+        } catch (e: Exception) {
+            log.error(e.message, e)
+        }
     }
 
     private fun stop(id: String) {
