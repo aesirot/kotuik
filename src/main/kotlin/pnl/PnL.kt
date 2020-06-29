@@ -119,7 +119,7 @@ object PnL {
     }
 
     fun calc() {
-        val trades = TradeDAO.select("position is null")
+        val trades = TradeDAO.select("position is null", "trade_datetime asc")
 
         val map = groupBySecCode(trades)
 
@@ -143,20 +143,15 @@ object PnL {
                     it.position = position - it.quantity
                     it.buyAmount = buyAmount
                     it.sellAmount = sellAmount + it.amount
-                    if (it.position!! < 0) {
-                        it.position = 0
-                        it.buyAmount = BigDecimal.ZERO
-                        it.sellAmount = BigDecimal.ZERO
-                    }
-
-                    if (it.position!! == 0) {
-                        it.realizedPnL = it.sellAmount!! - it.buyAmount!!
-                        it.buyAmount = BigDecimal.ZERO
-                        it.sellAmount = BigDecimal.ZERO
-                    } else {
-                        it.realizedPnL = BigDecimal.ZERO
-                    }
                 }
+                if (it.position!! == 0) {
+                    it.realizedPnL = it.sellAmount!! - it.buyAmount!!
+                    it.buyAmount = BigDecimal.ZERO
+                    it.sellAmount = BigDecimal.ZERO
+                } else {
+                    it.realizedPnL = BigDecimal.ZERO
+                }
+
                 it.feeAmount = it.amount * BigDecimal("0.0005") // ~приблизительно
 
                 TradeDAO.update(it)
