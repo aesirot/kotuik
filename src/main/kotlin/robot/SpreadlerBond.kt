@@ -137,6 +137,7 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
     }
 
     fun syncWithLimit() {
+        log = LoggerFactory.getLogger(this::class.java)
         val rpcClient = Connector.get()
         synchronized(rpcClient) {
             val args = GetDepoEx.Args(BCS_FIRM, BCS_CLIENT_CODE, securityCode, BCS_ACCOUNT, 2) //t+2
@@ -144,6 +145,7 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
 
             if (currentBal > this.quantity + 1) {
                 log.info("$id - skip sync, current balance $currentBal . May be position were here")
+                return
             }
 
             if (buyStage) {
