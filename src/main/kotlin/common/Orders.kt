@@ -336,7 +336,7 @@ object Orders {
             //Данный инструмент запрещен для операции шорт
             //скорее всего квик не успел пересчитать лимиты, пробуем еще раз
             log.error("Retry failed transaction ${resultCode.value}: $resultMessageStr ${extendedErrorCode.value}: $errorMessageStr")
-            Thread.sleep(2000)
+            Thread.sleep(5000)
             return sellOrderDLL(classCode, securityCode, quantity, price, rpcClient, strategy, true)
         } else if (3 == resultCode.value.toInt() && 0 == extendedErrorCode.value.toInt() && errorMessageStr.isEmpty()) {
             log.info("$strategy sell order $securityCode price $price qty $quantity (order $orderNum) $resultMessageStr")
