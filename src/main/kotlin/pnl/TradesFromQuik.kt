@@ -37,7 +37,7 @@ object TradesFromQuik {
         }
 
         for (trade in trades) {
-            val select = TradeDAO.select("quik_trade_id=${trade.quikTradeNum}")
+            val select = TradeDAO.select("quik_trade_id='${trade.quikTradeNum}'")
             if (select.isNotEmpty()) {
                 continue
             }
