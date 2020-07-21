@@ -152,7 +152,7 @@ object PnL {
                     it.realizedPnL = BigDecimal.ZERO
                 }
 
-                it.feeAmount = it.amount * BigDecimal("0.0005") // ~приблизительно
+                it.feeAmount = it.amount * BigDecimal("0.0003") // ~приблизительно (0,02% БКС, 0,01%МБ)
 
                 TradeDAO.update(it)
 
