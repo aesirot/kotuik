@@ -21,6 +21,11 @@ object BondSelector {
     val log = LoggerFactory.getLogger(this::class.java)
     val decimalFormat = DecimalFormat("0.00")
 
+    //const val volumePorog = 100
+    //val classes =  arrayOf("EQOB", "TQCB")
+    const val volumePorog = 10
+    val classes =  arrayOf("TQOD")
+
     private class SecurityInfo(val classCode: String,
                                val secCode: String,
                                val name: String,
@@ -38,7 +43,7 @@ object BondSelector {
             }
 
             val medianVolume = calculateMedianDayVolume(bond, bars, 21)
-            if (medianVolume < 100) {
+            if (medianVolume < volumePorog) {
                 continue
             }
 
@@ -113,7 +118,7 @@ object BondSelector {
             for (i in 1..size - 1) {
                 val item = rpcClient.qlua_getItem("securities", i)!!
                 val classCode = item["class_code"]!!
-                if (classCode == "EQOB" || classCode == "TQCB") {
+                if (classes.contains(classCode)) {
                     val secCode = item["code"]!!
                     val name = item["name"]!!
                     val shortName = item["short_name"]!!
