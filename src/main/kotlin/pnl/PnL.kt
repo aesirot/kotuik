@@ -25,6 +25,7 @@ fun main() {
 
 object PnL {
     val log = LoggerFactory.getLogger(this::class.java)
+    private val usdRate = BigDecimal("70")
 
 
     fun sendResult(from: LocalDateTime, to: LocalDateTime) {
@@ -34,8 +35,8 @@ object PnL {
         var fee = BigDecimal.ZERO
         try {
             select.forEach {
-                realizedPnL += it.realizedPnL!!
-                fee += it.feeAmount!!
+                realizedPnL += it.realizedPnL!! * rate(it.currency)
+                fee += it.feeAmount!! * rate(it.currency)
             }
         } catch (e: NullPointerException) {
             throw Exception("Not Calculated")
@@ -50,6 +51,16 @@ object PnL {
                 "  Unrealized  = ${unrealized.stripTrailingZeros().toPlainString()}"
         log.info(msg)
         Telega.Holder.get().sendMessage(msg)
+    }
+
+    private fun rate(currency: String): BigDecimal {
+        val fxRate: BigDecimal
+        if (currency == "USD") {
+            fxRate = usdRate
+        } else {
+            fxRate = BigDecimal.ONE
+        }
+        return fxRate
     }
 
     private fun unrealizedSpreadlers(): BigDecimal {
@@ -72,8 +83,9 @@ object PnL {
             val rpcClient = Connector.get()
             synchronized(rpcClient) {
                 val fullPrice = fullPrice(spreadler, rpcClient)
+                val fxRate = rate(currency(spreadler, rpcClient))
 
-                unrealized += fullPrice * BigDecimal(position) + lastTrade.sellAmount!! - buyAmount
+                unrealized += (fullPrice * BigDecimal(position) + lastTrade.sellAmount!! - buyAmount) * fxRate
             }
         }
 
@@ -111,6 +123,12 @@ object PnL {
         val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "SEC_FACE_VALUE")
         val ex = rpcClient.qlua_getParamEx(args)
         return BigDecimal(ex.paramValue)
+    }
+
+    private fun currency(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): String {
+        val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "SEC_FACE_UNIT")
+        val ex = rpcClient.qlua_getParamEx(args)
+        return ex.paramValue
     }
 
     private fun sql(time: LocalDateTime): String {
