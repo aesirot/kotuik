@@ -1,10 +1,12 @@
 package common
 
 import backtest.Bar
+import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.*
 import com.enfernuz.quik.lua.rpc.api.structures.DataSourceTime
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import org.slf4j.LoggerFactory
+import robot.SpreadlerBond
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -55,12 +57,14 @@ object Util {
         synchronized(rpcClient) {
             val bars = rpcClient.datasource_Bars(Bars.Args(dataSource.datasourceUUID, count))
 
-            return bars.map { Bar(toLocalDateTime(it.datetime)
-                    , BigDecimal(it.open)
-                    , BigDecimal(it.high)
-                    , BigDecimal(it.low)
-                    , BigDecimal(it.close)
-                    , it.volume.toLong()) }
+            return bars.map {
+                Bar(toLocalDateTime(it.datetime)
+                        , BigDecimal(it.open)
+                        , BigDecimal(it.high)
+                        , BigDecimal(it.low)
+                        , BigDecimal(it.close)
+                        , it.volume.toLong())
+            }
                     .toList()
         }
     }
@@ -78,7 +82,7 @@ object Util {
                 val high = BigDecimal(rpcClient.datasource_H(H.Args(dataSource.datasourceUUID, i)))
                 val low = BigDecimal(rpcClient.datasource_L(L.Args(dataSource.datasourceUUID, i)))
                 val close = BigDecimal(rpcClient.datasource_C(C.Args(dataSource.datasourceUUID, i)))
-                var volume = rpcClient.datasource_V(V.Args(dataSource.datasourceUUID, i)).toLong()
+                val volume = rpcClient.datasource_V(V.Args(dataSource.datasourceUUID, i)).toLong()
                 result.add(Bar(toLocalDateTime(dataSourceTime), open, high, low, close, volume))
             }
         }
@@ -94,4 +98,12 @@ object Util {
         return LocalDateTime.parse(datetimeStr, datetimeFormat)
     }
 
+    fun currency(spreadler: SpreadlerBond): String {
+        val rpcClient = Connector.get()
+        synchronized(rpcClient) {
+            val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "SEC_FACE_UNIT")
+            val ex = rpcClient.qlua_getParamEx(args)
+            return ex.paramValue
+        }
+    }
 }

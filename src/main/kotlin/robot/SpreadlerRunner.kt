@@ -1,5 +1,6 @@
 package robot
 
+import common.Util
 import robot.spreadler.Pastuh
 import org.quartz.*
 import org.quartz.TriggerBuilder.newTrigger
@@ -302,6 +303,24 @@ object SpreadlerRunner {
         val stopping = ArrayList<String>()
         for (spreadler in SpreadlerConfigurator.config.spreadlers) {
             if (spreadler.buyStage && threads.containsKey(spreadler.id)) {
+                spreadler.stop()
+                stopping.add(spreadler.id)
+            }
+        }
+        for (id in stopping) {
+            val thread = threads.get(id)!!
+            log.info("Stop ${thread.name}")
+            thread.join()
+            log.info("    stopped")
+            threads.remove(id)
+        }
+    }
+
+    fun stopBuy(currency: String) {
+        log.info("stop buy spreadlers $currency")
+        val stopping = ArrayList<String>()
+        for (spreadler in SpreadlerConfigurator.config.spreadlers) {
+            if (spreadler.buyStage && threads.containsKey(spreadler.id) && currency == Util.currency(spreadler)) {
                 spreadler.stop()
                 stopping.add(spreadler.id)
             }

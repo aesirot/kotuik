@@ -1,13 +1,9 @@
 package robot.strazh
 
-import com.enfernuz.quik.lua.rpc.api.messages.GetDepoEx
 import com.enfernuz.quik.lua.rpc.api.messages.GetMoneyEx
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import common.Connector
 import common.Constants
-import org.quartz.Job
-import org.quartz.JobExecutionContext
-import org.quartz.TriggerKey
 import org.slf4j.LoggerFactory
 import robot.SpreadlerRunner
 import robot.Telega
@@ -20,6 +16,7 @@ object MoneyLimitStrazh {
     private val minTriggerLimit = HashMap<String, BigDecimal>()
 
     private var triggeredDay: LocalDate? = null
+    private var triggeredCurrencies = ArrayList<String>()
 
     init {
         minTriggerLimit["SUR"] = BigDecimal("100000")
@@ -27,14 +24,23 @@ object MoneyLimitStrazh {
     }
 
     fun check() {
-        if (triggeredDay != null && triggeredDay == LocalDate.now()) {
-            return // срабатывает 1 раз в день (если запустили руками дальше, то не мешаем)
+        if (triggeredDay != null && LocalDate.now().isAfter(triggeredDay)) {
+            //очищаем на следующий день
+            triggeredDay = null
+            triggeredCurrencies.clear()
         }
+
         val rpcClient = Connector.get()
         for (entry in minTriggerLimit) {
+            if (triggeredCurrencies.contains(entry.key)) {
+                continue // срабатывает 1 раз в день (если запустили руками дальше, то не мешаем)
+            }
+
             val currentBal = getCurrentBal(entry, rpcClient)
             if (currentBal < entry.value) {
                 triggeredDay = LocalDate.now()
+                triggeredCurrencies.add(entry.key)
+
                 belowLimit(entry.key, entry.value, currentBal)
             }
         }
@@ -54,6 +60,6 @@ object MoneyLimitStrazh {
         log.error(msg)
         Telega.Holder.get().sendMessage(msg)
 
-        SpreadlerRunner.stopBuy()
+        SpreadlerRunner.stopBuy(currency)
     }
 }
