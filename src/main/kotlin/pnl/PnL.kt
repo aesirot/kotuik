@@ -24,7 +24,7 @@ fun main() {
 }
 
 object PnL {
-    val log = LoggerFactory.getLogger(this::class.java)
+    val log = LoggerFactory.getLogger(this::class.java)!!
     private val usdRate = BigDecimal("70")
 
 
@@ -57,13 +57,11 @@ object PnL {
     }
 
     private fun rate(currency: String): BigDecimal {
-        val fxRate: BigDecimal
-        if (currency == "USD") {
-            fxRate = usdRate
+        return if (currency == "USD") {
+            usdRate
         } else {
-            fxRate = BigDecimal.ONE
+            BigDecimal.ONE
         }
-        return fxRate
     }
 
     private fun unrealizedSpreadlers(): BigDecimal {
@@ -73,7 +71,7 @@ object PnL {
                     "(select max(trade_datetime) from trade where sec_code='${spreadler.securityCode}')"
             , "trade_id desc")
             if (select.isEmpty()) {
-                continue;
+                continue
             }
             val lastTrade: Trade = select.first()
 
