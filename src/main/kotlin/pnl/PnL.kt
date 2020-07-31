@@ -36,9 +36,10 @@ object PnL {
         var volume = BigDecimal.ZERO
         try {
             select.forEach {
-                realizedPnL += it.realizedPnL!! * rate(it.currency)
-                fee += it.feeAmount!! * rate(it.currency)
-                volume += it.amount
+                val fxRate = rateFX(it.currency)
+                realizedPnL += it.realizedPnL!! * fxRate
+                fee += it.feeAmount!! * fxRate
+                volume += it.amount * fxRate
             }
         } catch (e: NullPointerException) {
             throw Exception("Not Calculated")
@@ -56,7 +57,7 @@ object PnL {
         Telega.Holder.get().sendMessage(msg)
     }
 
-    private fun rate(currency: String): BigDecimal {
+    private fun rateFX(currency: String): BigDecimal {
         return if (currency == "USD") {
             usdRate
         } else {
@@ -84,7 +85,7 @@ object PnL {
             val rpcClient = Connector.get()
             synchronized(rpcClient) {
                 val fullPrice = fullPrice(spreadler, rpcClient)
-                val fxRate = rate(currency(spreadler, rpcClient))
+                val fxRate = rateFX(currency(spreadler, rpcClient))
 
                 unrealized += (fullPrice * BigDecimal(position) + lastTrade.sellAmount!! - buyAmount) * fxRate
             }
