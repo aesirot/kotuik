@@ -33,10 +33,12 @@ object PnL {
 
         var realizedPnL = BigDecimal.ZERO
         var fee = BigDecimal.ZERO
+        var volume = BigDecimal.ZERO
         try {
             select.forEach {
                 realizedPnL += it.realizedPnL!! * rate(it.currency)
                 fee += it.feeAmount!! * rate(it.currency)
+                volume += it.amount
             }
         } catch (e: NullPointerException) {
             throw Exception("Not Calculated")
@@ -47,6 +49,7 @@ object PnL {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
         val msg = "    PnL \nfrom ${from.format(formatter)} to ${to.format(formatter)}\n\n" +
                 "  Realized PnL= ${realizedPnL.toPlainString()}\n" +
+                "  Оборот      = ${volume.stripTrailingZeros().toPlainString()}\n" +
                 "  Fee        ~= ${fee.toPlainString()}\n" +
                 "  Unrealized  = ${unrealized.stripTrailingZeros().toPlainString()}"
         log.info(msg)
