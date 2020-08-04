@@ -20,7 +20,7 @@ object MoneyLimitStrazh {
 
     init {
         minTriggerLimit["SUR"] = BigDecimal("100000")
-        minTriggerLimit["USD"] = BigDecimal("1000")
+        minTriggerLimit["USD"] = BigDecimal("1800")
     }
 
     fun check() {

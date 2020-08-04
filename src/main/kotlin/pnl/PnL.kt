@@ -130,7 +130,7 @@ object PnL {
     private fun currency(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): String {
         val args = GetParamEx.Args(spreadler.classCode, spreadler.securityCode, "SEC_FACE_UNIT")
         val ex = rpcClient.qlua_getParamEx(args)
-        return ex.paramValue
+        return ex.paramImage
     }
 
     private fun sql(time: LocalDateTime): String {
