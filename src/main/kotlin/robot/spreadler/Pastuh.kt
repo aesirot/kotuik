@@ -36,6 +36,8 @@ object Pastuh {
             }
 
             SpreadlerConfigurator.save()
+        } else {
+            log.info("${spreadler.id} цена прежняя")
         }
     }
 
