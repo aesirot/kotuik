@@ -22,7 +22,7 @@ object TradesFromQuik {
                 val secCode = item["sec_code"]!!
                 val flags = item["flags"]!!.toInt()
                 val direction = if (flags.and(4) > 0) "S" else "B"
-                val quantity = item["qty"]!!.toInt()
+                val quantity = item["qty"]!!.toBigDecimal().toInt()
                 val amount = BigDecimal(item["value"]!!)
                 val price = BigDecimal(item["price"]!!)
                 val currency = item["trade_currency"]!!

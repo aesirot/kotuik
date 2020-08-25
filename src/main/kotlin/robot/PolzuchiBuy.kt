@@ -118,12 +118,12 @@ open class PolzuchiiBuy(private val classCode: String,
                 throw Exception("Order $orderId state unknown error")
             }
 
-            if (orderInfo.order.balance.toInt() < restQuantity) {
-                val boughtQty = restQuantity - orderInfo.order.balance.toInt()
+            if (orderInfo.order.balance.toBigDecimal().toInt() < restQuantity) {
+                val boughtQty = restQuantity - orderInfo.order.balance.toBigDecimal().toInt()
                 val message = "BUY $securityCode pr ${orderInfo.order.price} qt $boughtQty"
                 log.info(message)
                 Telega.Holder.get().sendMessage(message)
-                return orderInfo.order.balance.toInt()
+                return orderInfo.order.balance.toBigDecimal().toInt()
             }
 
             return restQuantity

@@ -91,7 +91,7 @@ class LozniiSell(val classCode: String, val securityCode: String, val scale: Int
             log.error("Order $orderId state unknown error")
             return false
         }
-        if (orderInfo.order.balance.toInt() < orderInfo.order.qty) {
+        if (orderInfo.order.balance.toBigDecimal().toInt() < orderInfo.order.qty) {
             log.error("Order $orderId EXECUTED qty $orderInfo.order.qty, balance $orderInfo.order.balance")
             return false
         }
