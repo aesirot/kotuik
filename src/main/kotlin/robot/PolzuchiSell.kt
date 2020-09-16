@@ -118,7 +118,6 @@ open class PolzuchiiSell(private val classCode: String,
                 val soldQty = restQuantity - orderInfo.order.balance.toBigDecimal().toInt()
                 val message = "SELL $securityCode pr ${orderInfo.order.price} qt $soldQty"
                 log.info(message)
-                Telega.Holder.get().sendMessage(message)
                 return orderInfo.order.balance.toBigDecimal().toInt()
             }
 
