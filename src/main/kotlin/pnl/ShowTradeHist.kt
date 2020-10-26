@@ -8,7 +8,8 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 fun main() {
-    ShowTradeHist.show("RU000A0JW5C7", BarInterval.HOUR)
+    val secCode = readLine();
+    ShowTradeHist.show(secCode!!, BarInterval.HOUR)
 }
 
 enum class BarInterval {
@@ -48,8 +49,12 @@ object ShowTradeHist {
         params["ALIGNMENT"] = "LEFT"
         params["YVALUE"] = trade.price.toPlainString()
         params["DATE"] = dateFormat.format(dateTime)
-        params["TIME"] = timeFormat.format(dateTime)
-        params["TIME"] = "180000"
+        val time = timeFormat.format(dateTime)
+        if (time == "190000") {
+            params["TIME"] = "180000"
+        } else {
+            params["TIME"] = time
+        }
         params["R"] = "0"
         params["G"] = "0"
         params["B"] = "0"
