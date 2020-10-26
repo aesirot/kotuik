@@ -1,4 +1,6 @@
-select trade_datetime, direction, quantity, position, realized_PnL, buy_Amount, sell_Amount
+select trade_id, sec_code, currency, trade_datetime, direction, quantity, quantity*price*0.01*0.03*10 fee, fee_amount
+, realized_PnL, position, sell_amount-buy_amount
 from trade
-where sec_code = 'RU000A0ZYFC6'
+where currency in ('SUR') --and direction = 'S' and realized_PnL != 0
+and sec_code='RU000A100HU7'
 order by trade_datetime
