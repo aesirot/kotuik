@@ -146,6 +146,17 @@ object SpreadlerRunner {
                         .onMondayThroughFriday())
                 .build()
         scheduler.scheduleJob(moexStrazhJob, moexTrigger)
+
+        val maxMoneyStrazhJob = JobBuilder.newJob(MaxMoneyStrazhJob::class.java).build()
+        val maxMoneyTrigger: Trigger = newTrigger()
+                .withIdentity(triggerKey("triggerMaxMoneyStrazh", "s3"))
+                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
+                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 2, 10))
+                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
+                        .withInterval(10, DateBuilder.IntervalUnit.MINUTE)
+                        .onMondayThroughFriday())
+                .build()
+        scheduler.scheduleJob(maxMoneyStrazhJob, maxMoneyTrigger)
     }
 
     private fun update(id: String) {
