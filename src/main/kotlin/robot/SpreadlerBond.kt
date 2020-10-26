@@ -163,7 +163,7 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
             } else {
                 if (restQuantity == currentBal) {
                     return
-                } else if (restQuantity < currentBal) {
+                } else if (restQuantity > currentBal) {
                     log.info("SYNC REST QUANTITY. buy=$buyStage Current bal=$currentBal, restQuantity=$restQuantity")
                     if (currentBal == 0) {
                         this.buyStage = true
