@@ -37,10 +37,10 @@ class Telega private constructor(options: DefaultBotOptions?) : TelegramLongPoll
                 }
 
                 val botOptions = ApiContext.getInstance(DefaultBotOptions::class.java)
-                botOptions.proxyHost = "127.0.0.1"
-                botOptions.proxyPort = 9150
+                //botOptions.proxyHost = "127.0.0.1"
+                //botOptions.proxyPort = 9150
                 // Select proxy type: [HTTP|SOCKS4|SOCKS5] (default: NO_PROXY)
-                botOptions.proxyType = DefaultBotOptions.ProxyType.SOCKS5
+                //botOptions.proxyType = DefaultBotOptions.ProxyType.SOCKS5
                 telega = Telega(botOptions)
 
                 return telega
