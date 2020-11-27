@@ -15,7 +15,7 @@ object BusinessCalendar {
             return false
         }
 
-        if (DayOfWeek.SATURDAY == dt.dayOfWeek && DayOfWeek.SUNDAY == dt.dayOfWeek) {
+        if (DayOfWeek.SATURDAY == dt.dayOfWeek || DayOfWeek.SUNDAY == dt.dayOfWeek) {
             return false
         }
 
@@ -33,7 +33,7 @@ object BusinessCalendar {
         var next = dt
         var i = 0
         while (i < days) {
-            next = dt.plusDays(1)
+            next = next.plusDays(1)
             if (isBusiness(next)) {
                 i++
             }

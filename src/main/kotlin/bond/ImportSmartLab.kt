@@ -11,10 +11,13 @@ import java.time.format.DateTimeFormatter
 
 
 fun main() {
-    ImportMOEX.importBondDB("RU000A102BK7")
+    //ImportSmartLab.importBondDB("SU25083RMFS5")
+    ImportSmartLab.importBondDB("SU26232RMFS7")
+
+    HibernateUtil.getSessionFactory().close()
 }
 
-object ImportMOEX {
+object ImportSmartLab {
     private val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")!!
 
     fun importBond(code: String, bond: Bond): Bond {
@@ -24,7 +27,8 @@ object ImportMOEX {
         var frequency: Frequency? = null
         var issueDt: LocalDate? = null
         var maturityDt: LocalDate? = null
-        var firstCouponDate: LocalDate? = null
+        var firstCouponDate: LocalDate? = LocalDate.of(2020, 4, 15)
+        //var firstCouponDate: LocalDate? = null
 
         var nextCouponDate: LocalDate? = null
         var nextCouponAmount: BigDecimal? = null
@@ -58,7 +62,8 @@ object ImportMOEX {
             } else if (th.text().startsWith("Купон")) {
                 nextCouponAmount = amount(td)
             } else if (th.text().contains("Дата оферты")) {
-                earlyRedemptionDate = LocalDate.parse(td.text(), formatter)
+                if (td.text().contains("2"))
+                    earlyRedemptionDate = LocalDate.parse(td.text(), formatter)
             } else if (th.text().contains("НКД")) {
                 nkd = amount(td)
             } else if (th.text().contains("Цена послед")) {
@@ -68,6 +73,8 @@ object ImportMOEX {
             } else if (th.text().contains("Выплата купона")) {
                 if (td.text() == "91") {
                     frequency = Frequency.D_91
+                } else if (td.text() == "182") {
+                    frequency = Frequency.D_182
                 } else {
                     throw Exception("Unknown frequency " + td.text())
                 }
@@ -84,6 +91,8 @@ object ImportMOEX {
         bond.dayCount = dayCount
         bond.issueDt = issueDt!!
         bond.maturityDt = maturityDt!!
+        if (firstCouponDate != null)
+            bond.firstCouponDate = firstCouponDate
 
         if (earlyRedemptionDate != null) {
             val couponPeriodStart = bond.couponPeriodStart(earlyRedemptionDate)
@@ -99,10 +108,11 @@ object ImportMOEX {
             throw Exception("Wrong frequency")
         }
 
-        val calculatedAccrual = YieldCalculator.calcAccrual(bond, LocalDate.now().plusDays(3))
-/*        if (calculatedAccrual.compareTo(nkd) != 0) {
+        val settleDt = BusinessCalendar.addDays(LocalDate.now(), 1)
+        val calculatedAccrual = YieldCalculator.calcAccrual(bond, settleDt)
+        if (calculatedAccrual.compareTo(nkd) != 0) {
             throw Exception("Wrong nkd $calculatedAccrual != $nkd")
-        }*/
+        }
 
         val calculatedCounpon = YieldCalculator.calcAccrual(bond, nextCouponDate!!)
         if (calculatedCounpon.compareTo(nextCouponAmount) != 0) {
@@ -111,7 +121,6 @@ object ImportMOEX {
 
 
         last!!
-        val settleDt = BusinessCalendar.addDays(LocalDate.now(), 1)
         val nkdToPrice = (calculatedAccrual * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
         println(YieldCalculator.effectiveYTM(bond, settleDt, last + nkdToPrice))
         println(YieldCalculator.effectiveYTMBinary(bond, settleDt, last + nkdToPrice))
@@ -119,7 +128,7 @@ object ImportMOEX {
         return bond
     }
 
-    fun importBondDB(code : String) {
+    fun importBondDB(code: String) {
         HibernateUtil.getSessionFactory().openSession().use { session ->
             var transaction: Transaction? = null
             try {
@@ -155,10 +164,9 @@ object ImportMOEX {
 
     private fun checkFrequency(bond: Bond, nextCouponDate: LocalDate?): Boolean {
         var success = false
-        var dt = bond.issueDt!!
-        while (dt < bond.maturityDt!!) {
-            dt = bond.frequency.next(dt)
-            if (dt == nextCouponDate!!) {
+        val coupons = bond.generateCoupons(nextCouponDate!!)
+        for (entry in coupons.entries) {
+            if (entry.key == nextCouponDate!!) {
                 return true
             }
         }

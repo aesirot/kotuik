@@ -11,7 +11,11 @@ object YieldCalculator {
 
     fun calcAccrual(bond: Bond, dt: LocalDate): BigDecimal {
         val startDt: LocalDate = bond.couponPeriodStart(dt)
-        return (bond.dayCount.yearDif(startDt, dt) * bond.nominal * bond.ratePct()).setScale(2, HALF_UP)
+        return calcAccrual(bond, startDt, dt)
+    }
+
+    fun calcAccrual(bond: Bond, from: LocalDate, to: LocalDate): BigDecimal {
+        return (bond.dayCount.yearDif(from, to) * bond.nominal * bond.ratePct()).setScale(2, HALF_UP)
     }
 
 
@@ -25,7 +29,7 @@ object YieldCalculator {
         var cnt = 1
 
         val ytmMaturityDate = bond.earlyRedemptionDate ?: bond.maturityDt
-        val coupons = bond.generateCoupons(bond, ytmMaturityDate)
+        val coupons = bond.generateCoupons(ytmMaturityDate)
 
         var calcPrice = calcDirtyPriceFromYield(bond, dt, rate, coupons)
 
@@ -63,7 +67,7 @@ object YieldCalculator {
         var cnt = 1
 
         val ytmMaturityDate = bond.earlyRedemptionDate ?: bond.maturityDt
-        val coupons = bond.generateCoupons(bond, ytmMaturityDate)
+        val coupons = bond.generateCoupons(ytmMaturityDate)
 
         var calcPrice = calcDirtyPriceFromYield(bond, dt, rate, coupons)
 

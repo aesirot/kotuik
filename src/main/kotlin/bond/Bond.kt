@@ -24,9 +24,11 @@ class Bond {
     var rate: BigDecimal = BigDecimal.ZERO
 
     @Column
+    @Enumerated(EnumType.STRING)
     var frequency: Frequency = Frequency.SemiAnnual
 
     @Column(name = "daycount")
+    @Enumerated(EnumType.STRING)
     var dayCount: DayCount = DayCount.ACT_365
 
     @Column
@@ -42,17 +44,14 @@ class Bond {
     var earlyRedemptionDate: LocalDate? = null
 
 
-
     fun ratePct(): BigDecimal {
         return rate.divide(BigDecimal("100"), 12, RoundingMode.HALF_UP)
     }
 
     fun couponPeriodEnd(dt: LocalDate): LocalDate {
-        var i = issueDt
-        while (i <= maturityDt) {
-            i = frequency.next(i)
-            if (i > dt) {
-                return i
+        for (schedule in generateCouponSchedule()) {
+            if (schedule.first<dt && schedule.second>=dt) {
+                return schedule.second
             }
         }
 
@@ -60,31 +59,47 @@ class Bond {
     }
 
     fun couponPeriodStart(dt: LocalDate): LocalDate {
-        var i = issueDt
-        var j = issueDt
-
-        while (i <= maturityDt) {
-            if (i >= dt) {
-                return j
+        for (schedule in generateCouponSchedule()) {
+            if (schedule.first<dt && schedule.second>=dt) {
+                return schedule.first
             }
-            j = i
-            i = frequency.next(i)
         }
 
-        return maturityDt
+        return issueDt
     }
 
 
-    fun generateCoupons(bond: Bond, ytmMaturityDate: LocalDate): HashMap<LocalDate, BigDecimal> {
-        var coupons = HashMap<LocalDate, BigDecimal>()
-        var dt = bond.issueDt
+    fun generateCoupons(ytmMaturityDate: LocalDate): HashMap<LocalDate, BigDecimal> {
+        val coupons = HashMap<LocalDate, BigDecimal>()
+        val schedule = generateCouponSchedule()
+        for (period in schedule) {
+            coupons[period.second] = YieldCalculator.calcAccrual(this, period.first, period.second)
+        }
+
+        return coupons
+    }
+
+    fun generateCouponSchedule(): List<Pair<LocalDate, LocalDate>> {
+        val coupons = ArrayList<Pair<LocalDate, LocalDate>>()
+
+        var dt = this.issueDt
+        var fixedDate = this.firstCouponDate != null
+
         while (true) {
-            dt = bond.frequency.next(dt)
-            if (dt > ytmMaturityDate) {
+            var dt2 : LocalDate
+            if (fixedDate) {
+                dt2 = firstCouponDate!!
+                fixedDate = false
+            } else {
+                dt2 = frequency.next(dt)
+            }
+
+            if (dt2 > maturityDt) {
                 break
             }
 
-            coupons[dt] = YieldCalculator.calcAccrual(bond, dt)
+            coupons.add(Pair(dt, dt2))
+            dt = dt2
         }
 
         return coupons

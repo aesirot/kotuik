@@ -31,6 +31,15 @@ enum class Frequency {
             return d.plus(-91, ChronoUnit.DAYS);
         }
     },
+    D_182 {
+        override fun next(d: LocalDate): LocalDate {
+            return d.plus(182, ChronoUnit.DAYS);
+        }
+
+        override fun prev(d: LocalDate): LocalDate {
+            return d.plus(-182, ChronoUnit.DAYS);
+        }
+    },
     ;
 
     abstract fun next(d: LocalDate): LocalDate;
