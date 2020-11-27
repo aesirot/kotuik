@@ -94,7 +94,7 @@ object PnL {
         return unrealized
     }
 
-    private fun fullPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
+    fun fullPrice(spreadler: SpreadlerBond, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
         val lastPrice = lastPrice(spreadler, rpcClient)
         val faceValue = faceValue(spreadler, rpcClient)
         val nkd = BigDecimal.ZERO //nkd(spreadler, rpcClient) из квика суммы сделок без нкд
