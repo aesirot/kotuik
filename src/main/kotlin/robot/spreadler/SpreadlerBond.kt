@@ -40,9 +40,6 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
         subscribeStakan()
         while (!stop) {
             if (buyStage) {
-                if (!checkStakan()) {
-                    return
-                }
                 //val startBuyPrice = (maxBuyPrice * BigDecimal("0.99")).setScale(2, RoundingMode.UP);
                 val startBuyPrice = maxBuyPrice - BigDecimal.ONE
 
@@ -176,22 +173,6 @@ class SpreadlerBond(val classCode: String, val securityCode: String, val id: Str
                 }
             }
         }
-    }
-
-    private fun checkStakan(): Boolean {
-        val args2 = GetQuoteLevel2.Args(classCode, securityCode)
-        val rpcClient = Connector.get()
-        synchronized(rpcClient) {
-            val stakan = rpcClient.qlua_getQuoteLevel2(args2)
-
-            //лучший bid последний, лучший offer первый
-            //val bestSellPrice = BigDecimal(stakan.offers[0].price)
-            /*if (bestSellPrice < maxBuyPrice.add(BigDecimal("0.1"))) {
-                log.error("maxBuyPrice $maxBuyPrice and current sell price $bestSellPrice are too close")
-                return false
-            }*/
-        }
-        return true
     }
 
     private fun save() {
