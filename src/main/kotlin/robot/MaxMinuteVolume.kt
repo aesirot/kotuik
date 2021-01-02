@@ -10,12 +10,11 @@ import common.Util
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 
-const val securityCode = "TGKD"
-const val classCode = "TQBR"
-
-const val depth = 60*8
-
 fun main() {
+    val securityCode = "TGKD"
+    val classCode = "TQBR"
+    val depth = 60*8
+
     val log = LoggerFactory.getLogger("robot.MaxMinVolume")
 
     val rpcClient = Connector.get();

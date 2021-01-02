@@ -1,6 +1,9 @@
 package bond
 
 import common.HibernateUtil
+import model.Bond
+import model.DayCount
+import model.Frequency
 import org.hibernate.Transaction
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -12,7 +15,7 @@ import java.time.format.DateTimeFormatter
 
 fun main() {
     //ImportSmartLab.importBondDB("SU25083RMFS5")
-    ImportSmartLab.importBondDB("SU26232RMFS7")
+    ImportSmartLab.importBondDB("RU000A1023K1", "сист15")
 
     HibernateUtil.getSessionFactory().close()
 }
@@ -27,8 +30,9 @@ object ImportSmartLab {
         var frequency: Frequency? = null
         var issueDt: LocalDate? = null
         var maturityDt: LocalDate? = null
-        var firstCouponDate: LocalDate? = LocalDate.of(2020, 4, 15)
-        //var firstCouponDate: LocalDate? = null
+        //var firstCouponDate: LocalDate? = LocalDate.of(2020, 10, 7)
+        //var firstCouponDate: LocalDate? = LocalDate.parse("09.10.2019", DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        var firstCouponDate: LocalDate? = null
 
         var nextCouponDate: LocalDate? = null
         var nextCouponAmount: BigDecimal? = null
@@ -49,21 +53,23 @@ object ImportSmartLab {
             val th = tds[0]
             val td = tds[1]
 
+            var value = td.text()
+
             if ("Дата размещения" == th.text()) {
-                issueDt = LocalDate.parse(td.text(), formatter)
+                issueDt = LocalDate.parse(value, formatter)
             } else if ("Дата погашения" == th.text()) {
-                maturityDt = LocalDate.parse(td.text(), formatter)
+                maturityDt = LocalDate.parse(value, formatter)
             } else if ("Номинал" == th.text()) {
                 nominal = amount(td)
             } else if ("Дох. купона, годовых от ном" == th.text()) {
                 rate = amount(td)
             } else if ("Дата след. выплаты" == th.text()) {
-                nextCouponDate = LocalDate.parse(td.text(), formatter)
+                nextCouponDate = LocalDate.parse(value, formatter)
             } else if (th.text().startsWith("Купон")) {
                 nextCouponAmount = amount(td)
             } else if (th.text().contains("Дата оферты")) {
-                if (td.text().contains("2"))
-                    earlyRedemptionDate = LocalDate.parse(td.text(), formatter)
+                if (value.contains("2"))
+                    earlyRedemptionDate = LocalDate.parse(value, formatter)
             } else if (th.text().contains("НКД")) {
                 nkd = amount(td)
             } else if (th.text().contains("Цена послед")) {
@@ -71,12 +77,13 @@ object ImportSmartLab {
             } else if (th.text().contains("Доходность")) {
                 yieldValue = amount(td)
             } else if (th.text().contains("Выплата купона")) {
-                if (td.text() == "91") {
+                //value="182"
+                if (value == "91") {
                     frequency = Frequency.D_91
-                } else if (td.text() == "182") {
+                } else if (value == "182") {
                     frequency = Frequency.D_182
                 } else {
-                    throw Exception("Unknown frequency " + td.text())
+                    throw Exception("Unknown frequency " + value)
                 }
             }
         }
@@ -94,13 +101,13 @@ object ImportSmartLab {
         if (firstCouponDate != null)
             bond.firstCouponDate = firstCouponDate
 
+        //earlyRedemptionDate = LocalDate.parse("09.11.2023", DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         if (earlyRedemptionDate != null) {
             val couponPeriodStart = bond.couponPeriodStart(earlyRedemptionDate)
             if (couponPeriodStart < earlyRedemptionDate) {
                 bond.earlyRedemptionDate = couponPeriodStart
             }
         }
-        bond.earlyRedemptionDate = earlyRedemptionDate
 
 
         val check = checkFrequency(bond, nextCouponDate)
@@ -108,13 +115,13 @@ object ImportSmartLab {
             throw Exception("Wrong frequency")
         }
 
-        val settleDt = BusinessCalendar.addDays(LocalDate.now(), 1)
-        val calculatedAccrual = YieldCalculator.calcAccrual(bond, settleDt)
+        val settleDt = BusinessCalendar.addDays(LocalDate.now(), 0)
+        val calculatedAccrual = CalcYield.calcAccrual(bond, settleDt)
         if (calculatedAccrual.compareTo(nkd) != 0) {
             throw Exception("Wrong nkd $calculatedAccrual != $nkd")
         }
 
-        val calculatedCounpon = YieldCalculator.calcAccrual(bond, nextCouponDate!!)
+        val calculatedCounpon = CalcYield.calcAccrual(bond, nextCouponDate!!)
         if (calculatedCounpon.compareTo(nextCouponAmount) != 0) {
             throw Exception("Wrong next coupon $calculatedCounpon != $nextCouponAmount")
         }
@@ -122,13 +129,19 @@ object ImportSmartLab {
 
         last!!
         val nkdToPrice = (calculatedAccrual * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
-        println(YieldCalculator.effectiveYTM(bond, settleDt, last + nkdToPrice))
-        println(YieldCalculator.effectiveYTMBinary(bond, settleDt, last + nkdToPrice))
+        println(CalcYield.effectiveYTM_StepAlgo(bond, settleDt, last + nkdToPrice))
+        var calcYTM = CalcYield.effectiveYTMBinary(bond, settleDt, last + nkdToPrice)
+        println(calcYTM)
+        calcYTM = calcYTM.multiply(BigDecimal(100)).setScale(2, RoundingMode.HALF_UP)
+        if (yieldValue!!.compareTo(calcYTM) != 0) {
+            throw Exception("YTM break exp=$yieldValue calculated=$calcYTM")
+        }
+        println("\nУСПЕХ\n")
 
         return bond
     }
 
-    fun importBondDB(code: String) {
+    fun importBondDB(code: String, name: String) {
         HibernateUtil.getSessionFactory().openSession().use { session ->
             var transaction: Transaction? = null
             try {
@@ -143,6 +156,8 @@ object ImportSmartLab {
                 } else {
                     bond = list.first()
                 }
+                bond.name = name
+                bond.issuerId = 2
 
                 importBond(code, bond)
 
@@ -164,7 +179,7 @@ object ImportSmartLab {
 
     private fun checkFrequency(bond: Bond, nextCouponDate: LocalDate?): Boolean {
         var success = false
-        val coupons = bond.generateCoupons(nextCouponDate!!)
+        val coupons = bond.generateCoupons()
         for (entry in coupons.entries) {
             if (entry.key == nextCouponDate!!) {
                 return true

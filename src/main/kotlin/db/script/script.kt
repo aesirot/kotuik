@@ -2,6 +2,7 @@ package db.script
 
 import org.h2.tools.Recover
 import org.h2.tools.Restore
+import org.h2.tools.Script
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.sql.Connection
@@ -9,7 +10,8 @@ import java.sql.DriverManager
 
 fun main() {
     try {
-      //  Restore.execute(".", "kotuik")
+        //Script.process("jdbc:h2:C:/projects/IdeaProjects/kotuik/kotuik", "sa", "", "saveme", "compression", "zip")
+        //Restore.execute()
       //  Script("drop_trade.sql").execute()
         //Script("trade.sql").execute()
         Script("flush_pnl.sql").execute()
@@ -27,6 +29,8 @@ class Script(val script: String) {
 
             val st = conn.createStatement()
             st.execute(sql)
+
+            conn.commit()
         } finally {
             conn.close()
         }

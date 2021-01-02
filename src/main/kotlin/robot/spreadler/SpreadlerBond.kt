@@ -1,4 +1,4 @@
-package robot
+package robot.spreadler
 
 import com.enfernuz.quik.lua.rpc.api.messages.GetDepoEx
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
@@ -10,6 +10,7 @@ import common.Constants.BCS_FIRM
 import common.Constants.DEFAULT_AGGRESSION
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import robot.InterruptableStrategy
 import java.math.BigDecimal
 import java.util.*
 import kotlin.concurrent.withLock

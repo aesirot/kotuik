@@ -5,8 +5,8 @@ import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import common.Connector
 import common.Constants
 import org.slf4j.LoggerFactory
-import robot.SpreadlerRunner
-import robot.Telega
+import robot.spreadler.SpreadlerRunner
+import common.Telega
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -21,6 +21,7 @@ object MoneyLimitStrazh {
     init {
         minTriggerLimit["SUR"] = BigDecimal("100000")
         minTriggerLimit["USD"] = BigDecimal("1800")
+        minTriggerLimit["EUR"] = BigDecimal("500")
     }
 
     fun check() {

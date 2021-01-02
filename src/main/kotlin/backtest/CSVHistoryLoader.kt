@@ -9,17 +9,7 @@ import java.time.LocalDateTime
 import java.util.ArrayList
 import java.time.format.DateTimeFormatter
 
-
-
-
-
 class CSVHistoryLoader {
-    //Delimiter used in CSV file
-    private val NEW_LINE_SEPARATOR = "\n"
-
-    //CSV file header
-    private val FILE_HEADER = arrayOf<Any>("id", "firstName", "lastName", "gender", "age")
-
     private val formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmmss")!!
 
     fun load(classCode: String, securityCode: String): ArrayList<Bar> {

@@ -8,15 +8,15 @@ import com.enfernuz.quik.lua.rpc.api.messages.datasource.T
 import common.Connector
 import common.Util
 import org.slf4j.LoggerFactory
-import robot.SpreadlerRunner
-import robot.Telega
+import robot.spreadler.SpreadlerRunner
+import common.Telega
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 class MoexStrazh {
-    object holder {
+    companion object {
         val instance = MoexStrazh()
     }
 
@@ -121,7 +121,6 @@ class MoexStrazh {
             Telega.Holder.get().sendMessage(msg)
             log.error(msg)
 
-            //TODO конвертация в продажи... надо подумать
             SpreadlerRunner.stopBuy()
         }
     }

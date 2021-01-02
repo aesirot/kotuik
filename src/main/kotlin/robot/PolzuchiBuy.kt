@@ -16,7 +16,8 @@ import kotlin.concurrent.withLock
 fun main() {
     // Orders.testMode = true
 
-    val buyRunner = PolzuchiiBuy(Constants.CLASS_CODE_EQ, Constants.SEC_CODE_KVADRA, 1,
+    val securityCode = Constants.SEC_CODE_KVADRA
+    val buyRunner = PolzuchiiBuy(Constants.CLASS_CODE_EQ, securityCode, 1,
             BigDecimal("0.002700"), BigDecimal("0.002740"), 200)
     val thread = Thread(buyRunner)
     thread.name = "PolzuchiiBuy $securityCode"

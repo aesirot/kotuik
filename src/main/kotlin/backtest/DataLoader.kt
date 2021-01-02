@@ -9,9 +9,6 @@ import common.Connector
 import common.Constants
 import common.Util
 import org.slf4j.LoggerFactory
-import robot.classCode
-import robot.depth
-import robot.securityCode
 import java.math.BigDecimal
 
 fun main() {
@@ -28,7 +25,7 @@ object DataLoader {
         val dataSource = Util.dataSource(classCode, securityCode, CreateDataSource.Interval.INTERVAL_M1, rpcClient)
 
         val size = rpcClient.datasource_Size(Size.Args(dataSource.datasourceUUID))
-        val minIdx = Math.max(size - depth, 1)
+        val minIdx = Math.max(size - 60 * 8, 1)
 
         var maxVolume = BigDecimal.ZERO
 

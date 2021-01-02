@@ -1,5 +1,7 @@
-package bond
+package model
 
+import bond.BusinessCalendar
+import bond.CalcYield
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
@@ -18,9 +20,12 @@ class Bond {
     var code: String = ""
 
     @Column
-    var nominal: BigDecimal = BigDecimal.ZERO
+    var name: String = ""
 
     @Column
+    var nominal: BigDecimal = BigDecimal.ZERO
+
+    @Column(precision = 20, scale = 8)
     var rate: BigDecimal = BigDecimal.ZERO
 
     @Column
@@ -43,6 +48,17 @@ class Bond {
     @Column
     var earlyRedemptionDate: LocalDate? = null
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PRODUCT_ATTR", joinColumns = [JoinColumn(name = "PRODUCT_ID")])
+    @MapKeyColumn(name = "attr_name")
+    @Column(name = "attr_value")
+    var attrs: MutableMap<String, String> = HashMap()
+
+    @Column(name = "issuer_id")
+    var issuerId: Long? = null
+
+    @Transient
+    var couponCache: MutableMap<LocalDate, BigDecimal>? = null
 
     fun ratePct(): BigDecimal {
         return rate.divide(BigDecimal("100"), 12, RoundingMode.HALF_UP)
@@ -50,7 +66,7 @@ class Bond {
 
     fun couponPeriodEnd(dt: LocalDate): LocalDate {
         for (schedule in generateCouponSchedule()) {
-            if (schedule.first<dt && schedule.second>=dt) {
+            if (schedule.first < dt && schedule.second >= dt) {
                 return schedule.second
             }
         }
@@ -58,9 +74,13 @@ class Bond {
         return maturityDt
     }
 
+    fun calcRegistrationDate(couponPeriodEnd: LocalDate): LocalDate {
+        return BusinessCalendar.minusDays(couponPeriodEnd, 1)
+    }
+
     fun couponPeriodStart(dt: LocalDate): LocalDate {
         for (schedule in generateCouponSchedule()) {
-            if (schedule.first<dt && schedule.second>=dt) {
+            if (schedule.first < dt && schedule.second >= dt) {
                 return schedule.first
             }
         }
@@ -69,14 +89,23 @@ class Bond {
     }
 
 
-    fun generateCoupons(ytmMaturityDate: LocalDate): HashMap<LocalDate, BigDecimal> {
+    fun generateCoupons(): Map<LocalDate, BigDecimal> {
+        if (couponCache != null) {
+            return couponCache!!
+        }
+
         val coupons = HashMap<LocalDate, BigDecimal>()
         val schedule = generateCouponSchedule()
         for (period in schedule) {
-            coupons[period.second] = YieldCalculator.calcAccrual(this, period.first, period.second)
+            coupons[period.second] = CalcYield.calcAccrual(this, period.first, period.second)
         }
 
+        couponCache = coupons
         return coupons
+    }
+
+    fun isKnowsCoupon(coupon: Map.Entry<LocalDate, BigDecimal>, valueDate: LocalDate): Boolean {
+        return coupon.key > valueDate && coupon.key <= calculationEffectiveMaturityDate(valueDate)
     }
 
     fun generateCouponSchedule(): List<Pair<LocalDate, LocalDate>> {
@@ -86,7 +115,7 @@ class Bond {
         var fixedDate = this.firstCouponDate != null
 
         while (true) {
-            var dt2 : LocalDate
+            var dt2: LocalDate
             if (fixedDate) {
                 dt2 = firstCouponDate!!
                 fixedDate = false
@@ -103,6 +132,33 @@ class Bond {
         }
 
         return coupons
+    }
+
+    fun calculationEffectiveMaturityDate(calcDate: LocalDate): LocalDate {
+        if (earlyRedemptionDate == null) {
+            return maturityDt
+        }
+
+        //https://bcs-express.ru/novosti-i-analitika/oferta-po-obligatsiiam-chto-nuzhno-znat-investoru-ob-etom
+        //я смещаю при импорте на дату выплаты купона
+        return if (earlyRedemptionDate!! >= calcDate) earlyRedemptionDate!! else maturityDt
+    }
+
+    fun getAttr(attr: SecAttr): String? {
+        return attrs[attr.name]
+    }
+
+    fun getAttrM(attr: SecAttr): String {
+        return attrs[attr.name]!!
+    }
+
+
+    fun setAttr(attr: SecAttr, value: String?) {
+        if (value == null) {
+            attrs.remove(attr.name)
+        }
+
+        attrs[attr.name] = value!!
     }
 
 }

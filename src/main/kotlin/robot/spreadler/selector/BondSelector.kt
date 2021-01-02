@@ -1,13 +1,12 @@
-package robot.spreadler
+package robot.spreadler.selector
 
 import backtest.Bar
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
-import com.enfernuz.quik.lua.rpc.api.messages.GetSecurityInfo
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource.Interval.INTERVAL_D1
 import common.Connector
 import common.Util
 import org.slf4j.LoggerFactory
-import robot.SpreadlerConfigurator
+import robot.spreadler.SpreadlerConfigurator
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.collections.ArrayList
@@ -21,10 +20,15 @@ object BondSelector {
     val log = LoggerFactory.getLogger(this::class.java)
     val decimalFormat = DecimalFormat("0.00")
 
+
     //const val volumePorog = 100
     //val classes =  arrayOf("EQOB", "TQCB")
-    const val volumePorog = 10
-    val classes =  arrayOf("TQOD")
+
+    //const val volumePorog = 10
+    //val classes =  arrayOf("TQOD")
+
+    const val volumePorog = 3
+    val classes =  arrayOf("TQOE")
 
     private class SecurityInfo(val classCode: String,
                                val secCode: String,

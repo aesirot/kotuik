@@ -6,7 +6,7 @@ import org.quartz.JobExecutionContext
 class MaxMoneyStrazhJob: Job {
 
     override fun execute(context: JobExecutionContext?) {
-        MaxMoneyStrazh.check()
+        SpreadlerMaxMoneyStrazh.check()
     }
 
 }

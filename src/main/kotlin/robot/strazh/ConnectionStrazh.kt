@@ -1,10 +1,8 @@
 package robot.strazh
 
 import common.Connector
-import org.quartz.Job
-import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
-import robot.Telega
+import common.Telega
 import java.util.concurrent.*
 
 object ConnectionStrazh {

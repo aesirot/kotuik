@@ -3,20 +3,20 @@
     "host": "127.0.0.1",
     "port": 5561
   },
-  "serde_protocol": "protobuf",
+  "serde_protocol": "json",
   "auth": {
     "mechanism": "PLAIN",
     "plain": {
-      "username": "admin",
-      "password": "letmein"
+      "username": "rpcuser",
+      "password": "rpcuserp"
     },
     "curve": {
       "client": {
-        "public": "Yne@$w-vo<fVvi]a<NY6T1ed:M$fCG*[IaLV{hID",
-        "secret": "D:)Q[IlAW!ahhC2ac:9*A}h:p?([4%wOTJ%JR%cs"
+        "public": "qYne@$w-vo<fVvi]a<NY6T1ed:M$fCG*[IaLV{hID",
+        "secret": "Dq:)Q[IlAW!ahhC2ac:9*A}h:p?([4%wOTJ%JR%cs"
       },
       "server": {
-        "public": "rq:rM>}U?@Lns47E1%kR.o@n%FcmmsL/@{H8]yf7"
+        "public": "rq:rM>s}U?@Lns47E1%kR.o@n%FcmmsL/@{H8]yf7"
       }
     }
   }

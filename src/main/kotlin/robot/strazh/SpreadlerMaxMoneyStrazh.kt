@@ -4,23 +4,21 @@ import com.enfernuz.quik.lua.rpc.api.messages.GetDepoEx
 import common.Connector
 import common.Constants
 import common.Util
-import org.quartz.Job
-import org.quartz.JobExecutionContext
 import org.slf4j.LoggerFactory
 import pnl.PnL
-import robot.SpreadlerConfigurator
+import robot.spreadler.SpreadlerConfigurator
 import java.lang.Integer.min
 import java.math.BigDecimal
-import kotlin.math.max
 
-object MaxMoneyStrazh {
+object SpreadlerMaxMoneyStrazh {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     private val maxTriggerLimit = HashMap<String, BigDecimal>()
 
     init {
         maxTriggerLimit["SUR"] = BigDecimal("1250000")
-        maxTriggerLimit["USD"] = BigDecimal("6000")
+        maxTriggerLimit["USD"] = BigDecimal("7000")
+        maxTriggerLimit["EUR"] = BigDecimal("3000")
     }
 
     fun check() {

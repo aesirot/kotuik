@@ -1,8 +1,9 @@
-package robot
+package robot.spreadler
 
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import common.Util
+import robot.PolzuchiiSell
 import java.math.BigDecimal
 
 class SpreadlerSell(classCode: String,

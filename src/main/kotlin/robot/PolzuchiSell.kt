@@ -15,8 +15,11 @@ import kotlin.concurrent.withLock
 fun main() {
     Orders.testMode = true
 
-    val sell = PolzuchiiSell(Constants.CLASS_CODE_EQ, Constants.SEC_CODE_KVADRA, 1,
-            BigDecimal(0.002800), BigDecimal(0.002600), 200)
+    val securityCode = Constants.SEC_CODE_KVADRA
+    val sell = PolzuchiiSell(
+        Constants.CLASS_CODE_EQ, securityCode, 1,
+        BigDecimal(0.002800), BigDecimal(0.002600), 200
+    )
     val thread = Thread(sell)
     thread.name = "PolzuchiiSell $securityCode"
     thread.start()
@@ -31,12 +34,15 @@ fun main() {
     Connector.get().close()
 }
 
-open class PolzuchiiSell(private val classCode: String,
-                         private val securityCode: String,
-                         private val quantity: Int,
-                         private val startPrice: BigDecimal,
-                         val minPrice: BigDecimal,
-                         val maxShift: Int) : Runnable, InterruptableStrategy {
+open class PolzuchiiSell(
+    private val classCode: String,
+    val securityCode: String,
+    private val quantity: Int,
+    private val startPrice: BigDecimal,
+    val minPrice: BigDecimal,
+    val maxShift: Int
+) : Runnable, InterruptableStrategy {
+
     companion object {
         const val STRATEGY = "POLZS"
     }
@@ -66,7 +72,8 @@ open class PolzuchiiSell(private val classCode: String,
                         Orders.cancelOrderDLL(classCode, securityCode, orderId, STRATEGY, rpcClient)
                     }
                     orderPrice = calculatedPrice
-                    orderId = Orders.sellOrderDLL(classCode, securityCode, restQuantity, calculatedPrice, rpcClient, STRATEGY)
+                    orderId =
+                        Orders.sellOrderDLL(classCode, securityCode, restQuantity, calculatedPrice, rpcClient, STRATEGY)
                 }
 
                 if (!stop) { //если за время постановки ордера пришла команда на остановку
@@ -125,7 +132,12 @@ open class PolzuchiiSell(private val classCode: String,
         }
     }
 
-    protected open fun calculatePrice(rpcClient: ZmqTcpQluaRpcClient, classCode: String, securityCode: String, orderPrice: BigDecimal): BigDecimal {
+    protected open fun calculatePrice(
+        rpcClient: ZmqTcpQluaRpcClient,
+        classCode: String,
+        securityCode: String,
+        orderPrice: BigDecimal
+    ): BigDecimal {
         val args2 = GetQuoteLevel2.Args(classCode, securityCode)
         val stakan = rpcClient.qlua_getQuoteLevel2(args2)
 

@@ -5,8 +5,6 @@ import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import common.Connector
 import common.Util
 import org.slf4j.LoggerFactory
-import robot.SpreadlerBond
-import robot.SpreadlerConfigurator
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -31,7 +29,7 @@ object Pastuh {
             if (!spreadler.buyStage) {
                 if (spreadler.buyPrice + spreadler.minSellSpread > calcBuyPrice + BigDecimal("0.9")) {
                     log.warn("${spreadler.id} СНИЖАЮ ЦЕНУ ПРОДАЖИ  ${spreadler.buyPrice} на $calcBuyPrice")
-                    spreadler.buyPrice -= BigDecimal("0.6")//TODO пересчитать оптимальные параметры...
+                    spreadler.buyPrice -= BigDecimal("0.6")
                 }
             }
 

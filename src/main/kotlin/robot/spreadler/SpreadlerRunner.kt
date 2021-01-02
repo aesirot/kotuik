@@ -1,15 +1,10 @@
-package robot
+package robot.spreadler
 
+import model.Bond
+import bond.CurveHolder
 import common.Util
-import robot.spreadler.Pastuh
-import org.quartz.*
-import org.quartz.TriggerBuilder.newTrigger
-import org.quartz.TriggerKey.triggerKey
-import org.quartz.impl.StdSchedulerFactory
 import org.slf4j.LoggerFactory
-import robot.spreadler.JobEndOfDay
-import robot.spreadler.JobStartAll
-import robot.spreadler.PastuhJob
+import robot.StakanLogger
 import robot.strazh.*
 import java.math.BigDecimal
 import kotlin.NoSuchElementException
@@ -17,25 +12,11 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.system.exitProcess
 
-
-fun main() {
-    SpreadlerRunner.run()
-}
-
 object SpreadlerRunner {
-    val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(this::class.java)
     val threads = HashMap<String, Thread>()
 
-    fun run() {
-/*
-        val s = BondSpreadler(Constants.CLASS_CODE_BOND, Constants.PIK_BO_P02, 1, BigDecimal("100.5")
-                , 1, 20, BigDecimal("0.2"))
-        SpreadlerConfigurator.add(s)
-        SpreadlerConfigurator.save()
-*/
-
-//        startAll()
-        schedule()
+    fun console() {
 
         while (true) {
             try {
@@ -50,8 +31,9 @@ object SpreadlerRunner {
                         stop(id)
                     } else if (line == "exit") {
                         stopAll()
-                        log.info("exit")
-                        exitProcess(0)
+                        log.info("exit spreadler console")
+                        //exitProcess(0)
+                        break
                     } else if (line == "pastuh") {
                         pastuh()
                     } else if (line == "start all") {
@@ -81,91 +63,14 @@ object SpreadlerRunner {
         }
     }
 
-    private fun schedule() {
-        val schedFact: SchedulerFactory = StdSchedulerFactory()
-        val scheduler: Scheduler = schedFact.scheduler
-        scheduler.start()
-
-        val pastuh = JobBuilder.newJob(PastuhJob::class.java).build()
-        val triggerPastuh: Trigger = newTrigger()
-                .withIdentity(triggerKey("pastuh", "spreadler"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 57 9 ? * 2-6"))
-                .build()
-        scheduler.scheduleJob(pastuh, triggerPastuh)
-
-        val startAll = JobBuilder.newJob(JobStartAll::class.java).build()
-        val triggerStart: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerStart", "spreadler"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("10 0 10 ? * 2-6"))
-                .build()
-        scheduler.scheduleJob(startAll, triggerStart)
-
-        val dayOpenJob = JobBuilder.newJob(DayOpenStrazh::class.java).build()
-        val triggerDayOpen: Trigger = newTrigger()
-                .withIdentity(triggerKey("dayOpen", "g3"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("10 1 10 ? * 2-6"))
-                .build()
-        scheduler.scheduleJob(dayOpenJob, triggerDayOpen)
-
-        val endOfDay = JobBuilder.newJob(JobEndOfDay::class.java).build()
-        val triggerEOD: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerEOD", "spreadler"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 19 ? * 2-6"))
-                .build()
-        scheduler.scheduleJob(endOfDay, triggerEOD)
-
-        val moneyLimit = JobBuilder.newJob(MoneyLimitStrazhJob::class.java).build()
-        val triggerMoneyLimit: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerMoneyLimit", "spreadler"))
-                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 1, 0))
-                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
-                        .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
-                        .onMondayThroughFriday())
-                .build()
-        scheduler.scheduleJob(moneyLimit, triggerMoneyLimit)
-
-        val connectionJob = JobBuilder.newJob(ConnectionStrazhJob::class.java).build()
-        val connectionTrigger: Trigger = newTrigger()
-                .withIdentity(triggerKey("connectionStrazh", "s2"))
-                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(9, 55, 0))
-                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
-                        .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
-                        .onMondayThroughFriday())
-                .build()
-        scheduler.scheduleJob(connectionJob, connectionTrigger)
-
-        val moexStrazhJob = JobBuilder.newJob(MoexStrazhJob::class.java).build()
-        val moexTrigger: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerMoexStrazh", "s3"))
-                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 2, 10))
-                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
-                        .withInterval(1, DateBuilder.IntervalUnit.MINUTE)
-                        .onMondayThroughFriday())
-                .build()
-        scheduler.scheduleJob(moexStrazhJob, moexTrigger)
-
-        val maxMoneyStrazhJob = JobBuilder.newJob(MaxMoneyStrazhJob::class.java).build()
-        val maxMoneyTrigger: Trigger = newTrigger()
-                .withIdentity(triggerKey("triggerMaxMoneyStrazh", "s3"))
-                .withSchedule(DailyTimeIntervalScheduleBuilder.dailyTimeIntervalSchedule()
-                        .startingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(10, 2, 10))
-                        .endingDailyAt(TimeOfDay.hourMinuteAndSecondOfDay(19, 0, 0))
-                        .withInterval(10, DateBuilder.IntervalUnit.MINUTE)
-                        .onMondayThroughFriday())
-                .build()
-        scheduler.scheduleJob(maxMoneyStrazhJob, maxMoneyTrigger)
-    }
 
     private fun update(id: String) {
         try {
             val spreadler = SpreadlerConfigurator.config.spreadlers.first { it.id == id }
-            System.out.println("modify spreadler $id ${spreadler.securityCode}")
+            println("modify spreadler $id ${spreadler.securityCode}")
 
             if (threads.containsKey(id)) {
-                System.err.println("spreadler $id ${spreadler.securityCode} is running. Stop it? (y/n)")
+                println("spreadler $id ${spreadler.securityCode} is running. Stop it? (y/n)")
                 val line = readLine()!!.trim()
                 if (line.toLowerCase() == "y") {
                     stop(id)
@@ -229,7 +134,7 @@ object SpreadlerRunner {
     }
 
     fun startAll() {
-        val moexStrazh = MoexStrazh.holder.instance
+        val moexStrazh = MoexStrazh.instance
         if (!moexStrazh.isDayOpen()) {
             moexStrazh.initToday()
         }
@@ -295,6 +200,10 @@ object SpreadlerRunner {
         } catch (e: NoSuchElementException) {
             log.error("Spreadler $id not found")
         }
+    }
+
+    fun stopDay() {
+        stopAll()
     }
 
     fun stopAll() {

@@ -6,9 +6,9 @@ import common.Connector
 import db.Trade
 import db.dao.TradeDAO
 import org.slf4j.LoggerFactory
-import robot.SpreadlerBond
-import robot.SpreadlerConfigurator
-import robot.Telega
+import robot.spreadler.SpreadlerBond
+import robot.spreadler.SpreadlerConfigurator
+import common.Telega
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -188,8 +188,7 @@ object PnL {
         for (trade in trades) {
             if (!map.containsKey(trade.securityCode)) {
                 //PriorityQueue<Trade>(kotlin.Comparator())
-                val queue = PriorityQueue<Trade>(kotlin.Comparator
-                { o1, o2 -> o1.trade_datetime.compareTo(o2.trade_datetime) })
+                val queue = PriorityQueue<Trade> { o1, o2 -> o1.trade_datetime.compareTo(o2.trade_datetime) }
 
                 map[trade.securityCode] = queue
             }

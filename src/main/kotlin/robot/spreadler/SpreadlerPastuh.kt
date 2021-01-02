@@ -1,4 +1,4 @@
-package robot
+package robot.spreadler
 
 class SpreadlerPastuh {
     //надо по облигации создавать серию спредлеров с отступом
