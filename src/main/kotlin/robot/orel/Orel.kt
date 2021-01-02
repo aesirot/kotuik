@@ -96,7 +96,7 @@ class Orel : AbstractLoopRobot() {
                         * BigDecimal(100))
                     .setScale(2, RoundingMode.HALF_UP)
 
-                if (calcNkd.compareTo(nkd[bond.code]) != 0) {
+                if (calcNkd - nkd[bond.code]!! > BigDecimal("0.01")) {
                     val msg =
                         "Ошибка статики ${bond.code} нкд факт ${nkd[bond.code]!!.toPlainString()} ож ${calcNkd.toPlainString()}"
                     log.error(msg)
