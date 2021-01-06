@@ -73,4 +73,12 @@ public class QuoteEventInfo {
 
         return asString;
     }
+
+    public String getClassCode() {
+        return classCode;
+    }
+
+    public String getSecCode() {
+        return secCode;
+    }
 }
