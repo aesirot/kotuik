@@ -11,6 +11,7 @@ object Zavod {
     private val robots = HashMap<String, Robot>()
 
     fun reloadAllRobots() {
+        log.info("reload robots")
         if (robots.size > 0) {
             for (robot in robots.values) {
                 if (robot.isRunning()) {
@@ -26,6 +27,7 @@ object Zavod {
     }
 
     fun startAll() {
+        log.info("start all")
         for (entry in robots.entries) {
             if (entry.value.isRunning()) {
                 continue
