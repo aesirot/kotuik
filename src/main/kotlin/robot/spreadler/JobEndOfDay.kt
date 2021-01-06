@@ -7,6 +7,7 @@ import org.quartz.Job
 import org.quartz.JobExecutionContext
 import pnl.PnL
 import pnl.TradesFromQuik
+import robot.infra.Zavod
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -15,6 +16,7 @@ class JobEndOfDay: Job {
 
     override fun execute(p0: JobExecutionContext?) {
         SpreadlerRunner.stopDay()
+        Zavod.stopAll()
 
         TradesFromQuik.load()
         PnL.calc()
