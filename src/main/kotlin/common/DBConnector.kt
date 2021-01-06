@@ -16,7 +16,7 @@ object DBConnector {
             if (connection != null) {
                 return connection!!
             }
-            Class.forName("org.h2.Driver").newInstance()
+            Class.forName("org.h2.Driver").getDeclaredConstructor().newInstance()
             connection = DriverManager.getConnection("jdbc:h2:C:/projects/IdeaProjects/kotuik/kotuik", "sa", "")
         }
 
