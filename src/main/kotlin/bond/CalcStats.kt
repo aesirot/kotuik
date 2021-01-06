@@ -12,7 +12,7 @@ object CalcStats {
 
         val totalDiff = nums.fold(BigDecimal.ZERO) { acc, bd ->
             val diff = bd - matOzh
-            diff * diff
+            acc + diff * diff
         }
 
         val dispercia = totalDiff.divide(BigDecimal(nums.size), 12, RoundingMode.HALF_UP)
