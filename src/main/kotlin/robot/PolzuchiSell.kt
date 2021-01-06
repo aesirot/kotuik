@@ -78,7 +78,7 @@ open class PolzuchiiSell(
 
                 if (!stop) { //если за время постановки ордера пришла команда на остановку
                     lock.withLock {
-                        lockCondition.await(20, TimeUnit.SECONDS)
+                        lockCondition.await(60, TimeUnit.SECONDS)
                     }
                 }
 

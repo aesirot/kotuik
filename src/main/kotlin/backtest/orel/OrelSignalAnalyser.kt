@@ -1,5 +1,6 @@
 package backtest.orel
 
+import backtest.Bar
 import bond.BusinessCalendar
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import com.google.common.io.Files
@@ -12,9 +13,12 @@ import java.time.LocalDateTime
 import kotlin.math.max
 
 fun main() {
-    val lines = Files.readLines(File("Orel.log"), StandardCharsets.UTF_8)
+    val lines = Files.readLines(File("OrelDebug.log"), StandardCharsets.UTF_8)
 
     val delta = BigDecimal("0.2")
+    val file = File("OrelDebugAnal.csv")
+    Files.append("code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n", file, StandardCharsets.UTF_8)
+
     for (i in 1..lines.size - 1) {
         val line = lines[i]
         val split = line.split(";")
@@ -26,11 +30,14 @@ fun main() {
 
         val result = OrelSignalAnalyser.analyze(classCode, code, time, buyPrice, delta)
 
-        println("$line;${result.first};${result.second}")
+        Files.append("$line;${result.first};${result.second}\n", file, StandardCharsets.UTF_8)
+
     }
 }
 
 object OrelSignalAnalyser {
+
+    val cache = HashMap<String, List<Bar>>()
 
     fun analyze(
         classCode: String,
@@ -39,14 +46,21 @@ object OrelSignalAnalyser {
         buyPrice: BigDecimal,
         delta: BigDecimal
     ): Pair<BigDecimal, Int> {
-        val rpcClient = Connector.get()
-        val dataSource = Util.dataSource(
-            classCode,
-            code,
-            CreateDataSource.Interval.INTERVAL_M1,
-            rpcClient
-        )
-        val bars = Util.toBars(dataSource)
+        val bars: List<Bar>
+        if (cache.containsKey(code)) {
+            bars = cache[code]!!
+        } else {
+            val rpcClient = Connector.get()
+            val dataSource = Util.dataSource(
+                classCode,
+                code,
+                CreateDataSource.Interval.INTERVAL_M1,
+                rpcClient
+            )
+            bars = Util.toBars(dataSource)
+
+            cache[code] = bars
+        }
 
         var sellPrice = buyPrice + delta
         var downDay = BusinessCalendar.addDays(time.toLocalDate(), 3)

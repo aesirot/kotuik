@@ -45,7 +45,7 @@ object DBService {
 
         HibernateUtil.getSessionFactory().openSession().use { session ->
             try {
-                var queryString = "from robot"
+                var queryString = "from RobotState"
                 if (where.isNotEmpty()) {
                     queryString += " where $where"
                 }

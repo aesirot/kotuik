@@ -30,8 +30,8 @@ object SpreadlerRunner {
                         val id = line.substring(5).trim()
                         stop(id)
                     } else if (line == "exit") {
-                        stopAll()
-                        log.info("exit spreadler console")
+                        println("exit spreadler console")
+                        //stopAll()
                         //exitProcess(0)
                         break
                     } else if (line == "pastuh") {

@@ -118,6 +118,7 @@ object Connector {
             eventThread = Thread(EventProcessor(), "QuikEventProcessor")
             eventThread!!.start()
 
+            this.eventConnection = eventProcessor
         } catch (ex: QluaEventProcessingException) {
             logger.error("Ошибка при обработке события.", ex)
         } catch (ex: java.lang.Exception) {
@@ -128,10 +129,6 @@ object Connector {
 
     @Synchronized
     fun close() {
-        if (this::rpcClient.isInitialized) {
-            rpcClient.close()
-        }
-
         if (this::eventConnection.isInitialized) {
             stop = true
             if (eventThread != null) {
@@ -142,12 +139,21 @@ object Connector {
             }
             eventConnection.close()
         }
-   }
 
-    private class EventProcessor: Runnable {
+        if (this::rpcClient.isInitialized) {
+            rpcClient.close()
+        }
+
+    }
+
+    private class EventProcessor : Runnable {
         override fun run() {
             while (!stop) {
-                eventConnection.process()
+                try {
+                    eventConnection.process()
+                } catch (e: Exception) {
+                    logger.error("EventProcessingError: " + e.message, e)
+                }
             }
         }
 

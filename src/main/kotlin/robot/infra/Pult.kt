@@ -26,6 +26,13 @@ class Pult {
                         exitProcess(0)
                     } else if (line == "spreadler") {
                         SpreadlerRunner.console()
+                    } else if (line == "cancel orders") {
+                        val rpcClient = Connector.get()
+                        synchronized(rpcClient) {
+                            //TODO rpcClient.getP
+                        }
+                    } else if (line == "stop all") {
+                        Zavod.stopAll()
                     } else if (line.startsWith("stop")) {
                         val id = line.split(" ")[1]
                         Zavod.stop(id)
@@ -61,5 +68,7 @@ class Pult {
 
     private fun spec() {
         //do what you want
+        Zavod.reloadAllRobots()
+        Zavod.startAll()
     }
 }

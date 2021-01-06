@@ -9,7 +9,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.any
 import org.mockito.Mockito.mock
-import robot.SpreadlerSell
+import robot.spreadler.SpreadlerSell
 import java.math.BigDecimal
 import java.util.*
 

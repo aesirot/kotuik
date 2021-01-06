@@ -12,11 +12,11 @@
     },
     "curve": {
       "client": {
-        "public": "qYne@$w-vo<fVvi]a<NY6T1ed:M$fCG*[IaLV{hID",
-        "secret": "Dq:)Q[IlAW!ahhC2ac:9*A}h:p?([4%wOTJ%JR%cs"
+        "public": "rq:rM>}U?@Lns47E1%kR.o@n%FcmmsL/@{H8]yf7",
+        "secret": "JTKVSB%%)wK0E.X)V>+}o?pNmC{O&4W4b!Ni{Lh6"
       },
       "server": {
-        "public": "rq:rM>s}U?@Lns47E1%kR.o@n%FcmmsL/@{H8]yf7"
+        "public": "Yne@$w-vo<fVvi]a<NY6T1ed:M$fCG*[IaLV{hID"
       }
     }
   }

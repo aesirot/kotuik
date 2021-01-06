@@ -37,6 +37,7 @@ class Orel : AbstractLoopRobot() {
 
     @Transient
     val notifMap = HashMap<String, LocalDateTime>()
+    val notifDebugMap = HashMap<String, LocalDateTime>()
 
     @Transient
     lateinit var curveOFZ: Curve
@@ -171,7 +172,6 @@ class Orel : AbstractLoopRobot() {
             approxBID[bond.code] = (approxBuyDirtyPrice - nkdToPrice).setScale(6, RoundingMode.HALF_UP)
         }
 
-/*
         for (bond in bonds) {
             if (approxBID[bond.code] == null) {
                 continue
@@ -196,12 +196,12 @@ class Orel : AbstractLoopRobot() {
 
                 val askYTM =
                     CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(curveOFZ.durations[bond.code]!!))
+                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
                     .setScale(6, RoundingMode.HALF_UP)
                 val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
                 val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
 
-                val duration = curveOFZ.durations[bond.code]!!.toInt()
                 val text =
                     "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
                             "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
@@ -221,12 +221,12 @@ class Orel : AbstractLoopRobot() {
 
                     val askYTM =
                         CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-                    val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(curveOFZ.durations[bond.code]!!))
+                    val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+                    val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
                         .setScale(6, RoundingMode.HALF_UP)
                     val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
                     val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
 
-                    val duration = curveOFZ.durations[bond.code]!!.toInt()
                     val text =
                         "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
                                 "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
@@ -242,10 +242,11 @@ class Orel : AbstractLoopRobot() {
                 }
             }
         }
-*/
+
     }
 
     fun onQuote(classCode: String, secCode: String) {
+/*
         if (approxBID[secCode] == null) {
             return
         }
@@ -265,25 +266,30 @@ class Orel : AbstractLoopRobot() {
 
         //DEBUG
         if (ask < approxBID[secCode]) {
-            val bond = LocalCache.getBond(secCode)
-            val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
+            val notifKey = secCode + ask.toPlainString()
+            if (!notifDebugMap.containsKey(notifKey)
+                || notifDebugMap[notifKey]!!.plus(1, ChronoUnit.MINUTES) < LocalDateTime.now()
+            ) {
+                val bond = LocalCache.getBond(secCode)
+                val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
 
-            val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
+                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
 
-            val askYTM =
-                CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-            val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(curveOFZ.durations[bond.code]!!))
-                .setScale(6, RoundingMode.HALF_UP)
-            val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
-            val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
+                val askYTM =
+                    CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
+                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
+                    .setScale(6, RoundingMode.HALF_UP)
+                val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
+                val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
 
-            val duration = curveOFZ.durations[bond.code]!!.toInt()
-            val text =
-                "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
-                        "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
-                        "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
+                val text =
+                    "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
+                            "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
+                            "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
 
-            Files.append(text, fileDebug, StandardCharsets.UTF_8)
+                Files.append(text, fileDebug, StandardCharsets.UTF_8)
+            }
         }
 
 
@@ -300,12 +306,12 @@ class Orel : AbstractLoopRobot() {
 
                 val askYTM =
                     CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(curveOFZ.durations[bond.code]!!))
+                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
                     .setScale(6, RoundingMode.HALF_UP)
                 val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
                 val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
 
-                val duration = curveOFZ.durations[bond.code]!!.toInt()
                 val text =
                     "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
                             "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
@@ -320,6 +326,7 @@ class Orel : AbstractLoopRobot() {
                 //buy(bond, qty, ask, rpcClient)
             }
         }
+*/
 
     }
 
@@ -434,7 +441,7 @@ class Orel : AbstractLoopRobot() {
     }
 
     private fun reduceUsedLimits() {
-        val children = DBService.loadRobots("parent_id='" + name() + "'")
+        val children = DBService.loadRobots("parentId='" + name() + "'")
         for (child in children) {
             if (child is PolzuchiiSell) {
                 val bond = LocalCache.getBond(child.securityCode)
