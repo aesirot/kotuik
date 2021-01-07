@@ -182,76 +182,17 @@ class Orel : AbstractLoopRobot() {
                 continue
             }
 
-            val rpcClient = Connector.get()
-            val stakan: GetQuoteLevel2.Result
-            synchronized(rpcClient) {
-                val args2 = GetQuoteLevel2.Args(bond.getAttrM(MoexClass), bond.code)
-                stakan = rpcClient.qlua_getQuoteLevel2(args2)
-            }
-
-            if (stakan.bids.size == 0 || stakan.offers.size == 0) {
-                continue
-            }
-
-            val ask = BigDecimal(stakan.offers[0].price)
-
-            //DEBUG
-            if (ask < approxBID[bond.code]) {
-                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
-
-                val askYTM =
-                    CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
-                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
-                    .setScale(6, RoundingMode.HALF_UP)
-                val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
-                val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
-
-                val text =
-                    "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
-                            "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
-                            "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-
-                Files.append(text, fileDebug, StandardCharsets.UTF_8)
-            }
-
-
-            if (ask + BigDecimal(0.2) < approxBID[bond.code]) {
-                if (!notifMap.containsKey(bond.code)
-                    || notifMap[bond.code]!!.plus(4, ChronoUnit.HOURS) < LocalDateTime.now()
-                ) {
-                    notifMap[bond.code] = LocalDateTime.now()
-
-                    val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, RoundingMode.HALF_UP)
-
-                    val askYTM =
-                        CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, RoundingMode.HALF_UP)
-                    val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
-                    val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
-                        .setScale(6, RoundingMode.HALF_UP)
-                    val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
-                    val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
-
-                    val text =
-                        "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
-                                "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
-                                "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-
-                    Files.append(text, file, StandardCharsets.UTF_8)
-                }
-
-                val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
-
-                if (MoexStrazh.instance.isBuyApproved()) {
-                    //buy(bond, qty, ask, rpcClient)
-                }
-            }
+            onQuote(bond.getAttrM(MoexClass), bond.code)
         }
 
     }
 
     fun onQuote(classCode: String, secCode: String) {
-/*
+        val now = LocalDateTime.now()
+        if (now.hour>18 && now.minute>40) {
+            return
+        }
+
         if (approxBID[secCode] == null) {
             return
         }
@@ -331,7 +272,6 @@ class Orel : AbstractLoopRobot() {
                 //buy(bond, qty, ask, rpcClient)
             }
         }
-*/
 
     }
 
