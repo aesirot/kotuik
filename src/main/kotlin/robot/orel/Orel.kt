@@ -134,12 +134,17 @@ class Orel : AbstractLoopRobot() {
 
         YtmOfzDeltaService.initAll()
 
-        handler = OrelQuoteHandler(this)
-        Connector.registerEventHandler(handler!!)
+        //handler = OrelQuoteHandler(this)
+        //Connector.registerEventHandler(handler!!)
     }
 
     override fun execute() {
         if (!curveOFZ.isCalculated()) {
+            return
+        }
+
+        val now = LocalDateTime.now()
+        if (now.hour>18 && now.minute>40) {
             return
         }
 
