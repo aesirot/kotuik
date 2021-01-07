@@ -60,8 +60,6 @@ object YtmOfzDeltaService {
     }
 
     private fun loadStakan(start: LocalDate, end: LocalDate): TreeMap<LocalDateTime, MutableMap<String, BidAskLog>> {
-        this.curve = CurveHolder.curveOFZ()
-
         val bidAskStory = TreeMap<LocalDateTime, MutableMap<String, BidAskLog>>()
 
         HibernateUtil.getSessionFactory().openSession().use { session ->
@@ -93,6 +91,8 @@ object YtmOfzDeltaService {
         for (bond in allBonds) {
             diffs[bond.code] = ArrayList()
         }
+
+        this.curve = CurveHolder.curveOFZ()
 
         var prevDay: LocalDate? = null
 
@@ -150,6 +150,8 @@ object YtmOfzDeltaService {
 
             map[bond.code] = matOzh
         }
+
+        curve.clearCalculation()
     }
 
     private class StakanSimulator(val bidAskStory: TreeMap<LocalDateTime, MutableMap<String, BidAskLog>>) : StakanProvider() {

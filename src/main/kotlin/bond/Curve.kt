@@ -27,6 +27,13 @@ class Curve(val bonds: List<Bond>, val quoteType: QuoteType) {
     }
 
     @Synchronized
+    fun clearCalculation() {
+        this.prices = HashMap()
+        this.durations = HashMap()
+        this.curveCoeff = null
+    }
+
+    @Synchronized
     fun isCalculated(): Boolean {
         return curveCoeff != null
     }
