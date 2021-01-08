@@ -48,12 +48,13 @@ object CurveVisualization {
         dataset.addSeries(sellSeries)
 
         val chart = ChartFactory.createScatterPlot(
-                "Кривая доходности",
-                "Дюрация",
-                "Доходность",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true, true, false)
+            "Кривая доходности",
+            "Дюрация",
+            "Доходность",
+            dataset,
+            PlotOrientation.VERTICAL,
+            true, true, false
+        )
         (chart.plot as XYPlot).renderer.baseShape = Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0)
         (chart.plot as XYPlot).renderer.setSeriesShape(0, Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0))
         (chart.plot as XYPlot).renderer.setSeriesShape(1, Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0))
@@ -88,39 +89,49 @@ object CurveVisualization {
         Thread.sleep(20000)
 
         Thread(Runnable {
-                while (true) {
-                    try {
+            while (true) {
+                try {
+                    if (!curve.isCalculated()) {
+                        continue
+                    }
+
                     //rebuild in OrelOFZ
-                    synchronized(rpcClient) {
-                        val settleDt = BusinessCalendar.addDays(LocalDate.now(), 1)
+                    val settleDt = BusinessCalendar.addDays(LocalDate.now(), 1)
 
-                        buySeries.clear()
-                        sellSeries.clear()
-                        curveSeries.clear()
-                        labels.clear()
+                    buySeries.clear()
+                    sellSeries.clear()
+                    curveSeries.clear()
+                    labels.clear()
 
-                        for (bond in curve.bonds) {
+                    for (bond in curve.bonds) {
+                        val stakan : GetQuoteLevel2.Result
+                        synchronized(rpcClient) {
                             val args2 = GetQuoteLevel2.Args("TQOB", bond.code)
-                            val stakan = rpcClient.qlua_getQuoteLevel2(args2)
-                            //лучший bid последний, лучший offer первый
-                            val bid = BigDecimal(stakan.bids[stakan.bids.size - 1].price)
-                            val ask = BigDecimal(stakan.offers[0].price)
-                            val nkd = nkd("TQOB", bond.code, rpcClient)
-
-                            val dirtyPrice = bid + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
-                            val ytm = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice)
-                            val durationBID = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
-
-                            //val days = ChronoUnit.DAYS.between(settleDt, bond.earlyRedemptionDate ?: bond.maturityDt)
-                            //bidTrace.addPoint(days.toDouble() / 365, ytm.toDouble() * 100)
-                            addPoint(labels, durationBID, ytm, bond, buySeries)
-
-                            val dirtyPrice2 = ask + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
-                            val ytm2 = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice2)
-                            val durationASK = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
-
-                            addPoint(labels, durationASK, ytm2, bond, sellSeries)
+                            stakan = rpcClient.qlua_getQuoteLevel2(args2)
                         }
+                        if (stakan.bids.isEmpty() || stakan.offers.isEmpty()) {
+                            break
+                        }
+
+                        //лучший bid последний, лучший offer первый
+                        val bid = BigDecimal(stakan.bids[stakan.bids.size - 1].price)
+                        val ask = BigDecimal(stakan.offers[0].price)
+                        val nkd = nkd("TQOB", bond.code, rpcClient)
+
+                        val dirtyPrice = bid + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
+                        val ytm = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice)
+                        val durationBID = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
+
+                        //val days = ChronoUnit.DAYS.between(settleDt, bond.earlyRedemptionDate ?: bond.maturityDt)
+                        //bidTrace.addPoint(days.toDouble() / 365, ytm.toDouble() * 100)
+                        addPoint(labels, durationBID, ytm, bond, buySeries)
+
+                        val dirtyPrice2 = ask + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
+                        val ytm2 = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice2)
+                        val durationASK = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
+
+                        addPoint(labels, durationASK, ytm2, bond, sellSeries)
+
                     }
 
                     val step = 36
@@ -130,37 +141,47 @@ object CurveVisualization {
                         curveSeries.add(days.toDouble() / 365, approxYTM)
                     }
 
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    Thread.sleep(30000)
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
+
+                Thread.sleep(30000)
+            }
         }).start()
 
-        val frame = JFrame("OFZ PD")
+        val frame = JFrame("Кривая доходности ОФЗ")
         frame.contentPane.add(panel)
         frame.setSize(400, 300)
 
         // Enable the termination button [cross on the upper right edge]:
         frame.addWindowListener(
-                object : WindowAdapter() {
-                    override fun windowClosing(e: WindowEvent) {
-                        exitProcess(0)
-                    }
+            object : WindowAdapter() {
+                override fun windowClosing(e: WindowEvent) {
+                    //exitProcess(0)
+                    frame.dispose()
                 }
+            }
         )
         frame.isVisible = true
     }
 
-    private fun addPoint(labels: HashMap<String, String>, duration: BigDecimal, ytm: BigDecimal, bond: Bond, series: XYSeries) {
+    private fun addPoint(
+        labels: HashMap<String, String>,
+        duration: BigDecimal,
+        ytm: BigDecimal,
+        bond: Bond,
+        series: XYSeries
+    ) {
         labels[labelKey(duration.toDouble() / 365, ytm.toDouble() * 100)] = bond.code.substring(2, 7)
         series.add(duration.toDouble() / 365, ytm.toDouble() * 100)
     }
 
     private fun nkd(classCode: String, secCode: String, rpcClient: ZmqTcpQluaRpcClient): BigDecimal {
-        val args = GetParamEx.Args(classCode, secCode, "ACCRUEDINT")
-        val ex = rpcClient.qlua_getParamEx(args)
-        return BigDecimal(ex.paramValue)
+        synchronized(rpcClient) {
+            val args = GetParamEx.Args(classCode, secCode, "ACCRUEDINT")
+            val ex = rpcClient.qlua_getParamEx(args)
+            return BigDecimal(ex.paramValue)
+        }
     }
 
     private fun labelKey(x: Number, y: Number): String {

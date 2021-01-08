@@ -1,5 +1,7 @@
 package robot.infra
 
+import bond.CurveHolder
+import bond.CurveVisualization
 import common.Connector
 import common.DBService
 import org.slf4j.LoggerFactory
@@ -50,6 +52,8 @@ class Pult {
                         Zavod.remove(id)
                     } else if (line == "spec") {
                         spec()
+                    } else if (line == "show curve") {
+                        showCurve()
                     }
                 }
             } catch (e: Exception) {
@@ -57,6 +61,11 @@ class Pult {
             }
 
         }
+    }
+
+    private fun showCurve() {
+        val curveOFZ = CurveHolder.curveOFZ()
+        CurveVisualization.visualize(curveOFZ)
     }
 
     private fun confirm(): Boolean {
