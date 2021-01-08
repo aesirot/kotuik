@@ -29,26 +29,30 @@ import java.util.*
 import javax.swing.JFrame
 import kotlin.collections.HashMap
 import kotlin.system.exitProcess
-import org.jfree.chart.axis.NumberAxis
 import org.jfree.util.ShapeUtilities
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 
 fun main() {
-    val start = LocalDateTime.of(2020, 12, 28, 10, 3);
-    val stop = LocalDateTime.of(2020, 12, 30, 19, 3);
+    val start = LocalDateTime.of(2021, 1, 4, 10, 3);
+    val stop = LocalDateTime.of(2021, 1, 8, 19, 3);
     DohodPlayer.init(start, stop)
 
-    val str =
-        "RU000A0JWZY6;2020-12-24T10:37:27.817762700;112.6010;112.814290;1037;0.066;0.0505;0.017980233288;-0.000244916445"
+    //val str = "RU000A0JWZY6;2020-12-24T10:37:27.817762700;112.6010;112.814290;1037;0.066;0.0505;0.017980233288;-0.000244916445"
+    val str = "SU26207RMFS9;2021-01-08T14:58:41.440335;113.7020;113.904380;1768.169312906505;0.055395;0.054650;0.000347222312;-0.000397777688;325"
+
+    DohodPlayer.setSquare(4.0, 6.0, 5.0, 6.0)
+
     val split = str.split(";")
     val duration = BigDecimal(split[4])
     val tradeYtm = BigDecimal(split[5])
     val approxBuy = BigDecimal(split[6])
     val ytmCorrection = BigDecimal(split[7])
 
-    DohodPlayer.addBond(DBService.getBond("RU000A0JWZY6"))
+    DohodPlayer.addBond(DBService.getBond(split[0]))
+
     DohodPlayer.visualize(duration, tradeYtm, approxBuy, ytmCorrection)
 }
 
@@ -57,7 +61,12 @@ object DohodPlayer {
     private var currentDtm: LocalDateTime = LocalDateTime.now()
     private lateinit var curve: Curve
     private lateinit var frame: JFrame
-    private lateinit var bonds: MutableList<Bond>
+    private lateinit var bonds: MutableSet<Bond>
+
+    private var minX: Double? = null
+    private var maxX: Double? = null
+    private var minY: Double? = null
+    private var maxY: Double? = null
 
     private val points = ArrayList<ArrayList<BigDecimal>>()
 
@@ -67,7 +76,7 @@ object DohodPlayer {
         currentDtm = start
         this.curve = CurveHolder.curveOFZ()
 
-        bonds = ArrayList()
+        bonds = HashSet()
         bonds.addAll(curve.bonds)
 
         HibernateUtil.getSessionFactory().openSession().use { session ->
@@ -146,8 +155,13 @@ object DohodPlayer {
         (chart.plot as XYPlot).renderer.setSeriesShape(5, ShapeUtilities.createRegularCross(6f, 0f))
 
 
-        (chart.plot as XYPlot).rangeAxis.setRange(3.10, 7.10)
-        //(chart.plot as XYPlot).rangeAxis.setRange(4.10, 6.70)
+        if (minX != null) {
+            (chart.plot as XYPlot).domainAxis.setRange(minX!!, maxX!!)
+            (chart.plot as XYPlot).rangeAxis.setRange(minY!!, maxY!!)
+        } else {
+            (chart.plot as XYPlot).rangeAxis.setRange(3.10, 7.10)
+            //(chart.plot as XYPlot).rangeAxis.setRange(4.10, 6.70)
+        }
 
         val curveDataset = XYSeriesCollection()
         curveSeries = XYSeries("curve")
@@ -292,6 +306,13 @@ object DohodPlayer {
 
     fun addBond(bond: Bond) {
         bonds.add(bond)
+    }
+
+    fun setSquare(minX: Double, maxX: Double, minY: Double, maxY: Double) {
+        this.minX = minX
+        this.maxX = maxX
+        this.minY = minY
+        this.maxY = maxY
     }
 
     private class StakanSimulator : StakanProvider() {
