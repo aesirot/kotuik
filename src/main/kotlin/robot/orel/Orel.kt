@@ -113,7 +113,7 @@ class Orel : AbstractLoopRobot() {
             }
         }
 
-        file = File("Orel.log")
+        file = File("logs/Orel.log")
         if (!file.exists()) {
             file.createNewFile()
             Files.append(
@@ -123,7 +123,7 @@ class Orel : AbstractLoopRobot() {
             )
         }
 
-        fileDebug = File("OrelDebug.log")
+        fileDebug = File("logs/OrelDebug.log")
         if (!file.exists()) {
             file.createNewFile()
             Files.append(
@@ -211,38 +211,15 @@ class Orel : AbstractLoopRobot() {
 
         val ask = BigDecimal(stakan.offers[0].price)
 
-        //DEBUG
-        if (ask < approxBID[secCode]) {
-            val notifKey = secCode + ask.toPlainString()
-            if (!notifDebugMap.containsKey(notifKey)
-                || notifDebugMap[notifKey]!!.plus(1, ChronoUnit.MINUTES) < LocalDateTime.now()
-            ) {
-                val bond = LocalCache.getBond(secCode)
-                val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
-
-                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
-
-                val askYTM =
-                    CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice).setScale(6, HALF_UP)
-                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
-                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
-                    .setScale(6, HALF_UP)
-                val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
-                val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
-
-                val text =
-                    "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
-                            "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
-                            "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-
-                Files.append(text, fileDebug, StandardCharsets.UTF_8)
-            }
-        }
-
-
         if (ask + BigDecimal(0.2) < approxBID[secCode]) {
             val bond = LocalCache.getBond(secCode)
             val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
+
+            val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
+
+            if (MoexStrazh.instance.isBuyApproved()) {
+                //buy(bond, qty, ask, rpcClient)
+            }
 
             //TODO REMOVE notifMap
             if (!notifMap.containsKey(bond.code)
@@ -272,11 +249,32 @@ class Orel : AbstractLoopRobot() {
 
                 Files.append(text, file, StandardCharsets.UTF_8)
             }
+        }
 
-            val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
+        //DEBUG
+        if (ask < approxBID[secCode]) {
+            val notifKey = secCode + ask.toPlainString()
+            if (!notifDebugMap.containsKey(notifKey)
+                || notifDebugMap[notifKey]!!.plus(1, ChronoUnit.MINUTES) < LocalDateTime.now()
+            ) {
+                val bond = LocalCache.getBond(secCode)
+                val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
 
-            if (MoexStrazh.instance.isBuyApproved()) {
-                //buy(bond, qty, ask, rpcClient)
+                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
+
+                val askYTM = CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice)
+                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
+                val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
+                val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
+
+                var text =
+                    "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
+                            "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
+                            "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
+                text = text.replace('.', ',')
+
+                Files.append(text, fileDebug, StandardCharsets.UTF_8)
             }
         }
 
