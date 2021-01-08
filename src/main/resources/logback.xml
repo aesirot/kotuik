@@ -46,7 +46,7 @@
         <appender-ref ref="QLUA_EVENTS_FILE"/>
     </logger>
 
-    <logger name="robot.spreadler" level="INFO" additivity="false">
+    <!--logger name="robot.spreadler" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE_ERROR"/>
         <appender-ref ref="APP_LOG"/>
     </logger>
@@ -54,6 +54,6 @@
     <logger name="robot.spreadler.SpreadlerRunner" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="APP_LOG"/>
-    </logger>
+    </logger-->
 </configuration>
 
