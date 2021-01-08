@@ -2,21 +2,27 @@ package backtest.orel
 
 import backtest.Bar
 import bond.BusinessCalendar
+import bond.CalcYield
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import com.google.common.io.Files
 import common.Connector
+import common.LocalCache
 import common.Util
 import java.io.File
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.nio.charset.StandardCharsets
 import java.time.LocalDateTime
 import kotlin.math.max
+import kotlin.system.exitProcess
 
 fun main() {
-    val lines = Files.readLines(File("OrelDebug.log"), StandardCharsets.UTF_8)
+    val lines = Files.readLines(File("Orel.log"), StandardCharsets.UTF_8)
+    //val lines = Files.readLines(File("Orel.log"), StandardCharsets.UTF_8)
 
     val delta = BigDecimal("0.2")
     val file = File("OrelDebugAnal.csv")
+    file.delete()
     Files.append("code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n", file, StandardCharsets.UTF_8)
 
     for (i in 1..lines.size - 1) {
@@ -30,9 +36,22 @@ fun main() {
 
         val result = OrelSignalAnalyser.analyze(classCode, code, time, buyPrice, delta)
 
-        Files.append("$line;${result.first};${result.second}\n", file, StandardCharsets.UTF_8)
+        val bond = LocalCache.getBond(code)
+        val duration = split[4]
+        val signalYtm = BigDecimal(split[5])
+        val settleDt = BusinessCalendar.addDays(time.toLocalDate(), 1)
+        val nkd = CalcYield.calcAccrual(bond, settleDt)
+        val nkdToPrice = nkd*BigDecimal(100).divide(bond.nominal, 12, RoundingMode.HALF_UP)
+        val calcYtm = CalcYield.effectiveYTM(bond, settleDt, buyPrice + nkdToPrice)
 
+        var comment = ";"
+        if ((calcYtm-signalYtm).abs() > BigDecimal("0.0001") ) {
+            comment += "REAL YTM $calcYtm"
+        }
+
+        Files.append("$line;${result.first};${result.second};$comment\n", file, StandardCharsets.UTF_8)
     }
+    exitProcess(0)
 }
 
 object OrelSignalAnalyser {
