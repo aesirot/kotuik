@@ -215,9 +215,9 @@ class Orel : AbstractLoopRobot() {
             val bond = LocalCache.getBond(secCode)
             val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
 
-            val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
-
             if (MoexStrazh.instance.isBuyApproved()) {
+                val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
+
                 //buy(bond, qty, ask, rpcClient)
             }
 
