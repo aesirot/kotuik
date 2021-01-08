@@ -256,6 +256,7 @@ class Orel : AbstractLoopRobot() {
                 val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
 
                 if (duration > BigDecimal(3650)) {
+                    log.info("$secCode - отсекаю слишком большую дюрацию (дальний край ОФЗ)")
                     return // не смотрим самые дальние - там кривая болтается туда-сюда, ложные сигналы
                 }
 
