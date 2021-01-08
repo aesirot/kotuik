@@ -17,7 +17,7 @@ class Pult {
                     if (line == "exit") {
                         if (!confirm()) continue
 
-                        log.info("остановка всего")
+                        log.info("полная остановка")
                         SpreadlerRunner.stopAll()
                         Zavod.stopAll()
                         Connector.close()
