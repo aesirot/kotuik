@@ -30,6 +30,7 @@ object BusinessCalendar {
 
         holidays.add(LocalDate.of(2021, 1, 1))
         holidays.add(LocalDate.of(2021, 1, 7))
+        holidays.add(LocalDate.of(2021, 1, 8))
         holidays.add(LocalDate.of(2021, 2, 23))
         holidays.add(LocalDate.of(2021, 3, 8))
         holidays.add(LocalDate.of(2021, 5, 3))

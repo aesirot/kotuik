@@ -25,6 +25,7 @@ object YtmOfzDeltaService {
     private var currentDtm: LocalDateTime = LocalDateTime.now()
     private lateinit var curve: Curve
     private lateinit var allBonds: List<Bond>
+    private var initializationEndDate: LocalDate? = null
 
     private val log = LoggerFactory.getLogger(this::class.simpleName)
 
@@ -32,17 +33,24 @@ object YtmOfzDeltaService {
         return map[secCode]
     }
 
+    @Synchronized
     fun initAll() {
         log.info("start")
-
-        map.clear()
-
         val start = BusinessCalendar.minusDays(LocalDate.now(), 11)
         val end = LocalDate.now()
+
+        if (initializationEndDate != null && initializationEndDate == end) {
+            log.info("already initialized")
+            return
+        }
+
+        map.clear()
 
         val bidAskStory = loadStakan(start, end)
 
         calculateYtmOfzDelta(bidAskStory)
+
+        initializationEndDate = end
         log.info("end")
     }
 
