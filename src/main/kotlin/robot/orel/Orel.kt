@@ -4,7 +4,6 @@ import bond.*
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
-import com.google.common.io.Files
 import common.*
 import model.Bond
 import model.SecAttr.MoexClass
@@ -20,10 +19,13 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.math.RoundingMode.HALF_UP
 import java.nio.charset.StandardCharsets
+import java.nio.charset.StandardCharsets.UTF_8
+import java.nio.file.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import kotlin.io.path.exists
 
 class Orel : AbstractLoopRobot() {
 
@@ -36,8 +38,6 @@ class Orel : AbstractLoopRobot() {
     @Transient
     var approxBID = HashMap<String, BigDecimal>()
 
-    @Transient
-    val notifMap = HashMap<String, LocalDateTime>()
     val notifDebugMap = HashMap<String, LocalDateTime>()
 
     @Transient
@@ -49,8 +49,8 @@ class Orel : AbstractLoopRobot() {
     @Transient
     lateinit var log: Logger
 
-    private lateinit var file: File
-    private lateinit var fileDebug: File
+    private lateinit var signalPath: Path
+    private lateinit var sigalDebugPath: Path
 
     private val dtmFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS")
 
@@ -59,8 +59,10 @@ class Orel : AbstractLoopRobot() {
     private val limitEntity = HashMap<Long, BigDecimal>()
     private val limitBond = HashMap<String, BigDecimal>()
 
-    var handler : OrelQuoteHandler? = null
+    var handler: OrelQuoteHandler? = null
 
+    private val fireBuySpread = BigDecimal("0.28")
+    private val sellPremium = BigDecimal("0.24")
 
     override fun init() {
         super.init()
@@ -113,24 +115,16 @@ class Orel : AbstractLoopRobot() {
             }
         }
 
-        file = File("logs/Orel.log")
-        if (!file.exists()) {
-            file.createNewFile()
-            Files.append(
-                "code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n",
-                file,
-                StandardCharsets.UTF_8
-            )
+        signalPath = Paths.get("logs/Orel.log")
+        if (!Files.exists(signalPath, LinkOption.NOFOLLOW_LINKS)) {
+            val header = "code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n"
+            Files.writeString(signalPath, header, UTF_8, StandardOpenOption.CREATE)
         }
 
-        fileDebug = File("logs/OrelDebug.log")
-        if (!file.exists()) {
-            file.createNewFile()
-            Files.append(
-                "code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n",
-                file,
-                StandardCharsets.UTF_8
-            )
+        sigalDebugPath = Paths.get("logs/OrelDebug.log")
+        if (!Files.exists(sigalDebugPath, LinkOption.NOFOLLOW_LINKS)) {
+            val header = "code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n"
+            Files.writeString(sigalDebugPath, header, UTF_8, StandardOpenOption.CREATE)
         }
 
         YtmOfzDeltaService.initAll()
@@ -145,22 +139,19 @@ class Orel : AbstractLoopRobot() {
         }
 
         val now = LocalDateTime.now()
-        if (now.hour>18 && now.minute>40) {
+        if (now.hour > 18 && now.minute > 40) {
             return
         }
 
         refreshLimits()
 
         val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
-        //CurveBuilder.stakanBuilder().build(curveOFZ, settleDate) OrelOFZ builds curve
+
         for (bond in bonds) {
             if (bond.getAttr(MoexClass) == null) {
+                log.error("${bond.code} has no MoexClass")
                 continue
-            }//todo set
-            val calculationMaturityDate = bond.calculationEffectiveMaturityDate(settleDate)
-/*    TODO        if (settleDate.plusDays(182) > calculationMaturityDate) {
-                continue
-            }*/
+            }
 
             val approxOfz = curveOFZ.approx(duration[bond.code]!!)
             val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)
@@ -190,7 +181,7 @@ class Orel : AbstractLoopRobot() {
 
     fun onQuote(classCode: String, secCode: String) {
         val now = LocalDateTime.now()
-        if (now.hour>18 && now.minute>40) {
+        if (now.hour > 18 && now.minute > 40) {
             return
         }
 
@@ -211,44 +202,41 @@ class Orel : AbstractLoopRobot() {
 
         val ask = BigDecimal(stakan.offers[0].price)
 
-        if (ask + BigDecimal(0.2) < approxBID[secCode]) {
+        if (ask + fireBuySpread < approxBID[secCode]) {
+            log.info("Интересная заявка $secCode ${ask.toPlainString()} - ${stakan.offers[0].quantity} шт")
+
             val bond = LocalCache.getBond(secCode)
             val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
 
+            val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
+
+            val askYTM = CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice)
+            val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+
+            if (duration > BigDecimal(3650)) {
+                log.info("$secCode - отсекаю слишком большую дюрацию (дальний край ОФЗ)")
+                return // не смотрим самые дальние - там кривая болтается туда-сюда, ложные сигналы
+            }
+
             if (MoexStrazh.instance.isBuyApproved()) {
                 val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
+                log.info("Лимитированное колво = $qty")
 
-                //buy(bond, qty, ask, rpcClient)
+                buy(bond, qty, ask, rpcClient)
             }
 
-            //TODO REMOVE notifMap
-            if (!notifMap.containsKey(bond.code)
-                || notifMap[bond.code]!!.plus(4, ChronoUnit.HOURS) < LocalDateTime.now()
-            ) {
-                notifMap[bond.code] = LocalDateTime.now()
+            val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
+            val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
+            val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
 
-                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
+            var text =
+                "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
+                        "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
+                        "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
+            text = text.replace('.', ',')
 
-                val askYTM = CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice)
-                val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
 
-                if (duration > BigDecimal(3650)) {
-                    log.info("$secCode - отсекаю слишком большую дюрацию (дальний край ОФЗ)")
-                    return // не смотрим самые дальние - там кривая болтается туда-сюда, ложные сигналы
-                }
-
-                val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
-                val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
-                val ytmDiff = (approxYtmBid + premiumYtm - askYTM)
-
-                var text =
-                    "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
-                            "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
-                            "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-                text = text.replace('.', ',')
-
-                Files.append(text, file, StandardCharsets.UTF_8)
-            }
+            Files.writeString(null, text, UTF_8, StandardOpenOption.APPEND)
         }
 
         //DEBUG
@@ -274,7 +262,7 @@ class Orel : AbstractLoopRobot() {
                             "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
                 text = text.replace('.', ',')
 
-                Files.append(text, fileDebug, StandardCharsets.UTF_8)
+                Files.writeString(sigalDebugPath, text, UTF_8, StandardOpenOption.APPEND)
             }
         }
 
@@ -291,7 +279,7 @@ class Orel : AbstractLoopRobot() {
             bond.code,
             qty,
             ask,
-            Connector.get(),
+            rpcClient,
             name()
         )
 
@@ -306,26 +294,31 @@ class Orel : AbstractLoopRobot() {
 
         if (rest > 0) {
             log.info("Не все купил. Отменяю остаток $rest")
-            Orders.cancelOrderDLL(bond.getAttrM(MoexClass), bond.code, orderId, name(), Connector.get())
+            Orders.cancelOrderDLL(bond.getAttrM(MoexClass), bond.code, orderId, name(), rpcClient)
         }
 
         val realizedBuy = qty - rest
 
-
+        log.info("создаю робота на продажу")
         val sellRobotState = PolzuchiiSellState(
             bond.getAttrM(MoexClass),
             bond.code,
             realizedBuy,
-            ask + BigDecimal("1.2"),
-            ask + BigDecimal("0.2"),
-            realizedBuy / 5
+            ask + sellPremium + BigDecimal.ONE,
+            ask + sellPremium,
+            realizedBuy / 4
         )
         val sellRobot = PolzuchiiSellRobot(sellRobotState)
         sellRobot.setParent(name())
         sellRobot.name = "orel " + bond.code + " " + LocalDateTime.now().format(dtmFormat)
 
+        log.info("регистрация")
         Zavod.addRobot(sellRobot)
+
+        log.info("пуск")
         sellRobot.start()
+
+        log.info("готово")
     }
 
     @Synchronized
@@ -378,7 +371,7 @@ class Orel : AbstractLoopRobot() {
     }
 
     private fun initialLimits() {
-        limitEntity[1] = BigDecimal(600000)
+        limitEntity[1] = BigDecimal(300000)
         limitEntity[2] = BigDecimal(200000)
 
         for (bond in bonds) {
