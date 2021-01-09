@@ -10,22 +10,21 @@ import model.SecAttr.MoexClass
 import model.robot.PolzuchiiSellState
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import robot.*
+import robot.AbstractLoopRobot
+import robot.PolzuchiiSell
+import robot.PolzuchiiSellRobot
 import robot.Robot
 import robot.infra.Zavod
 import robot.strazh.MoexStrazh
-import java.io.File
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.math.RoundingMode.HALF_UP
-import java.nio.charset.StandardCharsets
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import kotlin.io.path.exists
 
 class Orel : AbstractLoopRobot() {
 
@@ -38,7 +37,7 @@ class Orel : AbstractLoopRobot() {
     @Transient
     var approxBID = HashMap<String, BigDecimal>()
 
-    val notifDebugMap = HashMap<String, LocalDateTime>()
+    private val debugNotificationMap = HashMap<String, LocalDateTime>()
 
     @Transient
     lateinit var curveOFZ: Curve
@@ -50,7 +49,7 @@ class Orel : AbstractLoopRobot() {
     lateinit var log: Logger
 
     private lateinit var signalPath: Path
-    private lateinit var sigalDebugPath: Path
+    private lateinit var signalDebugPath: Path
 
     private val dtmFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS")
 
@@ -59,7 +58,7 @@ class Orel : AbstractLoopRobot() {
     private val limitEntity = HashMap<Long, BigDecimal>()
     private val limitBond = HashMap<String, BigDecimal>()
 
-    var handler: OrelQuoteHandler? = null
+    private var handler: OrelQuoteHandler? = null
 
     private val fireBuySpread = BigDecimal("0.28")
     private val sellPremium = BigDecimal("0.24")
@@ -121,10 +120,10 @@ class Orel : AbstractLoopRobot() {
             Files.writeString(signalPath, header, UTF_8, StandardOpenOption.CREATE)
         }
 
-        sigalDebugPath = Paths.get("logs/OrelDebug.log")
-        if (!Files.exists(sigalDebugPath, LinkOption.NOFOLLOW_LINKS)) {
+        signalDebugPath = Paths.get("logs/OrelDebug.log")
+        if (!Files.exists(signalDebugPath, LinkOption.NOFOLLOW_LINKS)) {
             val header = "code;time;ask;approxBid;duration;ytm;approxYtm;premium;ytmDiff;vol\n"
-            Files.writeString(sigalDebugPath, header, UTF_8, StandardOpenOption.CREATE)
+            Files.writeString(signalDebugPath, header, UTF_8, StandardOpenOption.CREATE)
         }
 
         YtmOfzDeltaService.initAll()
@@ -241,9 +240,9 @@ class Orel : AbstractLoopRobot() {
 
         //DEBUG
         if (ask < approxBID[secCode]) {
-            val notifKey = secCode + ask.toPlainString()
-            if (!notifDebugMap.containsKey(notifKey)
-                || notifDebugMap[notifKey]!!.plus(1, ChronoUnit.MINUTES) < LocalDateTime.now()
+            val notificationKey = secCode + ask.toPlainString()
+            if (!debugNotificationMap.containsKey(notificationKey)
+                || debugNotificationMap[notificationKey]!!.plus(1, ChronoUnit.MINUTES) < LocalDateTime.now()
             ) {
                 val bond = LocalCache.getBond(secCode)
                 val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
@@ -262,7 +261,7 @@ class Orel : AbstractLoopRobot() {
                             "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
                 text = text.replace('.', ',')
 
-                Files.writeString(sigalDebugPath, text, UTF_8, StandardOpenOption.APPEND)
+                Files.writeString(signalDebugPath, text, UTF_8, StandardOpenOption.APPEND)
             }
         }
 
