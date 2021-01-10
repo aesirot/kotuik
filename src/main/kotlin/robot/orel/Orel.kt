@@ -298,6 +298,8 @@ class Orel : AbstractLoopRobot() {
 
         val realizedBuy = qty - rest
 
+        Telega.Holder.get().sendMessage("Орёл: куп ${bond.code} $realizedBuy шт")
+
         log.info("создаю робота на продажу")
         val sellRobotState = PolzuchiiSellState(
             bond.getAttrM(MoexClass),
