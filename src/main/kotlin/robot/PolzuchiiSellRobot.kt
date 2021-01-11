@@ -22,7 +22,7 @@ class PolzuchiiSellRobot(
     val lockCondition = lock.newCondition()
     var stop = false
     var success = false
-    
+
     private var finishCallback: (Robot) -> Unit = {}
 
     var orderPrice = state.startPrice

@@ -3,7 +3,6 @@ package robot.infra
 import common.DBService
 import org.slf4j.LoggerFactory
 import robot.Robot
-import java.lang.Exception
 
 object Zavod {
     private val log = LoggerFactory.getLogger(this::class.java)!!
@@ -28,6 +27,10 @@ object Zavod {
 
     fun startAll() {
         log.info("start all")
+        if (robots.isEmpty()) {
+            reloadAllRobots()
+        }
+
         for (entry in robots.entries) {
             if (entry.value.isRunning()) {
                 continue
