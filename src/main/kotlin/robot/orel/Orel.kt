@@ -1,6 +1,7 @@
 package robot.orel
 
 import bond.*
+import com.enfernuz.quik.lua.rpc.api.messages.GetOrderByNumber
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
@@ -148,7 +149,7 @@ class Orel : AbstractLoopRobot() {
 
         for (bond in bonds) {
             if (bond.getAttr(MoexClass) == null) {
-                log.error("${bond.code} has no MoexClass")
+                //log.error("${bond.code} has no MoexClass")
                 continue
             }
 
@@ -284,12 +285,15 @@ class Orel : AbstractLoopRobot() {
 
         Thread.sleep(500)
 
-        val orderInfo = rpcClient.qlua_getOrderByNumber(bond.getAttrM(MoexClass), orderId)
-        if (orderInfo.isError) {
-            throw Exception("Order $orderId state unknown error")
+        val orderInfo: GetOrderByNumber.Result
+        synchronized(rpcClient) {
+            orderInfo = rpcClient.qlua_getOrderByNumber(bond.getAttrM(MoexClass), orderId)
+            if (orderInfo.isError) {
+                throw Exception("Order $orderId state unknown error")
+            }
         }
 
-        val rest = orderInfo.order.balance.toInt()
+        val rest = orderInfo.order.balance.toBigDecimal().toInt()
 
         if (rest > 0) {
             log.info("Не все купил. Отменяю остаток $rest")
