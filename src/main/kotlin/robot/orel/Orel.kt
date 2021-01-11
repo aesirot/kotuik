@@ -236,7 +236,7 @@ class Orel : AbstractLoopRobot() {
             text = text.replace('.', ',')
 
 
-            Files.writeString(null, text, UTF_8, StandardOpenOption.APPEND)
+            Files.writeString(signalPath, text, UTF_8, StandardOpenOption.APPEND)
         }
 
         //DEBUG
