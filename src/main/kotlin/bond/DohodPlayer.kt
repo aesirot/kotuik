@@ -14,6 +14,7 @@ import org.jfree.chart.plot.XYPlot
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer
 import org.jfree.data.xy.XYSeries
 import org.jfree.data.xy.XYSeriesCollection
+import org.jfree.util.ShapeUtilities
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.awt.event.KeyAdapter
@@ -23,16 +24,16 @@ import java.awt.event.WindowEvent
 import java.awt.geom.Ellipse2D
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 import javax.swing.JFrame
-import kotlin.collections.HashMap
-import kotlin.system.exitProcess
-import org.jfree.util.ShapeUtilities
-import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.collections.HashSet
+import kotlin.system.exitProcess
 
 
 fun main() {
@@ -258,7 +259,7 @@ object DohodPlayer {
 
                 val bid = map[currentDtm]!![bond.code]!!.bid
                 val ask = map[currentDtm]!![bond.code]!!.ask
-                val nkd = StakanSimulator().nkd(bond)
+                val nkd = StakanSimulator().nkd(bond, settleDt)
 
                 val dirtyPrice = bid + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
                 val ytm = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice)
@@ -330,7 +331,7 @@ object DohodPlayer {
             return GetQuoteLevel2.Result("1", "1", Lists.newArrayList(bid), Lists.newArrayList(ask))
         }
 
-        override fun nkd(bond: Bond): BigDecimal {
+        override fun nkd(bond: Bond, settleDate: LocalDate): BigDecimal {
             val settleDt = BusinessCalendar.addDays(currentDtm.toLocalDate(), 1)
             return CalcYield.calcAccrual(bond, settleDt)
         }

@@ -1,13 +1,16 @@
 package common
 
-import model.Bond
-import model.SecAttr
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
-import com.enfernuz.quik.lua.rpc.api.messages.SubscribeLevel2Quotes
+import model.Bond
+import model.SecAttr
 import java.math.BigDecimal
+import java.time.LocalDate
+import java.util.concurrent.ConcurrentHashMap
 
 open class StakanProvider {
+
+    var nkdCache = ConcurrentHashMap<String, BigDecimal>()
 
     open fun stakan(classCode: String, secCode: String): GetQuoteLevel2.Result {
         StakanSubscriber.subscribe(classCode, secCode)
@@ -19,13 +22,21 @@ open class StakanProvider {
         }
     }
 
-    open fun nkd(bond: Bond): BigDecimal {
-        val rpcClient = Connector.get()
-        synchronized(rpcClient) {
-            val args = GetParamEx.Args(bond.getAttrM(SecAttr.MoexClass), bond.code, "ACCRUEDINT")
-            val ex = rpcClient.qlua_getParamEx(args)
-            return BigDecimal(ex.paramValue)
+    open fun nkd(bond: Bond, settleDate: LocalDate): BigDecimal {
+        val key = getNKDKey(bond.code, settleDate)
+
+        return nkdCache.computeIfAbsent(key) {
+            val rpcClient = Connector.get()
+            synchronized(rpcClient) {
+                val args = GetParamEx.Args(bond.getAttrM(SecAttr.MoexClass), bond.code, "ACCRUEDINT")
+                val ex = rpcClient.qlua_getParamEx(args)
+                return@computeIfAbsent BigDecimal(ex.paramValue)
+            }
         }
+    }
+
+    private fun getNKDKey(code: String, settleDate: LocalDate) : String {
+        return "$code:$settleDate"
     }
 
 }

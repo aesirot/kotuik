@@ -1,7 +1,5 @@
 package bond
 
-import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
-import common.Connector
 import common.StakanProvider
 import model.QuoteType
 import org.apache.commons.math3.fitting.PolynomialCurveFitter
@@ -42,7 +40,7 @@ class CurveBuilder(private val stakanProvider: StakanProvider) {
                     stakanPrice = BigDecimal(stakan.offers[0].price)
                 }
 
-                val nkd = stakanProvider.nkd(bond)
+                val nkd = stakanProvider.nkd(bond, settleDate)
 
                 val dirtyPrice = stakanPrice + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
                 prices[bond.code] = dirtyPrice

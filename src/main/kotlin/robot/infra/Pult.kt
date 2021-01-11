@@ -77,7 +77,13 @@ class Pult {
 
     private fun spec() {
         //do what you want
-        Zavod.reloadAllRobots()
-        Zavod.startAll()
+
+        try {
+            Zavod.reloadAllRobots()
+            Zavod.startAll()
+        } catch (e: Exception) {
+            log.error(e.message, e)
+        }
+
     }
 }

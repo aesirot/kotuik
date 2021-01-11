@@ -1,11 +1,12 @@
 package backtest.orel
 
-import model.Bond
 import bond.CalcYield
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
 import com.google.common.collect.Lists
 import common.StakanProvider
+import model.Bond
 import java.math.BigDecimal
+import java.time.LocalDate
 
 class StakanCSVSimulator : StakanProvider() {
     override fun stakan(classCode: String, secCode: String): GetQuoteLevel2.Result {
@@ -20,7 +21,7 @@ class StakanCSVSimulator : StakanProvider() {
         return GetQuoteLevel2.Result("1", "1", Lists.newArrayList(bid), Lists.newArrayList(ask))
     }
 
-    override fun nkd(bond: Bond): BigDecimal {
+    override fun nkd(bond: Bond, settleDate: LocalDate): BigDecimal {
         return CalcYield.calcAccrual(bond, OrelFlightSimulator.currentTime.toLocalDate())
     }
 }

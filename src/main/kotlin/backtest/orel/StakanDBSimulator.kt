@@ -1,10 +1,6 @@
 package backtest.orel
 
-import backtest.Bar
-import bond.BusinessCalendar
 import bond.CalcYield
-import bond.CurveBuilder
-import bond.YtmOfzDeltaService
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
 import com.google.common.collect.Lists
 import common.HibernateUtil
@@ -12,8 +8,8 @@ import common.StakanProvider
 import model.BidAskLog
 import model.Bond
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
 import java.util.function.Supplier
 
 class StakanDBSimulator(val timeProvider: Supplier<LocalDateTime>) : StakanProvider() {
@@ -32,7 +28,7 @@ class StakanDBSimulator(val timeProvider: Supplier<LocalDateTime>) : StakanProvi
         }
     }
 
-    override fun nkd(bond: Bond): BigDecimal {
+    override fun nkd(bond: Bond, settleDate: LocalDate): BigDecimal {
         return CalcYield.calcAccrual(bond, OrelFlightSimulator.currentTime.toLocalDate())
     }
 

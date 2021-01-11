@@ -139,7 +139,7 @@ object OrelStakanSimulator {
             return GetQuoteLevel2.Result("1", "1", Lists.newArrayList(bid), Lists.newArrayList(ask))
         }
 
-        override fun nkd(bond: Bond): BigDecimal {
+        override fun nkd(bond: Bond, settleDate: LocalDate): BigDecimal {
             val settleDt = BusinessCalendar.addDays(currentDtm.toLocalDate(), 1)
             return CalcYield.calcAccrual(bond, settleDt)
         }
