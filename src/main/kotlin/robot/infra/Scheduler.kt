@@ -7,14 +7,14 @@ import robot.spreadler.JobEndOfDay
 import robot.spreadler.JobStartAll
 import robot.spreadler.PastuhJob
 import robot.strazh.*
-import java.util.*
 
 class Scheduler {
 
     fun schedule() {
-        val props = Properties()
+/*        val props = Properties()
         props["org.quartz.scheduler.instanceName"] = "scheduler"
-        val schedFact: SchedulerFactory = StdSchedulerFactory(props)
+        val schedFact: SchedulerFactory = StdSchedulerFactory(props)*/
+        val schedFact: SchedulerFactory = StdSchedulerFactory()
         val scheduler: Scheduler = schedFact.scheduler
         scheduler.start()
 
