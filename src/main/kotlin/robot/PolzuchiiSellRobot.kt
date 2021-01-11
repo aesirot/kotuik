@@ -180,7 +180,7 @@ class PolzuchiiSellRobot(
             return
         }
         stop = false
-        thread = Thread(this)
+        thread = Thread(this, name())
         thread!!.start()
     }
 
