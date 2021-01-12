@@ -12,7 +12,6 @@ import model.robot.PolzuchiiSellState
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import robot.AbstractLoopRobot
-import robot.PolzuchiiSell
 import robot.PolzuchiiSellRobot
 import robot.Robot
 import robot.infra.Zavod
@@ -391,11 +390,12 @@ class Orel : AbstractLoopRobot() {
     private fun reduceUsedLimits() {
         val children = DBService.loadRobots("parentId='" + name() + "'")
         for (child in children) {
-            if (child is PolzuchiiSell) {
-                val bond = LocalCache.getBond(child.securityCode)
+            if (child is PolzuchiiSellRobot) {
+                val state = child.state() as PolzuchiiSellState
+                val bond = LocalCache.getBond(state.securityCode)
 
-                val positionValue = BigDecimal(child.restQuantity) * bond.nominal
-                limitBond[child.securityCode] = limitBond[child.securityCode]!! - positionValue
+                val positionValue = BigDecimal(state.quantity) * bond.nominal
+                limitBond[state.securityCode] = limitBond[state.securityCode]!! - positionValue
                 limitEntity[bond.issuerId!!] = limitEntity[bond.issuerId]!! - positionValue
             }
         }
