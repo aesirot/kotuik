@@ -232,7 +232,6 @@ class Orel : AbstractLoopRobot() {
                 "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
                         "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
                         "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-            text = text.replace('.', ',')
 
 
             Files.writeString(signalPath, text, UTF_8, StandardOpenOption.APPEND)
@@ -259,7 +258,6 @@ class Orel : AbstractLoopRobot() {
                     "${bond.code};${LocalDateTime.now()};${ask.toPlainString()};${approxBID[bond.code]!!.toPlainString()};" +
                             "${duration};${askYTM.toPlainString()};${approxYtmBid.toPlainString()};" +
                             "${premiumYtm.toPlainString()};${ytmDiff.toPlainString()};${stakan.offers[0].quantity}\n"
-                text = text.replace('.', ',')
 
                 Files.writeString(signalDebugPath, text, UTF_8, StandardOpenOption.APPEND)
             }
