@@ -23,7 +23,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
 import javax.swing.JFrame
-import kotlin.system.exitProcess
 
 
 fun main() {
@@ -37,6 +36,8 @@ fun main() {
 }
 
 object CurveVisualization {
+
+    private var active = false
 
     fun visualize(curve: Curve) {
         val dataset = XYSeriesCollection()
@@ -88,8 +89,10 @@ object CurveVisualization {
         }
         Thread.sleep(20000)
 
+        active = true
+
         Thread(Runnable {
-            while (true) {
+            while (active) {
                 try {
                     if (!curve.isCalculated()) {
                         continue
@@ -158,6 +161,7 @@ object CurveVisualization {
             object : WindowAdapter() {
                 override fun windowClosing(e: WindowEvent) {
                     //exitProcess(0)
+                    active = false
                     frame.dispose()
                 }
             }
