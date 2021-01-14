@@ -221,7 +221,9 @@ class Orel : AbstractLoopRobot() {
                 val qty = limit(bond, BigDecimal(stakan.offers[0].quantity))
                 log.info("Лимитированное колво = $qty")
 
-                buy(bond, qty, ask, rpcClient)
+                if (qty > 0) {
+                    buy(bond, qty, ask, rpcClient)
+                }
             }
 
             val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
