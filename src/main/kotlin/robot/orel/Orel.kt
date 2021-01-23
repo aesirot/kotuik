@@ -128,6 +128,7 @@ class Orel : AbstractLoopRobot() {
 
         YtmOfzDeltaService.initAll()
 
+        reduceChildrenPrice()
         //handler = OrelQuoteHandler(this)
         //Connector.registerEventHandler(handler!!)
     }
@@ -375,12 +376,12 @@ class Orel : AbstractLoopRobot() {
     }
 
     private fun initialLimits() {
-        limitEntity[1] = BigDecimal(300000)
+        limitEntity[1] = BigDecimal(800000)
         limitEntity[2] = BigDecimal(200000)
 
         for (bond in bonds) {
             if (bond.issuerId == 1L) {
-                limitBond[bond.code] = BigDecimal(100000)
+                limitBond[bond.code] = BigDecimal(200000)
             } else if (bond.issuerId == 2L) {
                 limitBond[bond.code] = BigDecimal(100000)
             }
@@ -415,5 +416,23 @@ class Orel : AbstractLoopRobot() {
         }
 
         super.stop()
+    }
+
+    private fun reduceChildrenPrice() {
+        val reduceDate = BusinessCalendar.minusDays(LocalDate.now(), 3)
+        val sqlReduceDate = DateTimeFormatter.ISO_LOCAL_DATE.format(reduceDate)
+
+        val children = DBService.loadRobots("parentId='${name()}' and updated<'$sqlReduceDate'")
+
+        for (child in children) {
+            if (child is PolzuchiiSellRobot) {
+                log.info("Reduce sell price ${child.name}")
+
+                val state = child.state() as PolzuchiiSellState
+                state.minPrice -= BigDecimal("0.05")
+
+                DBService.updateRobot(child)
+            }
+        }
     }
 }
