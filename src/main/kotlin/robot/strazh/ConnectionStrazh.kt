@@ -1,8 +1,8 @@
 package robot.strazh
 
 import common.Connector
-import org.slf4j.LoggerFactory
 import common.Telega
+import org.slf4j.LoggerFactory
 import java.util.concurrent.*
 
 object ConnectionStrazh {
@@ -26,7 +26,7 @@ object ConnectionStrazh {
 
         var currentConnected: Boolean
         try {
-            currentConnected = task.get(1, TimeUnit.SECONDS)
+            currentConnected = task.get(10, TimeUnit.SECONDS)
         } catch (e: TimeoutException) {
             log.error("timeout")
             currentConnected = false
