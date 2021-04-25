@@ -97,6 +97,14 @@ class Scheduler {
             )
             .build()
         scheduler.scheduleJob(maxMoneyStrazhJob, maxMoneyTrigger)
+
+        val universalJob = JobBuilder.newJob(UniversalJob::class.java).build()
+        val orelTrigger: Trigger = TriggerBuilder.newTrigger()
+            .withIdentity(TriggerKey.triggerKey("orelTrigger", "s3"))
+            .withSchedule(CronScheduleBuilder.cronSchedule("0 10 10 ? * 2-6"))
+            .usingJobData("exec", "startOrel")
+            .build()
+        scheduler.scheduleJob(universalJob, orelTrigger)
     }
 
 }
