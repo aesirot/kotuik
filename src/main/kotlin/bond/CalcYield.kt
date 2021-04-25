@@ -66,7 +66,7 @@ object CalcYield {
 
             if (cnt > 300) {
                 throw Exception("Too deep!!!")
-            }
+        }
         }
 
         return rate

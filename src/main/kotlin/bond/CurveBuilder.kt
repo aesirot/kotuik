@@ -62,7 +62,7 @@ class CurveBuilder(private val stakanProvider: StakanProvider) {
             //?: throw Exception("No price!")
                 ?: continue
 
-            val ytm = CalcYield.effectiveYTM(bond, settleDt, price)
+            val ytm = CalcYieldDouble.effectiveYTM(bond, settleDt, price)
 
             //val days = ChronoUnit.DAYS.between(settleDt, bond.earlyRedemptionDate ?: bond.maturityDt)
             val durationDays = CalcDuration.durationDays(bond, settleDt, ytm, price)
