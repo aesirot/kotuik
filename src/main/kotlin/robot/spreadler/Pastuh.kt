@@ -14,28 +14,41 @@ object Pastuh {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     fun adjustToday(spreadler: SpreadlerBond) {
-        val rpcClient = Connector.get()
-        val dataSource = Util.dataSource(spreadler.classCode, spreadler.securityCode, CreateDataSource.Interval.INTERVAL_M1, rpcClient)
-        val bars = Util.toBars(dataSource)
+        try {
+            val rpcClient = Connector.get()
+            val dataSource = Util.dataSource(
+                spreadler.classCode,
+                spreadler.securityCode,
+                CreateDataSource.Interval.INTERVAL_M1,
+                rpcClient
+            )
+            val bars = Util.toBars(dataSource)
 
-        val (startIdx, endIdx) = findPeriodOfDaysBefore(bars, 2)
+            val (startIdx, endIdx) = findPeriodOfDaysBefore(bars, 2)
 
-        val calcBuyPrice = optimalMaxBuyPrice(bars.subList(startIdx, endIdx + 1), spreadler.minSellSpread, 2) //to index не включительно
+            val calcBuyPrice = optimalMaxBuyPrice(
+                bars.subList(startIdx, endIdx + 1),
+                spreadler.minSellSpread,
+                2
+            ) //to index не включительно
 
-        if (spreadler.maxBuyPrice.compareTo(calcBuyPrice) != 0) {
-            log.info("${spreadler.id} двигаю цену с ${spreadler.maxBuyPrice} на $calcBuyPrice")
-            spreadler.maxBuyPrice = calcBuyPrice
+            if (spreadler.maxBuyPrice.compareTo(calcBuyPrice) != 0) {
+                log.info("${spreadler.id} двигаю цену с ${spreadler.maxBuyPrice} на $calcBuyPrice")
+                spreadler.maxBuyPrice = calcBuyPrice
 
-            if (!spreadler.buyStage) {
-                if (spreadler.buyPrice + spreadler.minSellSpread > calcBuyPrice + BigDecimal("0.9")) {
-                    log.warn("${spreadler.id} СНИЖАЮ ЦЕНУ ПРОДАЖИ  ${spreadler.buyPrice} на $calcBuyPrice")
-                    spreadler.buyPrice -= BigDecimal("0.6")
+                if (!spreadler.buyStage) {
+                    if (spreadler.buyPrice + spreadler.minSellSpread > calcBuyPrice + BigDecimal("0.9")) {
+                        log.warn("${spreadler.id} СНИЖАЮ ЦЕНУ ПРОДАЖИ  ${spreadler.buyPrice} на $calcBuyPrice")
+                        spreadler.buyPrice -= BigDecimal("0.6")
+                    }
                 }
-            }
 
-            SpreadlerConfigurator.save()
-        } else {
-            log.info("${spreadler.id} цена прежняя")
+                SpreadlerConfigurator.save()
+            } else {
+                log.info("${spreadler.id} цена прежняя")
+            }
+        } catch (e: Exception) {
+            log.error(e.message, e)
         }
     }
 
@@ -130,11 +143,11 @@ object Pastuh {
             current -= step
         }
 
-        val optimumPriceDownFromMax = optimumPriceMax!! - delta
-        if (optimumPriceDownFromMax > optimumPriceMin!!) {
+        if (optimumPriceMax!! > optimumPriceMin!! + delta) {
+            val optimumPriceMinAgressive = optimumPriceMin!! + delta
             log.info("широкий разрыв оптимума от ${optimumPriceMin.toPlainString()}" +
-                    " до ${optimumPriceMax.toPlainString()} - берем ${optimumPriceDownFromMax.toPlainString()}")
-            return optimumPriceDownFromMax
+                    " до ${optimumPriceMax.toPlainString()} - берем ${optimumPriceMinAgressive.toPlainString()}")
+            return optimumPriceMinAgressive
         }
 
         return optimumPriceMin!!
