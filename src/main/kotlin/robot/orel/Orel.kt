@@ -25,6 +25,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.concurrent.CopyOnWriteArrayList
 
 class Orel : AbstractLoopRobot() {
 
@@ -43,7 +44,7 @@ class Orel : AbstractLoopRobot() {
     lateinit var curveOFZ: Curve
 
     @Transient
-    lateinit var bonds: List<Bond>
+    lateinit var bonds: MutableList<Bond>
 
     @Transient
     lateinit var log: Logger
@@ -60,57 +61,44 @@ class Orel : AbstractLoopRobot() {
 
     private var handler: OrelQuoteHandler? = null
 
-    private val fireBuySpread = BigDecimal("0.28")
-    private val sellPremium = BigDecimal("0.24")
+    private val fireBuySpread = BigDecimal("0.27")
+    private val sellPremium = BigDecimal("0.3")
 
     override fun init() {
         super.init()
         log = LoggerFactory.getLogger(this::class.java)
         curveOFZ = CurveHolder.curveOFZ()
 
+        bonds = CopyOnWriteArrayList()
         HibernateUtil.getSessionFactory().openSession().use { session ->
             val bondQuery = session.createQuery("from Bond", Bond::class.java)
-            bonds = bondQuery.list()
+            bonds.addAll(bondQuery.list())
         }
 
         val rpcClient = Connector.get()
         synchronized(rpcClient) {
             for (bond in bonds) {
-                if (bond.getAttr(MoexClass) == null) {
+                val check = BondQuikChecker.check(bond)
+                if (!check) {
+                    log.error("${bond.code} кривая статика")
+                    bonds.remove(bond)
                     continue
-                }//todo set
-                val classCode = bond.getAttrM(MoexClass) //TODO check class code!!!
+                }
+
+                val minIssueDt = BusinessCalendar.minusDays(LocalDate.now(), 10)
+                if (bond.issueDt > minIssueDt) {
+                    val msg = "${bond.code} слишком молодой, пропускаю"
+                    log.error(msg)
+                    Telega.Holder.get().sendMessage(msg)
+                    bonds.remove(bond)
+                    continue
+                }
+
+                val classCode = bond.getAttrM(MoexClass) //checked in BondQuikChecker
                 nkd[bond.code] = nkd(classCode, bond.code, rpcClient)
                 duration[bond.code] = duration(classCode, bond.code, rpcClient)
 
                 StakanSubscriber.subscribe(classCode, bond.code)
-
-                //проверка статики
-                val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
-                val calcNkd = CalcYield.calcAccrual(bond, settleDate)
-                val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
-
-                val last = last(classCode, bond.code, rpcClient)
-                if (last.compareTo(BigDecimal.ZERO) == 0) {
-                    continue
-                }
-                val ytm = yield(classCode, bond.code, rpcClient)
-                val calcYield = (CalcYield.effectiveYTM(bond, settleDate, last + nkdToPrice)
-                        * BigDecimal(100))
-                    .setScale(2, HALF_UP)
-
-                if (calcNkd - nkd[bond.code]!! > BigDecimal("0.01")) {
-                    val msg =
-                        "Ошибка статики ${bond.code} нкд факт ${nkd[bond.code]!!.toPlainString()} ож ${calcNkd.toPlainString()}"
-                    log.error(msg)
-                    Telega.Holder.get().sendMessage(msg)
-                }
-                if (calcYield.compareTo(ytm) != 0) {
-                    val msg =
-                        "Ошибка статики ${bond.code} доха факт ${ytm.toPlainString()} ож ${calcYield.toPlainString()}"
-                    log.error(msg)
-                    Telega.Holder.get().sendMessage(msg)
-                }
             }
         }
 
@@ -154,9 +142,12 @@ class Orel : AbstractLoopRobot() {
             }
 
             val approxOfz = curveOFZ.approx(duration[bond.code]!!)
-            val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)
+            var premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)
             if (premiumYtm == null) {
                 continue
+            }
+            if (premiumYtm < BigDecimal.ZERO) { // accurate with OFZ below curve
+                premiumYtm *= BigDecimal("0.8");
             }
 
             val approxYtm = BigDecimal.valueOf(approxOfz) + premiumYtm
@@ -210,8 +201,22 @@ class Orel : AbstractLoopRobot() {
 
             val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
 
-            val askYTM = CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice)
+            val askYTM = CalcYieldDouble.effectiveYTM(bond, settleDate, ask + nkdToPrice)
             val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
+
+            synchronized(rpcClient) {
+                val ytm = yield(classCode, bond.code, rpcClient)
+                val askYtm100 = askYTM * BigDecimal(100)
+                if ((ytm-askYtm100).abs()> BigDecimal("0.05")) {
+                    val message = "Ошибка!!! ${bond.code} " +
+                            "askYTM=${askYtm100.setScale(5, HALF_UP).toPlainString()} " +
+                            "realYTM=${ytm.setScale(5).toPlainString()}" +
+                            " nkdToPrice=${nkdToPrice.toPlainString()} duration=${duration.toPlainString()}"
+                    log.error(message)
+                    Telega.Holder.get().sendMessage(message)
+                    return
+                }
+            }
 
             if (duration > BigDecimal(3650)) {
                 log.info("$secCode - отсекаю слишком большую дюрацию (дальний край ОФЗ)")
@@ -251,7 +256,7 @@ class Orel : AbstractLoopRobot() {
 
                 val nkdToPrice = (nkd[bond.code]!! * BigDecimal(100)).divide(bond.nominal, 12, HALF_UP)
 
-                val askYTM = CalcYield.effectiveYTM(bond, settleDate, ask + nkdToPrice)
+                val askYTM = CalcYieldDouble.effectiveYTM(bond, settleDate, ask + nkdToPrice)
                 val duration = CalcDuration.durationDays(bond, settleDate, askYTM, ask + nkdToPrice)
                 val approxYtmBid = BigDecimal.valueOf(curveOFZ.approx(duration))
                 val premiumYtm = YtmOfzDeltaService.getPremiumYtm(bond.code)!!
@@ -302,7 +307,7 @@ class Orel : AbstractLoopRobot() {
 
         val realizedBuy = qty - rest
 
-        Telega.Holder.get().sendMessage("Орёл: куп ${bond.code} $realizedBuy шт")
+        Telega.Holder.get().sendMessage("Орёл: куп ${bond.code} $realizedBuy шт по ${ask.toPlainString()}")
 
         log.info("создаю робота на продажу")
         val sellRobotState = PolzuchiiSellState(
@@ -381,7 +386,7 @@ class Orel : AbstractLoopRobot() {
 
         for (bond in bonds) {
             if (bond.issuerId == 1L) {
-                limitBond[bond.code] = BigDecimal(200000)
+                limitBond[bond.code] = BigDecimal(100000)
             } else if (bond.issuerId == 2L) {
                 limitBond[bond.code] = BigDecimal(100000)
             }
@@ -396,7 +401,7 @@ class Orel : AbstractLoopRobot() {
                 val bond = LocalCache.getBond(state.securityCode)
 
                 val positionValue = BigDecimal(state.quantity) * bond.nominal
-                limitBond[state.securityCode] = limitBond[state.securityCode]!! - positionValue
+                limitBond[state.securityCode] = limitBond[state.securityCode]?:BigDecimal.ZERO - positionValue
                 limitEntity[bond.issuerId!!] = limitEntity[bond.issuerId]!! - positionValue
             }
         }
@@ -406,10 +411,6 @@ class Orel : AbstractLoopRobot() {
     }
 
     override fun stop() {
-        if (!isRunning()) {
-            return
-        }
-
         if (handler != null) {
             Connector.unregisterEventHandler(handler!!)
             handler = null
