@@ -1,16 +1,14 @@
 package robot
 
-import model.BidAskLog
-import model.Bond
 import bond.CurveHolder
-import model.SecAttr
 import com.enfernuz.quik.lua.rpc.api.messages.GetQuoteLevel2
-import common.Connector
+import common.ConnectorRpc2
 import common.HibernateUtil
 import common.StakanSubscriber
+import model.BidAskLog
+import model.Bond
+import model.SecAttr
 import org.slf4j.LoggerFactory
-import robot.AbstractLoopRobot
-import robot.Robot
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -48,7 +46,7 @@ class StakanLogger : AbstractLoopRobot() {
             return
         }
 
-        val rpcClient = Connector.get()
+        val rpcClient = ConnectorRpc2.get()
         for (bond in bonds) {
             val stakan: GetQuoteLevel2.Result
             synchronized(rpcClient) {
