@@ -5,6 +5,21 @@
 
 * Для еврооблигаций - комиссия 0.125% менеджер обещал узнать о снижении
 
+###### БД
+
+docker run --name kotuik-postgres \
+    -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+
+docker cp kotuik-postgres:/file/path/within/container /host/path/target
+
+docker run --name kotuik-pgadmin -p 5433:80 \
+    -e 'PGADMIN_DEFAULT_EMAIL=aesirot@yandex.ru' \
+    -e 'PGADMIN_DEFAULT_PASSWORD=krmdrnkpsw' \
+    -d dpage/pgadmin4
+
+
+
+
 ###### Планы
 * новый день - индекс заявок с 0 !!!
 * Со спредлером еврооблигаций - можно начать как в апреле погасят PGIL

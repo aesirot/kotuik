@@ -3,12 +3,12 @@ package pnl
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import common.Connector
-import db.Trade
+import common.Telega
 import db.dao.TradeDAO
+import model.Trade
 import org.slf4j.LoggerFactory
 import robot.spreadler.SpreadlerBond
 import robot.spreadler.SpreadlerConfigurator
-import common.Telega
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -26,6 +26,7 @@ fun main() {
 object PnL {
     val log = LoggerFactory.getLogger(this::class.java)!!
     private val usdRate = BigDecimal("70")
+    private val eurRate = BigDecimal("90")
 
 
     fun sendResult(from: LocalDateTime, to: LocalDateTime) {
@@ -58,10 +59,10 @@ object PnL {
     }
 
     private fun rateFX(currency: String): BigDecimal {
-        return if (currency == "USD") {
-            usdRate
-        } else {
-            BigDecimal.ONE
+        return when (currency) {
+            "USD" -> { usdRate }
+            "EUR" -> { eurRate }
+            else -> { BigDecimal.ONE }
         }
     }
 
@@ -174,7 +175,7 @@ object PnL {
 
                 it.feeAmount = it.amount * BigDecimal("0.0003") // ~приблизительно (0,02% БКС, 0,01%МБ)
 
-                TradeDAO.update(it)
+                TradeDAO.save(it)
 
                 position = it.position!!
                 buyAmount = it.buyAmount!!

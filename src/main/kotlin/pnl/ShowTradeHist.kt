@@ -1,8 +1,8 @@
 package pnl
 
 import common.Connector
-import db.Trade
 import db.dao.TradeDAO
+import model.Trade
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
