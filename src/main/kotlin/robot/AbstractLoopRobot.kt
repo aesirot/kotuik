@@ -1,6 +1,5 @@
 package robot
 
-import common.Connector
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
@@ -81,16 +80,18 @@ abstract class AbstractLoopRobot : Robot {
 
     @Synchronized
     override fun stop() {
-        if (!isRunning()) {
+        if (thread == null || !thread!!.isAlive) {
             return
         }
 
+        thread!!.interrupt()
+        
         stop = true
         lock.withLock {
             lockCondition.signalAll()
         }
 
-        thread!!.join()
+        thread!!.join(120000)
     }
 
     override fun setFinishCallback(function: (Robot) -> Unit) {
