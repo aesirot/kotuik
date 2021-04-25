@@ -26,7 +26,7 @@ object ConnectionStrazh {
 
         var currentConnected: Boolean
         try {
-            currentConnected = task.get(10, TimeUnit.SECONDS)
+            currentConnected = task.get(60, TimeUnit.SECONDS)
         } catch (e: TimeoutException) {
             log.error("timeout")
             currentConnected = false
