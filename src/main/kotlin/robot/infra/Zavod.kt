@@ -35,6 +35,10 @@ object Zavod {
             if (entry.value.isRunning()) {
                 continue
             }
+            if (entry.key == "Orel") {
+                continue // запускать отдельно (чтобы не запускался в 10:00)
+            }
+
             entry.value.init()
             entry.value.setFinishCallback { finish(it) }
             entry.value.start()
