@@ -2,8 +2,8 @@ package pnl
 
 import common.Connector
 import common.Util
-import db.Trade
 import db.dao.TradeDAO
+import model.Trade
 import java.math.BigDecimal
 
 object TradesFromQuik {
@@ -31,8 +31,10 @@ object TradesFromQuik {
                 val quikTradeId = item["trade_num"]!!
                 val orderNum = item["order_num"]!!
 
-                trades.add(Trade(classCode, secCode, direction, quantity, price,
-                        currency, amount, datetime, transId, 0, orderNum, quikTradeId))
+                trades.add(
+                    Trade.build(classCode, secCode, direction, quantity, price,
+                        currency, amount, datetime, transId, 0, orderNum, quikTradeId)
+                )
             }
         }
 
@@ -42,7 +44,7 @@ object TradesFromQuik {
                 continue
             }
 
-            TradeDAO.insert(trade)
+            TradeDAO.save(trade)
         }
     }
 }
