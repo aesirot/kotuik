@@ -2,25 +2,21 @@ package backtest.orel
 
 import backtest.Bar
 import bond.BusinessCalendar
-import bond.CalcYield
 import com.enfernuz.quik.lua.rpc.api.messages.datasource.CreateDataSource
 import com.google.common.io.Files
 import common.Connector
-import common.LocalCache
 import common.Util
 import java.io.File
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.nio.charset.StandardCharsets
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.math.min
 import kotlin.system.exitProcess
-import java.text.NumberFormat
-import java.text.DecimalFormatSymbols
 
 
 fun main() {
@@ -54,7 +50,7 @@ private fun printOptimumTable(analyser: OrelDebugSignalAnalyser) {
     print("\n")
 
 
-    while (buySpread <= BigDecimal("0.3")) {
+    while (buySpread <= BigDecimal("0.4")) {
         print("${f.format(buySpread)};")
         var profitDelta = BigDecimal("0.08")
 
@@ -100,8 +96,14 @@ class OrelDebugSignalAnalyser() {
             val code = split[0]
             val time = LocalDateTime.parse(split[1])
             val buyPrice = BigDecimal(split[2])
-            val approxBid = BigDecimal(split[3])
+            var approxBid = BigDecimal(split[3])
+
             val quantity = split[9].toInt()
+            val historicalYtmPremium = BigDecimal(split[7])
+            if (historicalYtmPremium < BigDecimal.ZERO) {
+                approxBid -= BigDecimal("0.2")
+            }
+
 
             if (!signals.containsKey(code)) {
                 signals[code] = TreeMap()
