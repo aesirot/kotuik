@@ -262,7 +262,7 @@ object DohodPlayer {
                 val nkd = StakanSimulator().nkd(bond, settleDt)
 
                 val dirtyPrice = bid + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
-                val ytm = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice)
+                val ytm = CalcYieldDouble.effectiveYTM(bond, settleDt, dirtyPrice)
                 val durationBID = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
 
                 //val days = ChronoUnit.DAYS.between(settleDt, bond.earlyRedemptionDate ?: bond.maturityDt)
@@ -270,7 +270,7 @@ object DohodPlayer {
                 addPoint(labels, durationBID, ytm, bond, buySeries)
 
                 val dirtyPrice2 = ask + nkd.divide(bond.nominal, 6, RoundingMode.HALF_UP) * BigDecimal(100)
-                val ytm2 = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice2)
+                val ytm2 = CalcYieldDouble.effectiveYTM(bond, settleDt, dirtyPrice2)
                 val durationASK = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
 
                 addPoint(labels, durationASK, ytm2, bond, sellSeries)

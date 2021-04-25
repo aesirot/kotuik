@@ -60,6 +60,7 @@ object YtmOfzDeltaService {
         map.clear()
 
         val bidAskStory = loadStakan(start, end)
+        log.info("stakan loaded")
 
         allBonds = Lists.newArrayList(bond) //quick calc, for test
 
@@ -139,7 +140,7 @@ object YtmOfzDeltaService {
                 }
 
                 val dirtyPrice = entry.value[bond.code]!!.bid + nkdCache[bond.code]!!
-                val ytm = CalcYield.effectiveYTM(bond, settleDt, dirtyPrice)
+                val ytm = CalcYieldDouble.effectiveYTM(bond, settleDt, dirtyPrice)
                 val durationDays = CalcDuration.durationDays(bond, settleDt, ytm, dirtyPrice)
 
                 val ofzCurveYtm = curve.approx(durationDays)
