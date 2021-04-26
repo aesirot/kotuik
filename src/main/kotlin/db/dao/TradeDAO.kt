@@ -9,12 +9,12 @@ object TradeDAO {
     fun save(trade: Trade) {
         HibernateUtil.getSessionFactory().currentSession.use { session ->
             var transaction: Transaction? = null
-            transaction = session.beginTransaction()
-            session.clear()
+                transaction = session.beginTransaction()
+                session.clear()
 
-            session.save(trade)
+                session.saveOrUpdate(trade)
 
-            transaction.commit()
+                transaction.commit()
         }
     }
 
@@ -23,14 +23,14 @@ object TradeDAO {
     }
 
     fun select(where: String, orderBy: String?): List<Trade> {
-        HibernateUtil.getSessionFactory().currentSession.use { session ->
-            var select = "from Trade where $where "
+        HibernateUtil.getSessionFactory().openSession().use { session ->
+            var select = "select * from trade where $where "
             if (orderBy != null) {
                 select += " order by $orderBy"
             }
-            val query = session.createQuery(select, Trade::class.java)
+            val query = session.createNativeQuery(select, Trade::class.java)
 
-            return query.list()
+            return query.resultList as List<Trade>
         }
     }
 

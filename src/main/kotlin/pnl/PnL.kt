@@ -3,6 +3,7 @@ package pnl
 import com.enfernuz.quik.lua.rpc.api.messages.GetParamEx
 import com.enfernuz.quik.lua.rpc.api.zmq.ZmqTcpQluaRpcClient
 import common.Connector
+import common.HibernateUtil
 import common.Telega
 import db.dao.TradeDAO
 import model.Trade
@@ -21,6 +22,7 @@ fun main() {
 
     val today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
     PnL.sendResult(today, today.plusDays(1))
+    HibernateUtil.shutdown()
 }
 
 object PnL {
@@ -135,8 +137,8 @@ object PnL {
     }
 
     private fun sql(time: LocalDateTime): String {
-        return "PARSEDATETIME('${time.dayOfMonth}.${time.month.value}.${time.year} ${time.hour}:${time.minute}:${time.second}'" +
-                ", 'dd.MM.yyyy HH:mm:ss')"
+        return "TO_TIMESTAMP('${time.dayOfMonth}.${time.month.value}.${time.year} ${time.hour}:${time.minute}:${time.second}'" +
+                ", 'dd.MM.yyyy HH24:mi:ss')"
     }
 
     fun calc() {
