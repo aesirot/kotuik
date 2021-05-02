@@ -10,6 +10,7 @@ import model.Bond
 import model.SecAttr
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class StakanLogger : AbstractLoopRobot() {
@@ -29,6 +30,8 @@ class StakanLogger : AbstractLoopRobot() {
         bonds.addAll(curve.bonds)
         val curveOFZ = CurveHolder.curveOFZ()
         bonds.addAll(curveOFZ.bonds)
+
+        bonds.removeIf {LocalDate.now() >= it.maturityDt}
 
         for (bond in bonds) {
             StakanSubscriber.subscribe(bond.getAttrM(SecAttr.MoexClass), bond.code)
