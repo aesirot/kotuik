@@ -1,5 +1,7 @@
 package robot.spreadler
 
+import bond.CurveHolder
+import integration.moex.MoexLoadTrades
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 import pnl.PnL
@@ -13,6 +15,9 @@ class JobEndOfDay: Job {
     override fun execute(p0: JobExecutionContext?) {
         SpreadlerRunner.stopDay()
         Zavod.stopAll()
+
+        val bonds = getAllBonds()
+        MoexLoadTrades.loadAll(bonds)
 
         TradesFromQuik.load()
         PnL.calc()
@@ -29,6 +34,16 @@ class JobEndOfDay: Job {
             Backup.execute(backupName, ".", "kotuik", false)
         }
 */
+    }
+
+    private fun getAllBonds(): HashSet<String> {
+        val secCodes = HashSet<String>()
+
+        SpreadlerConfigurator.config.spreadlers.forEach { secCodes.add(it.securityCode) }
+        CurveHolder.createCurveSystema().bonds.forEach { secCodes.add(it.code) }
+        CurveHolder.curveOFZ().bonds.forEach { secCodes.add(it.code) }
+
+        return secCodes
     }
 
 }

@@ -27,5 +27,6 @@
         <mapping class="model.LegalEntity" />
         <mapping class="model.BidAskLog" />
         <mapping class="model.RobotState" />
+        <mapping class="model.integration.MoexTrade" />
     </session-factory>
 </hibernate-configuration>
