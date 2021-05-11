@@ -4,26 +4,39 @@ import bond.CurveHolder
 import integration.moex.MoexLoadTrades
 import org.quartz.Job
 import org.quartz.JobExecutionContext
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import pnl.PnL
 import pnl.TradesFromQuik
 import robot.infra.Zavod
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
+/*
+fun main() {
+    JobEndOfDay().manual()
+}
+*/
+
 class JobEndOfDay: Job {
+    private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
     override fun execute(p0: JobExecutionContext?) {
-        SpreadlerRunner.stopDay()
-        Zavod.stopAll()
+        try {
+            SpreadlerRunner.stopDay()
+            Zavod.stopAll()
 
-        val bonds = getAllBonds()
-        MoexLoadTrades.loadAll(bonds)
+            val bonds = getAllBonds()
+            MoexLoadTrades.loadAll(bonds)
 
-        TradesFromQuik.load()
-        PnL.calc()
+            TradesFromQuik.load()
+            PnL.calc()
 
-        val today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
-        PnL.sendResult(today, today.plusDays(1))
+            val today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
+            PnL.sendResult(today, today.plusDays(1))
+        } catch (e: Exception) {
+            logger.error(e.message, e)
+        }
 
 /*
         synchronized(DBConnector) {
@@ -34,6 +47,17 @@ class JobEndOfDay: Job {
             Backup.execute(backupName, ".", "kotuik", false)
         }
 */
+    }
+
+    fun manual() {
+        val bonds = getAllBonds()
+        MoexLoadTrades.loadAll(bonds)
+
+        TradesFromQuik.load()
+        PnL.calc()
+
+        val today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
+        PnL.sendResult(today, today.plusDays(1))
     }
 
     private fun getAllBonds(): HashSet<String> {
