@@ -1,7 +1,6 @@
 package backtest
 
 import robot.spreadler.Pastuh
-import java.lang.Exception
 import java.lang.Integer.min
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -82,7 +81,7 @@ object SpreadlerTickSimulation {
     }
 
     private fun calcFee(spreadler: SpreadlerState) =
-            spreadler.sellAmount * BigDecimal("0.0005") + spreadler.buyAmount * BigDecimal("0.0005")
+            spreadler.sellAmount * BigDecimal("0.0002") + spreadler.buyAmount * BigDecimal("0.0002")
 
     private fun flyWithParams(ticks: ArrayList<Tick>, startDay: LocalDateTime, spreadler: SpreadlerState, bars: ArrayList<Bar>, imoexBars: ArrayList<Bar>, sellPriceTooFar: BigDecimal, sellPriceDescreaseStep: BigDecimal) {
         var tickIdx = 0
