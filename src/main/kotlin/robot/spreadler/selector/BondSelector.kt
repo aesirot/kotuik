@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory
 import robot.spreadler.SpreadlerConfigurator
 import java.math.BigDecimal
 import java.text.DecimalFormat
-import kotlin.collections.ArrayList
 
 fun main() {
     BondSelector.run()
@@ -119,7 +118,13 @@ object BondSelector {
         synchronized(rpcClient) {
             val securities = ArrayList<SecurityInfo>()
             val size = rpcClient.qlua_getNumberOf("securities")
+            var progress = 0
             for (i in 1..size - 1) {
+                if (i*100/size > progress) {
+                    progress++
+                    print(".")
+                }
+
                 val item = rpcClient.qlua_getItem("securities", i)!!
                 val classCode = item["class_code"]!!
                 if (classes.contains(classCode)) {
