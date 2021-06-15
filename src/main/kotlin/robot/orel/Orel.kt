@@ -72,6 +72,9 @@ class Orel : AbstractLoopRobot() {
         bonds = CopyOnWriteArrayList()
         HibernateUtil.getSessionFactory().openSession().use { session ->
             val bondQuery = session.createQuery("from Bond", Bond::class.java)
+            val list = bondQuery.list()
+                .filter { it.maturityDt > LocalDate.now() }
+
             bonds.addAll(bondQuery.list())
         }
 
@@ -381,7 +384,7 @@ class Orel : AbstractLoopRobot() {
     }
 
     private fun initialLimits() {
-        limitEntity[1] = BigDecimal(800000)
+        limitEntity[1] = BigDecimal(200000)
         limitEntity[2] = BigDecimal(200000)
 
         for (bond in bonds) {
