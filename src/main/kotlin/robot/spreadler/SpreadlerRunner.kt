@@ -1,16 +1,9 @@
 package robot.spreadler
 
-import model.Bond
-import bond.CurveHolder
 import common.Util
 import org.slf4j.LoggerFactory
-import robot.StakanLogger
-import robot.strazh.*
+import robot.strazh.MoexStrazh
 import java.math.BigDecimal
-import kotlin.NoSuchElementException
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.system.exitProcess
 
 object SpreadlerRunner {
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -116,6 +109,7 @@ object SpreadlerRunner {
     private fun add(serialized: String) {
         SpreadlerConfigurator.add(serialized)
         SpreadlerConfigurator.save()
+        println("addedadded")
     }
 
     private fun remove(id: String) {
