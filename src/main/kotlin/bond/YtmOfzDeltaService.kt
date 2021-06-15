@@ -90,6 +90,7 @@ object YtmOfzDeltaService {
 
             val bondQuery = session.createQuery("from Bond", Bond::class.java)
             allBonds = bondQuery.list()
+                .filter { it.maturityDt > LocalDate.now() }
         }
 
         return bidAskStory
