@@ -92,7 +92,7 @@ object MoexLoadTrades {
             val price = tradeFields[colPrice] as Double
             val quantity = tradeFields[colQuantity] as Double
             val secId = tradeFields[colSecId] as String
-            val yieldValue = yields[tradeId]!!
+            val yieldValue = yields[tradeId]
 
             val tradeInfo = MoexTrade()
             tradeInfo.securityCode = secId
@@ -100,8 +100,8 @@ object MoexLoadTrades {
             tradeInfo.trade_datetime = systime
             tradeInfo.price = price
             tradeInfo.quantity = quantity.toInt()
-            tradeInfo.yieldValue = yieldValue.first
-            tradeInfo.duration = yieldValue.second
+            tradeInfo.yieldValue = yieldValue?.first
+            tradeInfo.duration = yieldValue?.second
 
             trades.add(tradeInfo)
         }

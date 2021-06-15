@@ -27,9 +27,9 @@ class MoexTrade {
     var trade_datetime: LocalDateTime = LocalDateTime.MIN
 
     @Column(name = "yield", precision = 20, scale = 6)
-    var yieldValue: Double = 0.0
+    var yieldValue: Double? = null
 
     @Column
-    var duration: Int = 0
+    var duration: Int? = null
 
 }
