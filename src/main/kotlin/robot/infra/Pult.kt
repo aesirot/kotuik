@@ -100,6 +100,7 @@ class Pult {
             HibernateUtil.getSessionFactory().openSession().use { session ->
                 val bondQuery = session.createQuery("from Bond", Bond::class.java)
                 val allBonds = bondQuery.list()
+                    .filter { it.maturityDt > LocalDate.now() }
 
                 val settleDate = BusinessCalendar.addDays(LocalDate.now(), 1)
                 val rpcClient = Connector.get()
