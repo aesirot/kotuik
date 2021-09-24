@@ -10,8 +10,5 @@
         <module name="qlua-rpc-client" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="qlua-rpc-client" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

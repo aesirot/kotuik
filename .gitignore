@@ -1,8 +1,0 @@
-/config/archive/
-/*.log
-/target/
-/logs/
-kotuik.mv.db
-kotuik.trace.db
-/.idea/
-*.iml

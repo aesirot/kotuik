@@ -60,19 +60,17 @@ add { "classCode": "EQOB", "securityCode": "RU000A0JXPD9", "id": "tmk6", "maxBuy
 add { "classCode": "TQCB", "securityCode": "RU000A0ZZT80", "id": "urka5", "maxBuyPrice": 80, "quantity": 20, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 20, "updated": "06.04.2020 16:33:27" }
 add { "classCode": "EQOB", "securityCode": "RU000A0JXPM0", "id": "lsr2", "maxBuyPrice": 80, "quantity": 20, "maxShift": 20, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 20, "updated": "06.04.2020 16:33:27" }
 
+add { "classCode": "TQOD", "securityCode": "XS2099763075", "id": "cbom25", "maxBuyPrice": 80, "quantity": 1, "maxShift": 1, "minSellSpread": 0.4, "buyStage": true, "buyPrice": 80, "restQuantity": 1, "updated": "01.01.2020 00:00:00" }
+add { "classCode": "TQOD", "securityCode": "XS0993162683", "id": "veb23", "maxBuyPrice": 80, "quantity": 1, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 1, "updated": "01.01.2020 00:00:00" }
+add { "classCode": "TQOD", "securityCode": "XS0191754729", "id": "gaz34", "maxBuyPrice": 80, "quantity": 1, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 1, "updated": "01.01.2020 00:00:00" }
+
+add { "classCode": "TQOD", "securityCode": "XS0088543193", "id": "rus28", "maxBuyPrice": 80, "quantity": 1, "maxShift": 1, "minSellSpread": 0.25, "buyStage": true, "buyPrice": 80, "restQuantity": 1, "updated": "01.01.2020 00:00:00" }
 
 
-
-
-
-
-
-
-
-
-
-
-
+add { "classCode": "TQCB", "securityCode": "RU000A102FS1", "id": "sist16", "maxBuyPrice": 80, "quantity": 30, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 30, "updated": "01.01.2020 00:00:00" }
+add { "classCode": "TQCB", "securityCode": "RU000A102FT9", "id": "sist17", "maxBuyPrice": 80, "quantity": 30, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 30, "updated": "01.01.2020 00:00:00" }
+add { "classCode": "TQCB", "securityCode": "RU000A1029P7", "id": "telhol4", "maxBuyPrice": 80, "quantity": 20, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 20, "updated": "01.01.2020 00:00:00" }
+add { "classCode": "TQCB", "securityCode": "RU000A102CR0", "id": "mosobl015", "maxBuyPrice": 80, "quantity": 30, "maxShift": 1, "minSellSpread": 0.3, "buyStage": true, "buyPrice": 80, "restQuantity": 30, "updated": "01.01.2020 00:00:00" }
 
 
 

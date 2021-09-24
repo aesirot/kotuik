@@ -12,11 +12,11 @@ import robot.infra.Zavod
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-/*
+
 fun main() {
     JobEndOfDay().manual()
 }
-*/
+
 
 class JobEndOfDay: Job {
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
